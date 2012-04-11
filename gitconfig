@@ -1,0 +1,11 @@
+[user]
+  name = Karapetyan David
+  email = david.karapetyan@gmail.com
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[core]
+  editor = mvim -f
+[alias]
+  co = checkout
