@@ -1,4 +1,7 @@
-$pdf_previewer = "open -a Skim";
+$pdflatex = "pdflatex -synctex=1 -interaction=nonstopmode %O %S";
+$bibtex_use = 2;
+$print_type = 'pdf';
+$pdf_mode = 1;
+$pdf_previewer = "open -a /Applications/Skim.app";
 $pdf_update_method = 0;
-$pdflatex="pdflatex -interaction=nonstopmode -synctex=1";
-$sleep_time = 1;
+$force_mode = 1;

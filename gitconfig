@@ -6,6 +6,6 @@
   status = auto
   branch = auto
 [core]
-  editor = mvim -f
+  editor = vim -f
 [alias]
   co = checkout
