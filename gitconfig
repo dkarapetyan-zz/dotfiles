@@ -1,5 +1,5 @@
 [user]
-  name = Karapetyan David
+	name = David Karapetyan
   email = david.karapetyan@gmail.com
 [color]
   diff = auto
@@ -7,5 +7,6 @@
   branch = auto
 [core]
   editor = vim -f
+	excludesfile = /Users/davidkarapetyan/.gitignore_global
 [alias]
   co = checkout
