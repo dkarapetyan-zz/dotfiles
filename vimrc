@@ -16,7 +16,7 @@ if has("gui_running")
   let mapleader=","
   let maplocalleader=","
   let g:easytags_updatetime_warn = 0
-  let g:easytags_on_cursorhold = 0
+  let g:easytags_on_cursorhold = 1
 
   "let g:easytags_include_members = 1
   set number
@@ -46,13 +46,15 @@ if has("gui_running")
 "highlight link Type Normal
 "highlight link TagbarSignature NonText
 
-"highlight clear TagbarSignature
-"highlight link TagbarSignature Ignore
+highlight TagbarSignature guifg=bg 
+
 "highlight clear Type
 "highlight clear Structure
 
-highlight clear Keyword
+"highlight clear Keyword
 
+
+  let g:TagHighlightSettings = {'TagHL-Recurse': '0'} 
   let g:NERDTreeWinPos = 'left'
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabMappingForward = '<s-tab>'
@@ -77,6 +79,14 @@ highlight clear Keyword
   let g:syntastic_enable_signs=1
   let g:syntastic_auto_loc_list=2
 
+  nnoremap <silent> <F8> :TagbarToggle<CR>
+  let g:tagbar_left=0
+  let g:tagbar_width = 50
+
+
+
+
+
   noremap j gj
   noremap k gk
   nnoremap K <nop>
@@ -97,6 +107,7 @@ highlight clear Keyword
 	  \ | set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
 	  \ |    set columns=181 lines=49
 	  \ | set omnifunc=ccomplete#Complete
+    autocmd VimEnter  *  nested :TagbarOpen
 
 
 
