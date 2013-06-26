@@ -1,5 +1,5 @@
 [user]
-	name = David Karapetyan
+name = David Karapetyan
   email = david.karapetyan@gmail.com
 [color]
   diff = auto
@@ -10,3 +10,5 @@
 	excludesfile = /Users/davidkarapetyan/.gitignore_global
 [alias]
   co = checkout
+[push]
+	default = simple
