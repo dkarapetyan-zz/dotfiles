@@ -20,7 +20,12 @@ if has("gui_running")
 
   "let g:easytags_include_members = 1
   set number
-
+let g:ycm_global_ycm_extra_conf = '/Users/davidkarapetyan/.ycm_extra_conf.py'
+"let g:ycm_allow_changing_updatetime = 0
+"let g:UltiSnipsExpandTrigger="<c-tab>"
+"let g:UltiSnipsListSnippets="<c-s-tab>"
+let g:ycm_key_list_select_completion = ['<Down>']
+"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
   colorscheme molokai 
   let g:molokai_original=1
@@ -98,7 +103,6 @@ highlight TagbarSignature guifg=bg
   set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
   augroup vimrc_autocmds
     au!
-    autocmd Filetype text :AcpDisable
 
     autocmd Filetype r vmap <Space> <leader>ss
 	  \| nmap <Space> <leader>l
@@ -107,6 +111,9 @@ highlight TagbarSignature guifg=bg
 	  \ | set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
 	  \ |    set columns=181 lines=49
 	  \ | set omnifunc=ccomplete#Complete
+
+   autocmd BufWritePost *.c silent YcmForceCompileAndDiagnostics
+
     autocmd VimEnter  *  nested :TagbarOpen
 
 
