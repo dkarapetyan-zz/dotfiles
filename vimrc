@@ -7,6 +7,8 @@ if has("gui_running")
     filetype plugin on
     filetype indent on
     syntax on
+    set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
+
     "command! Q q
     "command! W w
     "command! Wq wq
@@ -17,6 +19,7 @@ if has("gui_running")
     let maplocalleader=","
     let g:easytags_updatetime_warn = 0
     let g:easytags_on_cursorhold = 1
+    let g:UltiSnipsSnippetDirectories=[".my_snippets"]
 
     "let g:clang_user_options='|| exit 0'
     colorscheme molokai 
@@ -24,17 +27,10 @@ if has("gui_running")
     set bg=dark
     let gcr="a:blinkon0" 
     set clipboard=unnamed 
-    imap <c-space> <c-x><c-o>
     map <F2> :!open -a Excalibur %<CR><CR>
     map <F1> :!open -a iTerm ./<CR><CR>
 
     match errorMsg /[^\t]\zs\t\+/ 
-
-    set showmatch "show matching braces
-    set hidden "remember changes to a buffer even when abandoned
-    set showmode "show if in insert, command, etc mode
-    set report=0 " shows how many lines were changed after running a command
-    let g:rct_completion_use_fri = 1
 
     set showmatch "show matching braces
     set hidden "remember changes to a buffer even when abandoned
@@ -58,9 +54,6 @@ if has("gui_running")
 
 
     let g:TagHighlightSettings = {'TagHL-Recurse': '0'} 
-    "let g:NERDTreeWinPos = 'left'
-    let g:SuperTabDefaultCompletionType = "context"
-    "let g:SuperTabMappingForward = '<s-tab>'
     set antialias 
     set guioptions-=L
     set guioptions-=l
@@ -103,7 +96,6 @@ if has("gui_running")
 		    \| nmap <Space> <leader>l
 	autocmd FileType c map <F9> :!gcc  -Wall -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
 		    \ | map <F10> :!valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
-		    \ | set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
 		    \ |    set columns=181 lines=49
 
 
@@ -124,7 +116,6 @@ if has("gui_running")
 		    \ | let g:LatexBox_latexmk_options = "-pvc"
 		    \ | let g:LatexBox_completion_commands = []
 		    \ | let g:LatexBox_completion_environments = []
-		    \ | set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
 		    \ | set columns=82 lines=53
 
 	autocmd FileType html map <Leader>v :!open -a /Applications/Google\ Chrome.app %<CR><CR>
