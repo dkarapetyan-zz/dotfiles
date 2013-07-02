@@ -7,10 +7,10 @@ if has("gui_running")
     filetype plugin on
     filetype indent on
     syntax on
-    command! Q q
-    command! W w
-    command! Wq wq
-    command! WQ wq 
+    "command! Q q
+    "command! W w
+    "command! Wq wq
+    "command! WQ wq 
     let vimrplugin_screenplugin = 0
     let vimrplugin_vimpager = "no"
     let mapleader=","
@@ -18,11 +18,7 @@ if has("gui_running")
     let g:easytags_updatetime_warn = 0
     let g:easytags_on_cursorhold = 1
 
-    "let g:easytags_include_members = 1
-    set number
-    "let g:UltiSnipsExpandTrigger="<c-tab>"
-    "let g:UltiSnipsListSnippets="<c-s-tab>"
-
+    "let g:clang_user_options='|| exit 0'
     colorscheme molokai 
     let g:molokai_original=1
     set bg=dark
@@ -33,6 +29,12 @@ if has("gui_running")
     map <F1> :!open -a iTerm ./<CR><CR>
 
     match errorMsg /[^\t]\zs\t\+/ 
+
+    set showmatch "show matching braces
+    set hidden "remember changes to a buffer even when abandoned
+    set showmode "show if in insert, command, etc mode
+    set report=0 " shows how many lines were changed after running a command
+    let g:rct_completion_use_fri = 1
 
     set showmatch "show matching braces
     set hidden "remember changes to a buffer even when abandoned
@@ -86,15 +88,12 @@ if has("gui_running")
 
 
 
-
-
     noremap j gj
     noremap k gk
     nnoremap K <nop>
     set ls=2 "always show status line
     set showcmd
     set autoread "auto reload a file that has changed
-    set completeopt=menu,preview
     set splitbelow
     set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
     augroup vimrc_autocmds
@@ -106,7 +105,6 @@ if has("gui_running")
 		    \ | map <F10> :!valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
 		    \ | set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
 		    \ |    set columns=181 lines=49
-		    \ | set omnifunc=ccomplete#Complete
 
 
 	autocmd VimEnter  *  nested :TagbarOpen
@@ -173,7 +171,6 @@ if !has("gui_running")
     set ls=2 "always show status line
     set showcmd
     set autoread "auto reload a file that has changed
-    set completeopt=menu,preview
     set splitbelow
     set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
 endif
