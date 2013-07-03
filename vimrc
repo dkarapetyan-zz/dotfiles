@@ -1,16 +1,31 @@
 if has("gui_running")
-    call pathogen#infect()
-    call pathogen#helptags()
-    filetype off
-    filetype on
+    "call pathogen#infect()
+    "call pathogen#helptags()
+
     set nocompatible
-    filetype plugin on
-    filetype indent on
+    filetype off
+
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+
+    Bundle 'gmarik/vundle'
+    Bundle 'fugitive.vim'
+    Bundle 'The-NERD-Commenter'
+    Bundle 'supertab'
+    Bundle 'syntastic'
+    Bundle 'tagbar'
+    Bundle 'flazz/vim-colorschemes'
+    Bundle 'UltiSnips'
+    Bundle 'livereload/LiveReload2'
+    Bundle 'LaTeX-Box'
+    Bundle 'xolox/vim-misc'
+    Bundle 'xolox/vim-easytags'
+
+    filetype plugin indent on 
+    set number
     syntax on
     set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
     set completeopt=menu,longest
-
-
 
 
 
@@ -25,7 +40,14 @@ if has("gui_running")
     let g:easytags_updatetime_warn = 0
     let g:easytags_on_cursorhold = 1
     let g:UltiSnipsSnippetDirectories=[".my_snippets"]
-
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+    let g:SuperTabDefaultCompletionType = "context"
+    let g:SuperTabMappingForward = '<c-n>'
+    let g:SuperTabMappingBackward = '<c-p>'
+    let g:SuperTabLongestHighlight = 1
+    let g:SuperTabLongestEnhanced = 1
     colorscheme molokai 
     let g:molokai_original=1
     set bg=dark
@@ -171,6 +193,6 @@ if !has("gui_running")
     set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
 endif
 "augroup reload_vimrc 
-    "autocmd!
-    "autocmd BufWritePost $MYVIMRC source $MYVIMRC
+"autocmd!
+"autocmd BufWritePost $MYVIMRC source $MYVIMRC
 "augroup END 
