@@ -1,7 +1,5 @@
 set nocompatible
 filetype off
-filetype plugin indent on 
-syntax on
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -10,8 +8,8 @@ Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'fugitive.vim'
 Bundle 'The-NERD-Commenter'
-Bundle 'syntastic'
-Bundle 'tagbar'
+Bundle 'scrooloose/syntastic'
+Bundle 'majutsushi/tagbar'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'UltiSnips'
 Bundle 'livereload/LiveReload2'
@@ -21,6 +19,9 @@ Bundle 'xolox/vim-easytags'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'ctrlp.vim'
 Bundle 'rails.vim'
+
+filetype plugin indent on  "must come after bundles and rtp or vundle won't work
+syntax on
 
 
 "Plugin Loading {
@@ -57,7 +58,7 @@ if filereadable(expand("~/.vim/bundle/vim-easytags/plugin/easytags.vim"))
 endif
 
 if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
-    let g:UltiSnipsSnippetDirectories=[".my_snippets"]
+    let g:UltiSnipsSnippetDirectories=["my_snippets"]
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
     let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -150,7 +151,6 @@ augroup vimrc_autocmds
                 \ | map <F10> :!valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
                 \ |    set columns=181 lines=49
 
-    autocmd VimEnter  *  nested :TagbarOpen
 
 
 
@@ -194,6 +194,7 @@ endif
 " TagBar {
 if filereadable(expand("~/.vim/bundle/tagbar/plugin/tagbar.vim"))
 
+    autocmd VimEnter  *  nested :TagbarOpen
     nnoremap <silent> <leader>tt :TagbarToggle<CR>
     let g:tagbar_width = 30
     let g:tagbar_sort = 1
