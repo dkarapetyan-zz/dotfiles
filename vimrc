@@ -24,64 +24,10 @@ filetype plugin indent on  "must come after bundles and rtp or vundle won't work
 syntax on
 
 
-"Plugin Loading {
-
-if filereadable(expand("~/.vim/bundle/supertab/plugin/supertab.vim"))
-    let g:SuperTabDefaultCompletionType = "context"
-    let g:SuperTabMappingForward = '<c-n>'
-    let g:SuperTabMappingBackward = '<c-p>'
-    let g:SuperTabLongestHighlight = 1
-    let g:SuperTabLongestEnhanced = 1
-endif
-
-if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
-    nmap <leader>be :CtrlPBuffer<CR>
-endif
-
-if filereadable(expand("~/.vim/bundle/YouCompleteMe/plugin/youcompleteme.vim"))
-    let g:ycm_filetype_blacklist = {
-                \ 'notes' : 1,
-                \ 'markdown' : 1,
-                \ 'text' : 1,
-                \}
-    let g:ycm_key_list_select_completion = ['<Down>']
-    let g:ycm_key_list_previous_completion = ['<Up>']
-    let g:ycm_allow_changing_updatetime = 0
-    let g:ycm_global_ycm_extra_conf = '/Users/davidkarapetyan/.ycm_extra_conf.py'
-    autocmd BufWritePost *.c,*.cpp,*.h silent YcmForceCompileAndDiagnostics
-
-endif
-
-if filereadable(expand("~/.vim/bundle/vim-easytags/plugin/easytags.vim"))
-    let g:easytags_events = ['BufWritePost']
-    let g:easytags_updatetime_warn = 0
-endif
-
-if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
-    let g:UltiSnipsSnippetDirectories=["my_snippets"]
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-endif
-
-if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/solarized.vim"))
-    set bg=dark
-    let g:solarized_termcolors = &t_Co
-    let g:solarized_termtrans = 1
-    let g:solarized_contrast="high"
-    let g:solarized_visibility="high"
-    colorscheme solarized                 " Load a colorscheme
-    autocmd filetype * highlight tagbarsignature ctermfg=green 
-    "colorscheme molokai 
-    "let g:molokai_original=1
-endif
-
-"}
-
 set completeopt=longest,menu
 set pumheight=15
 set lines=45
-let mapleader=","
+let mapleader="," " must put before plugins are loaded--otherwise, won't work
 let maplocalleader=","
 set shortmess+=filmnrxoOtT  
 set virtualedit=onemore             " Allow for cursor beyond last character
@@ -185,17 +131,76 @@ augroup END
 
 
 
+
+
+"Plugin Loading {
+
+if filereadable(expand("~/.vim/bundle/supertab/plugin/supertab.vim"))
+    let g:SuperTabDefaultCompletionType = "context"
+    let g:SuperTabMappingForward = '<c-n>'
+    let g:SuperTabMappingBackward = '<c-p>'
+    let g:SuperTabLongestHighlight = 1
+    let g:SuperTabLongestEnhanced = 1
+endif
+
+if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
+    nmap <leader>be :CtrlPBuffer<CR>
+endif
+
+if filereadable(expand("~/.vim/bundle/YouCompleteMe/plugin/youcompleteme.vim"))
+    let g:ycm_filetype_blacklist = {
+                \ 'notes' : 1,
+                \ 'markdown' : 1,
+                \ 'text' : 1,
+                \}
+    let g:ycm_key_list_select_completion = ['<Down>']
+    let g:ycm_key_list_previous_completion = ['<Up>']
+    let g:ycm_allow_changing_updatetime = 0
+    let g:ycm_global_ycm_extra_conf = '/Users/davidkarapetyan/.ycm_extra_conf.py'
+    autocmd BufWritePost *.c,*.cpp,*.h silent YcmForceCompileAndDiagnostics
+
+endif
+
+if filereadable(expand("~/.vim/bundle/vim-easytags/plugin/easytags.vim"))
+    let g:easytags_events = ['BufWritePost']
+    let g:easytags_updatetime_warn = 0
+    "let g:easytags_include_members = 1
+    "highlight link cMember Special
+    "highlight cMember gui=italic
+endif
+
+if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
+    let g:UltiSnipsSnippetDirectories=["my_snippets"]
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+endif
+
+if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/solarized.vim"))
+    set bg=dark
+    let g:solarized_termcolors = &t_Co
+    let g:solarized_termtrans = 1
+    let g:solarized_contrast="high"
+    let g:solarized_visibility="high"
+    colorscheme solarized                 " Load a colorscheme
+    autocmd filetype * highlight tagbarsignature ctermfg=green 
+    "colorscheme molokai 
+    "let g:molokai_original=1
+endif
+
 " Syntastic {
 if filereadable(expand("~/.vim/bundle/syntastic/plugin/syntastic.vim"))
     let g:syntastic_enable_signs=1
     let g:syntastic_auto_loc_list=2
 endif
 
+"}
+"
 " TagBar {
 if filereadable(expand("~/.vim/bundle/tagbar/plugin/tagbar.vim"))
 
     autocmd VimEnter  *  nested :TagbarOpen
-    nnoremap <silent> <leader>tt :TagbarToggle<CR>
+    nnoremap <silent><leader>tt :TagbarToggle<CR>
     let g:tagbar_width = 30
     let g:tagbar_sort = 1
     let g:tagbar_left=0
@@ -208,7 +213,7 @@ if filereadable(expand("~/.vim/bundle/tagbar/plugin/tagbar.vim"))
 endif
 "}
 
-" Fugitive }
+" Fugitive {
 if filereadable(expand("~/.vim/bundle/fugitive.vim/plugin/fugitive.vim"))
 
     nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -221,6 +226,7 @@ if filereadable(expand("~/.vim/bundle/fugitive.vim/plugin/fugitive.vim"))
     nnoremap <silent> <leader>gg :GitGutterToggle<CR>
 endif
 "}
+
 
 
 
