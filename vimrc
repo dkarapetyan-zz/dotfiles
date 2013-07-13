@@ -10,7 +10,6 @@ Bundle 'fugitive.vim'
 Bundle 'The-NERD-Commenter'
 Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
-Bundle 'flazz/vim-colorschemes'
 Bundle 'UltiSnips'
 Bundle 'livereload/LiveReload2'
 Bundle 'LaTeX-Box'
@@ -19,11 +18,16 @@ Bundle 'xolox/vim-easytags'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'ctrlp.vim'
 Bundle 'rails.vim'
-
+Bundle 'benmills/vimux'
+Bundle 'xieyu/pyclewn'
+Bundle 'flazz/vim-colorschemes'
 filetype plugin indent on  "must come after bundles and rtp or vundle won't work
 syntax on
 
-
+"let g:rehash256 = 1
+"let g:molokai_original=1
+"colorscheme molokai
+"autocmd filetype * highlight tagbarsignature ctermfg=bg 
 set completeopt=longest,menu
 set pumheight=15
 set lines=45
@@ -32,11 +36,14 @@ let maplocalleader=","
 set shortmess+=filmnrxoOtT  
 set virtualedit=onemore             " Allow for cursor beyond last character
 set history=1000  
+set clipboard=unnamed
 set tabpagemax=15               " Only show 15 tabs
 set splitbelow
 set hidden "remember changes to a buffer even when abandoned
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
+"set lazyredraw
+set ttyfast                     
 set number                         " Line numbers on
 set showmatch                   " Show matching brackets/parenthesis
 set winminheight=0              " Windows can be 0 line high
@@ -46,23 +53,25 @@ set wildmenu                    " Show list instead of just completing
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=5                " Lines to scroll when cursor leaves screen
-set scrolloff=3                 " Minimum lines to keep above and below cursor
+set scrolloff=5                 " Minimum lines to keep above and below cursor
 set nowrap
 set autoindent                  " Indent at the same level of the previous line
 set shiftwidth=4                " Use indents of 4 spaces
 set expandtab                   " Tabs are spaces, not tabs
 set tabstop=4                   " An indentation every four columns
 set softtabstop=4               " Let backspace delete indent
+set ttyscroll=3                " cleaner scrolling with fewer flashes
 set nofen 
 set noswapfile
 set nobackup
+set novb
 set autochdir
 set mouse=a "for compying text with a mouse 
 set mousehide
 set ls=2 "always show status line
 set autoread "auto reload a file that has changed
 set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
-scriptencoding utf-8
+set encoding=utf-8
 "set list
 "set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
@@ -75,6 +84,7 @@ command! Wq wq
 command! WQ wq 
 map <F1> :!open -a iTerm ./<CR><CR>
 map <F2> :!open -a Excalibur %<CR><CR>
+nmap <leader>ov :e ~/dotfiles/vimrc<CR>
 nnoremap Y y$
 noremap j gj
 noremap k gk
@@ -83,8 +93,14 @@ command! Q q
 command! W w
 command! Wq wq
 command! WQ wq 
-map <F1> :!open -a iTerm ./<CR><CR>
-map <F2> :!open -a Excalibur %<CR><CR>
+nore <space> :C<space>
+nore ;b :exe "Cbreak " . expand("%:p") . ":" . line(".")<CR>
+nore ;p :exe "Cprint " . expand("<cword>")<CR>
+nore ;s :exe "Cstep"<CR>
+nore ;r :exe "Cstart"<CR>
+nore ;n :exe "Cnext"<CR>
+nore ;c :exe "Ccontinue"<CR>
+nore ;q :exe "Cquit<CR>"
 "}
 
 
@@ -135,6 +151,20 @@ augroup END
 
 "Plugin Loading {
 
+" Nerd-Commenter {
+if filereadable(expand("~/.vim/bundle/The-NERD-Commenter/plugin/NERD_commenter.vim"))
+let NERD_c_alt_style=1
+endif
+" }
+
+" Pyclewn {
+
+if filereadable(expand("~/.vim/bundle/pyclewn/plugin/pyclewn.vim"))
+let g:pyclewn_args="-w bottom"
+endif
+" }
+
+" Supertab {
 if filereadable(expand("~/.vim/bundle/supertab/plugin/supertab.vim"))
     let g:SuperTabDefaultCompletionType = "context"
     let g:SuperTabMappingForward = '<c-n>'
@@ -143,10 +173,64 @@ if filereadable(expand("~/.vim/bundle/supertab/plugin/supertab.vim"))
     let g:SuperTabLongestEnhanced = 1
 endif
 
-if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
-    nmap <leader>be :CtrlPBuffer<CR>
+"}
+
+" Ultisnips {
+if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
+    let g:UltiSnipsSnippetDirectories=["my_snippets"]
+    let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+    nmap <leader>os :UltiSnipsEdit<CR>
+    let g:UltiSnipsEditSplit="horizontal" 
 endif
 
+" }
+
+" Ctrlp {
+if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
+    nmap <leader>be :CtrlPBuffer<CR>
+let g:ctrlp_prompt_mappings = {
+    \ 'PrtBS()':              ['<bs>', '<c-]>'],
+    \ 'PrtDelete()':          ['<del>'],
+    \ 'PrtDeleteWord()':      ['<c-w>'],
+    \ 'PrtClear()':           ['<c-u>'],
+    \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
+    \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
+    \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+    \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+    \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+    \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
+    \ 'PrtHistory(-1)':       ['<c-n>'],
+    \ 'PrtHistory(1)':        ['<c-p>'],
+    \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+    \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+    \ 'AcceptSelection("t")': ['<c-t>'],
+    \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
+    \ 'ToggleFocus()':        ['<s-tab>'],
+    \ 'ToggleRegex()':        ['<c-r>'],
+    \ 'ToggleByFname()':      ['<c-d>'],
+    \ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
+    \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
+    \ 'PrtExpandDir()':       ['<tab>'],
+    \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
+    \ 'PrtInsert()':          ['<c-\>'],
+    \ 'PrtCurStart()':        ['<c-a>'],
+    \ 'PrtCurEnd()':          ['<c-e>'],
+    \ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
+    \ 'PrtCurRight()':        ['<c-l>', '<right>'],
+    \ 'PrtClearCache()':      ['<F5>'],
+    \ 'PrtDeleteEnt()':       ['<F7>'],
+    \ 'CreateNewFile()':      ['<c-y>'],
+    \ 'MarkToOpen()':         ['<c-z>'],
+    \ 'OpenMulti()':          ['<c-o>'],
+    \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
+    \ }
+endif
+
+" }
+
+" YCM {
 if filereadable(expand("~/.vim/bundle/YouCompleteMe/plugin/youcompleteme.vim"))
     let g:ycm_filetype_blacklist = {
                 \ 'notes' : 1,
@@ -161,6 +245,9 @@ if filereadable(expand("~/.vim/bundle/YouCompleteMe/plugin/youcompleteme.vim"))
 
 endif
 
+" }
+"
+" Easytags {
 if filereadable(expand("~/.vim/bundle/vim-easytags/plugin/easytags.vim"))
     let g:easytags_events = ['BufWritePost']
     let g:easytags_updatetime_warn = 0
@@ -168,25 +255,21 @@ if filereadable(expand("~/.vim/bundle/vim-easytags/plugin/easytags.vim"))
     "highlight link cMember Special
     "highlight cMember gui=italic
 endif
+" }
 
-if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
-    let g:UltiSnipsSnippetDirectories=["my_snippets"]
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-endif
 
+
+" Solarized {
 if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/solarized.vim"))
-    set bg=dark
-    let g:solarized_termcolors = &t_Co
     let g:solarized_termtrans = 1
-    let g:solarized_contrast="high"
-    let g:solarized_visibility="high"
-    colorscheme solarized                 " Load a colorscheme
-    autocmd filetype * highlight tagbarsignature ctermfg=green 
-    "colorscheme molokai 
-    "let g:molokai_original=1
-endif
+    "let g:solarized_termcolors = &t_Co
+    "let g:solarized_contrast="high"
+    let g:solarized_visibility="low"
+    set bg=dark
+    colorscheme solarized
+    endif
+
+" }
 
 " Syntastic {
 if filereadable(expand("~/.vim/bundle/syntastic/plugin/syntastic.vim"))
@@ -203,7 +286,7 @@ if filereadable(expand("~/.vim/bundle/tagbar/plugin/tagbar.vim"))
     nnoremap <silent><leader>tt :TagbarToggle<CR>
     let g:tagbar_width = 30
     let g:tagbar_sort = 1
-    let g:tagbar_left=0
+    let g:tagbar_left=1
     "highlight TagbarNestedKind guifg=Blue ctermfg=Blue
     "highlight TagbarSignature guifg=#272822 guibg=#272822 
     "highlight link Type Normal
@@ -234,7 +317,7 @@ endif
 
 
 
-if has('gui')
+if has('gui_running')
     set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
     set clipboard=unnamed
     set antialias
@@ -246,6 +329,6 @@ if has('gui')
     set guioptions-=t
     set guioptions-=b "turn off scrollbars and toolbar
     let gcr="a:blinkon0" 
-    autocmd filetype * highlight tagbarsignature guifg=bg 
+    "autocmd filetype * highlight tagbarsignature guifg=bg 
 endif
 
