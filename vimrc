@@ -178,7 +178,7 @@ endif
 " Ultisnips {
 if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
     let g:UltiSnipsSnippetDirectories=["my_snippets"]
-    let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
     nmap <leader>os :UltiSnipsEdit<CR>
