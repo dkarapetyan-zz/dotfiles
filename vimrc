@@ -43,6 +43,7 @@ set hidden "remember changes to a buffer even when abandoned
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 "set lazyredraw
+set previewheight = 5 " affects pyclewn
 set ttyfast                     
 set number                         " Line numbers on
 set showmatch                   " Show matching brackets/parenthesis
@@ -101,6 +102,8 @@ nore ;r :exe "Cstart"<CR>
 nore ;n :exe "Cnext"<CR>
 nore ;c :exe "Ccontinue"<CR>
 nore ;q :exe "Cquit<CR>"
+nore ;g :Cfile expand("%:p:r.out") <Bar> Cbreak main <Bar> Crun <CR>
+nore ;q :nbclose<CR>
 "}
 
 
@@ -160,7 +163,7 @@ endif
 " Pyclewn {
 
 if filereadable(expand("~/.vim/bundle/pyclewn/plugin/pyclewn.vim"))
-let g:pyclewn_args="-w bottom"
+let g:pyclewn_args="-w bottom --gdb=async"
 endif
 " }
 
