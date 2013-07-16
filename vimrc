@@ -43,7 +43,7 @@ set hidden "remember changes to a buffer even when abandoned
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 "set lazyredraw
-set previewheight = 5 " affects pyclewn
+set previewheight=5 " affects pyclewn
 set ttyfast                     
 set number                         " Line numbers on
 set showmatch                   " Show matching brackets/parenthesis
@@ -102,7 +102,7 @@ nore ;r :exe "Cstart"<CR>
 nore ;n :exe "Cnext"<CR>
 nore ;c :exe "Ccontinue"<CR>
 nore ;q :exe "Cquit<CR>"
-nore ;g :Cfile expand("%:p:r.out") <Bar> Cbreak main <Bar> Crun <CR>
+nore ;g :Pyclewn<CR>:Cfile %:p:r.out <Bar> Cbreak main <Bar> Cstart<CR>
 nore ;q :nbclose<CR>
 "}
 
@@ -112,7 +112,7 @@ augroup vimrc_autocmds
     au!
     autocmd Filetype r vmap <Space> <leader>ss
                 \| nmap <Space> <leader>l
-    autocmd FileType c map <F9> :!gcc -std=c99 -Wall -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
+    autocmd FileType c map <F9> :!gcc -std=c99 -Wall -Wwrite-strings -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
                 \ | map <F10> :!valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
                 \ |    set columns=181 lines=49
 
@@ -163,7 +163,7 @@ endif
 " Pyclewn {
 
 if filereadable(expand("~/.vim/bundle/pyclewn/plugin/pyclewn.vim"))
-let g:pyclewn_args="-w bottom --gdb=async"
+let g:pyclewn_args="--window=bottom --gdb=async"
 endif
 " }
 
@@ -265,8 +265,7 @@ endif
 " Solarized {
 if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/solarized.vim"))
     let g:solarized_termtrans = 1
-    "let g:solarized_termcolors = &t_Co
-    "let g:solarized_contrast="high"
+    let g:solarized_termcolors=16
     let g:solarized_visibility="low"
     set bg=dark
     colorscheme solarized
