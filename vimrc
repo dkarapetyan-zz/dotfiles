@@ -85,6 +85,7 @@ command! Wq wq
 command! WQ wq 
 map <F1> :!open -a iTerm ./<CR><CR>
 map <F2> :!open -a Excalibur %<CR><CR>
+nmap <leader>oV :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 nmap <leader>ov :e ~/dotfiles/vimrc<CR>
 nnoremap Y y$
 noremap j gj
@@ -94,16 +95,6 @@ command! Q q
 command! W w
 command! Wq wq
 command! WQ wq 
-nore <space> :C<space>
-nore ;b :exe "Cbreak " . expand("%:p") . ":" . line(".")<CR>
-nore ;p :exe "Cprint " . expand("<cword>")<CR>
-nore ;s :exe "Cstep"<CR>
-nore ;r :exe "Cstart"<CR>
-nore ;n :exe "Cnext"<CR>
-nore ;c :exe "Ccontinue"<CR>
-nore ;q :exe "Cquit<CR>"
-nore ;g :Pyclewn<CR>:Cfile %:p:r.out <Bar> Cbreak main <Bar> Cstart<CR>
-nore ;q :nbclose<CR>
 "}
 
 
@@ -156,14 +147,38 @@ augroup END
 
 " Nerd-Commenter {
 if filereadable(expand("~/.vim/bundle/The-NERD-Commenter/plugin/NERD_commenter.vim"))
-let NERD_c_alt_style=1
+    let NERD_c_alt_style=1
 endif
 " }
 
 " Pyclewn {
 
 if filereadable(expand("~/.vim/bundle/pyclewn/plugin/pyclewn.vim"))
-let g:pyclewn_args="--window=bottom --gdb=async"
+    let g:pyclewn_args="--window=bottom --gdb=async"
+    nore <space> :C<space>
+    nore ;b :exe "Cbreak " . expand("%:p") . ":" . line(".")<CR>
+    nore ;p :exe "Cprint " . expand("<cword>")<CR>
+    nore ;s :exe "Cstep"<CR>
+    nore ;r :exe "Cstart"<CR>
+    nore ;n :exe "Cnext"<CR>
+    nore ;c :exe "Ccontinue"<CR>
+    nore ;q :exe "Cquit<CR>"
+    nore ;P :call Pyclewn1()<CR>
+    nore ;dP :call Pyclewn2()<CR>
+
+    nore ;u :exe "Cuntil " . line(".")<CR>
+
+    fun! Pyclewn1()
+        normal gv"ay
+        execute "Cprint " . @a
+    endfun
+
+    fun! Pyclewn2()
+        normal gv"ay
+        execute "Cprint *" . @a
+    endfun
+
+
 endif
 " }
 
@@ -193,42 +208,42 @@ endif
 " Ctrlp {
 if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
     nmap <leader>be :CtrlPBuffer<CR>
-let g:ctrlp_prompt_mappings = {
-    \ 'PrtBS()':              ['<bs>', '<c-]>'],
-    \ 'PrtDelete()':          ['<del>'],
-    \ 'PrtDeleteWord()':      ['<c-w>'],
-    \ 'PrtClear()':           ['<c-u>'],
-    \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
-    \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
-    \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
-    \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
-    \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
-    \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
-    \ 'PrtHistory(-1)':       ['<c-n>'],
-    \ 'PrtHistory(1)':        ['<c-p>'],
-    \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-    \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
-    \ 'AcceptSelection("t")': ['<c-t>'],
-    \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
-    \ 'ToggleFocus()':        ['<s-tab>'],
-    \ 'ToggleRegex()':        ['<c-r>'],
-    \ 'ToggleByFname()':      ['<c-d>'],
-    \ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
-    \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
-    \ 'PrtExpandDir()':       ['<tab>'],
-    \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
-    \ 'PrtInsert()':          ['<c-\>'],
-    \ 'PrtCurStart()':        ['<c-a>'],
-    \ 'PrtCurEnd()':          ['<c-e>'],
-    \ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
-    \ 'PrtCurRight()':        ['<c-l>', '<right>'],
-    \ 'PrtClearCache()':      ['<F5>'],
-    \ 'PrtDeleteEnt()':       ['<F7>'],
-    \ 'CreateNewFile()':      ['<c-y>'],
-    \ 'MarkToOpen()':         ['<c-z>'],
-    \ 'OpenMulti()':          ['<c-o>'],
-    \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
-    \ }
+    let g:ctrlp_prompt_mappings = {
+                \ 'PrtBS()':              ['<bs>', '<c-]>'],
+                \ 'PrtDelete()':          ['<del>'],
+                \ 'PrtDeleteWord()':      ['<c-w>'],
+                \ 'PrtClear()':           ['<c-u>'],
+                \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
+                \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
+                \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+                \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+                \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+                \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
+                \ 'PrtHistory(-1)':       ['<c-n>'],
+                \ 'PrtHistory(1)':        ['<c-p>'],
+                \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+                \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+                \ 'AcceptSelection("t")': ['<c-t>'],
+                \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
+                \ 'ToggleFocus()':        ['<s-tab>'],
+                \ 'ToggleRegex()':        ['<c-r>'],
+                \ 'ToggleByFname()':      ['<c-d>'],
+                \ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
+                \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
+                \ 'PrtExpandDir()':       ['<tab>'],
+                \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
+                \ 'PrtInsert()':          ['<c-\>'],
+                \ 'PrtCurStart()':        ['<c-a>'],
+                \ 'PrtCurEnd()':          ['<c-e>'],
+                \ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
+                \ 'PrtCurRight()':        ['<c-l>', '<right>'],
+                \ 'PrtClearCache()':      ['<F5>'],
+                \ 'PrtDeleteEnt()':       ['<F7>'],
+                \ 'CreateNewFile()':      ['<c-y>'],
+                \ 'MarkToOpen()':         ['<c-z>'],
+                \ 'OpenMulti()':          ['<c-o>'],
+                \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
+                \ }
 endif
 
 " }
@@ -269,7 +284,7 @@ if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/solarized.vim"))
     let g:solarized_visibility="low"
     set bg=dark
     colorscheme solarized
-    endif
+endif
 
 " }
 
