@@ -6,7 +6,7 @@ name = David Karapetyan
   status = auto
   branch = auto
 [core]
-  editor = vim -f
+  editor = mvim -v
 	excludesfile = /Users/davidkarapetyan/.gitignore_global
 [alias]
   co = checkout
