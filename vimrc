@@ -43,7 +43,7 @@ set hidden "remember changes to a buffer even when abandoned
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 "set lazyredraw
-set previewheight=5 " affects pyclewn
+set previewheight=12 " affects pyclewn
 set ttyfast                     
 set number                         " Line numbers on
 set showmatch                   " Show matching brackets/parenthesis
@@ -83,8 +83,9 @@ command! Q q
 command! W w
 command! Wq wq
 command! WQ wq 
-map <F1> :!open -a iTerm ./<CR><CR>
-map <F2> :!open -a Excalibur %<CR><CR>
+nmap <leader>ot :!open -a iTerm ./<CR><CR>
+nmap <leader>a mcgg=G`c
+map <leader>x :!open -a Excalibur %<CR><CR>
 nmap <leader>oV :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 nmap <leader>ov :e ~/dotfiles/vimrc<CR>
 nnoremap Y y$
@@ -213,8 +214,8 @@ if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
                 \ 'PrtDelete()':          ['<del>'],
                 \ 'PrtDeleteWord()':      ['<c-w>'],
                 \ 'PrtClear()':           ['<c-u>'],
-                \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
-                \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
+                \ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
+                \ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
                 \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
                 \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
                 \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
