@@ -84,10 +84,11 @@ command! W w
 command! Wq wq
 command! WQ wq 
 nmap <leader>ot :!open -a iTerm ./<CR><CR>
-nmap <leader>a mcgg=G`c
-map <leader>x :!open -a Excalibur %<CR><CR>
+map <leader>ox :!open -a Excalibur %<CR><CR>
 nmap <leader>oV :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 nmap <leader>ov :e ~/dotfiles/vimrc<CR>
+nmap <leader>a mcgg=G`c
+
 nnoremap Y y$
 noremap j gj
 noremap k gk
@@ -111,11 +112,11 @@ augroup vimrc_autocmds
 
 
 
-    autocmd FileType make setlocal noexpandtab
     autocmd Filetype ruby,eruby nmap <Leader>f :make %
                 \ | nmap <silent> ,s :sp ~/.vim/bundle/ultisnips/Ultisnips/ruby_my.snippets<CR>
                 \ | compiler ruby
                 \ | let g:rubycomplete_rails = 1
+    autocmd FileType eruby map <Leader>v :!open -a /Applications/Google\ Chrome.app <CR><CR>
     autocmd Filetype matlab  compiler mlint
     autocmd Filetype tex  map <silent> <Leader>ls  
                 \ | map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
@@ -130,7 +131,6 @@ augroup vimrc_autocmds
                 \ | compiler tidy
                 \ | map <buffer> <C-l><C-l> :make <CR><CR>
 
-    autocmd FileType eruby map <Leader>v :!open -a /Applications/Google\ Chrome.app <CR><CR>
 
     autocmd FileType php  map <buffer> \lv :!open -a /Applications/Google\ Chrome.app %<CR><CR> 
     autocmd Filetype lilypond map <buffer> <C-l><C-l> :make <CR>
@@ -300,7 +300,7 @@ endif
 " TagBar {
 if filereadable(expand("~/.vim/bundle/tagbar/plugin/tagbar.vim"))
 
-    autocmd VimEnter  *  nested :TagbarOpen
+    "autocmd VimEnter  *  nested :TagbarOpen
     nnoremap <silent><leader>tt :TagbarToggle<CR>
     let g:tagbar_width = 30
     let g:tagbar_sort = 1
