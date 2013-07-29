@@ -9,8 +9,8 @@ alias rdeb="ruby -r debug"
 alias vims="vim --servername VIM"
 alias timidity="open -a QuickTime\ Player.app"
 alias val="valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions --leak-check=full --show-reachable=yes" 
-alias vim='mvim -v'
-alias vi='mvim -v'
+alias vim='vim --servername vim'
+alias vi='vim --servername vim'
 set -o vi
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:/usr/local/sbin:/Applications/MATLAB_R2010a.app/bin/maci:/Applications/LilyPond.app/Contents/Resources/bin:/usr/local/texlive/2011/bin/universal-darwin:/Developer/usr/bin:/$HOME/.vim/bundle/pyclewn/bin
 export CLICOLOR=1
