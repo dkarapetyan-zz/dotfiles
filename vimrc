@@ -18,7 +18,6 @@ Bundle 'xolox/vim-easytags'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'ctrlp.vim'
 Bundle 'rails.vim'
-Bundle 'benmills/vimux'
 Bundle 'xieyu/pyclewn'
 Bundle 'flazz/vim-colorschemes'
 filetype plugin indent on  "must come after bundles and rtp or vundle won't work
@@ -103,6 +102,7 @@ command! WQ wq
 "Custom Autocmd Mappings {
 augroup vimrc_autocmds
     au!
+    autocmd BufEnter * if &filetype == "" | setlocal ft=txt | endif
     autocmd Filetype r vmap <Space> <leader>ss
                 \| nmap <Space> <leader>l
     autocmd FileType c map <F9> :!gcc -std=c99 -Wall -Wwrite-strings -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
@@ -120,9 +120,9 @@ augroup vimrc_autocmds
     autocmd Filetype matlab  compiler mlint
     autocmd Filetype tex  map <silent> <Leader>ls  
                 \ | map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
-                \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p"<CR>
+                \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>:redraw!<CR>
                 \ | let g:LatexBox_viewer = "open"
-                \ | let g:LatexBox_latexmk_options = "-pvc"
+                \ | let g:LatexBox_output_type="pdf"
                 \ | let g:LatexBox_completion_commands = []
                 \ | let g:LatexBox_completion_environments = []
                 \ | set columns=82 lines=53
@@ -155,25 +155,23 @@ endif
 " Pyclewn {
 
 if filereadable(expand("~/.vim/bundle/pyclewn/plugin/pyclewn.vim"))
-    let g:pyclewn_args="--window=bottom --gdb=async"
-    nore <space> :C<space>
-    nore ;b :exe "Cbreak " . expand("%:p") . ":" . line(".")<CR>
-    nore ;p :exe "Cprint " . expand("<cword>")<CR>
-    nore ;s :exe "Cstep"<CR>
-    nore ;r :exe "Cstart"<CR>
-    nore ;n :exe "Cnext"<CR>
-    nore ;c :exe "Ccontinue"<CR>
-    nore ;q :exe "Cquit<CR>"
-    nore ;P :call Pyclewn1()<CR>
-    nore ;dP :call Pyclewn2()<CR>
-
-    nore ;u :exe "Cuntil " . line(".")<CR>
-
+    autocmd Filetype c
+                \ | let g:pyclewn_args="--window=bottom --gdb=async"
+                \ |    nore <space> :C<space>
+                \ |    nore ;b :exe "Cbreak " . expand("%:p") . ":" . line(".")<CR>
+                \ |    nore ;p :exe "Cprint " . expand("<cword>")<CR>
+                \ |    nore ;s :exe "Cstep"<CR>
+                \ |    nore ;r :exe "Cstart"<CR>
+                \ |    nore ;n :exe "Cnext"<CR>
+                \ |    nore ;c :exe "Ccontinue"<CR>
+                \ |    nore ;q :exe "Cquit<CR>"
+                \ |    nore ;P :call Pyclewn1()<CR>
+                \ |    nore ;dP :call Pyclewn2()<CR>
+                \ |    nore ;u :exe "Cuntil " . line(".")<CR>
     fun! Pyclewn1()
         normal gv"ay
         execute "Cprint " . @a
     endfun
-
     fun! Pyclewn2()
         normal gv"ay
         execute "Cprint *" . @a
