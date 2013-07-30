@@ -1,0 +1,4 @@
+splitw -h -p 30
+splitw -v -p 50
+selectp -L
+
