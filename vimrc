@@ -24,10 +24,7 @@ Bundle 'flazz/vim-colorschemes'
 filetype plugin indent on  "must come after bundles and rtp or vundle won't work
 syntax on
 
-"let g:rehash256 = 1
-"let g:molokai_original=1
-"colorscheme molokai
-"autocmd filetype * highlight tagbarsignature ctermfg=bg 
+
 set completeopt=longest,menu
 set pumheight=15
 set lines=45
@@ -72,8 +69,6 @@ set ls=2 "always show status line
 set autoread "auto reload a file that has changed
 set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
 set encoding=utf-8
-"set list
-"set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 
 " Custom Global Mappings {
@@ -149,6 +144,12 @@ augroup END
 if filereadable(expand("~/.vim/bundle/powerline/powerline/bindings/vim/plugin/powerline.vim"))
     set laststatus=2 " Always display the statusline in all windows
     set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
 endif
 
 
