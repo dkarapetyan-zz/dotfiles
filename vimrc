@@ -2,6 +2,7 @@ set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
@@ -15,7 +16,7 @@ Bundle 'livereload/LiveReload2'
 Bundle 'LaTeX-Box'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-easytags'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/powerline'
 Bundle 'ctrlp.vim'
 Bundle 'rails.vim'
 Bundle 'xieyu/pyclewn'
@@ -41,7 +42,6 @@ set splitbelow
 set hidden "remember changes to a buffer even when abandoned
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
-"set lazyredraw
 set previewheight=12 " affects pyclewn
 set ttyfast                     
 set number                         " Line numbers on
@@ -78,10 +78,10 @@ set encoding=utf-8
 
 " Custom Global Mappings {
 
-command! Q q
 command! W w
 command! Wq wq
 command! WQ wq 
+map Q <Nop>
 nmap <leader>ot :!open -a iTerm ./<CR><CR>
 map <leader>ox :!open -a Excalibur %<CR><CR>
 nmap <leader>oV :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
@@ -145,6 +145,12 @@ augroup END
 
 
 "Plugin Loading {
+
+if filereadable(expand("~/.vim/bundle/powerline/powerline/bindings/vim/plugin/powerline.vim"))
+    set laststatus=2 " Always display the statusline in all windows
+    set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+endif
+
 
 " Nerd-Commenter {
 if filereadable(expand("~/.vim/bundle/The-NERD-Commenter/plugin/NERD_commenter.vim"))
