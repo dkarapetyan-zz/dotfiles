@@ -1,3 +1,4 @@
+
 set nocompatible
 filetype off
 
@@ -7,25 +8,25 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'fugitive.vim'
-Bundle 'The-NERD-Commenter'
+Bundle 'tpope/vim-fugitive'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
-Bundle 'UltiSnips'
+Bundle 'SirVer/UltiSnips'
 Bundle 'livereload/LiveReload2'
-Bundle 'LaTeX-Box'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-easytags'
 Bundle 'Lokaltog/powerline'
-Bundle 'ctrlp.vim'
-Bundle 'rails.vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-rails'
 Bundle 'xieyu/pyclewn'
 Bundle 'flazz/vim-colorschemes'
+Bundle 'vim-scripts/CRefVim'
 filetype plugin indent on  "must come after bundles and rtp or vundle won't work
-syntax on
+syntax enable
 
-
-set completeopt=longest,menu
+set completeopt=longest,menu,preview
 set pumheight=15
 set lines=45
 let mapleader="," " must put before plugins are loaded--otherwise, won't work
@@ -34,14 +35,15 @@ set shortmess+=filmnrxoOtT
 set virtualedit=onemore             " Allow for cursor beyond last character
 set history=1000  
 set clipboard=unnamed
+set cmdheight=2                 " helps avoid hit enter prompt
 set tabpagemax=15               " Only show 15 tabs
 set splitbelow
 set hidden "remember changes to a buffer even when abandoned
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
+set winminheight=0              " Windows can be 0 lines high
 set previewheight=12 " affects pyclewn
 set ttyfast                     
-set number                         " Line numbers on
 set showmatch                   " Show matching brackets/parenthesis
 set winminheight=0              " Windows can be 0 line high
 set ignorecase                  " Case insensitive search
@@ -51,11 +53,12 @@ set wildmode=list:longest,full  " Command <Tab> completion, list matches, then l
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=5                 " Minimum lines to keep above and below cursor
-set nowrap
+set wrap
+set splitright              "vertical split to right
 set autoindent                  " Indent at the same level of the previous line
 set shiftwidth=4                " Use indents of 4 spaces
 set expandtab                   " Tabs are spaces, not tabs
-set tabstop=4                   " An indentation every four columns
+set tabstop=8                   " An indentation every 8 columns
 set softtabstop=4               " Let backspace delete indent
 set ttyscroll=3                " cleaner scrolling with fewer flashes
 set nofen 
@@ -65,11 +68,12 @@ set novb
 set autochdir
 set mouse=a "for compying text with a mouse 
 set mousehide
+scriptencoding utf-8
 set ls=2 "always show status line
 set autoread "auto reload a file that has changed
 set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
 set encoding=utf-8
-
+let g:netrw_silent = 1
 
 " Custom Global Mappings {
 
@@ -98,9 +102,10 @@ command! WQ wq
 augroup vimrc_autocmds
     au!
     autocmd BufEnter * if &filetype == "" | setlocal ft=txt | endif
+    autocmd BufEnter * if !has('gui_running') | set term=xterm-256color | endif "for tmux rendering
     autocmd Filetype r vmap <Space> <leader>ss
                 \| nmap <Space> <leader>l
-    autocmd FileType c map <F9> :!gcc -std=c99 -Wall -Wwrite-strings -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
+    autocmd FileType c map <F9> :!gcc -std=c99 -Wall -Wwrite-strings `pkg-config --cflags glib-2.0` `pkg-config --libs glib-2.0` -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
                 \ | map <F10> :!valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
                 \ |    set columns=181 lines=49
 
@@ -117,17 +122,19 @@ augroup vimrc_autocmds
                 \ | map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
                 \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>:redraw!<CR>
                 \ | let g:LatexBox_viewer = "open"
-                \ | let g:LatexBox_output_type="pdf"
+                \ | let g:LatexBox_latexmk_async=1
                 \ | let g:LatexBox_completion_commands = []
                 \ | let g:LatexBox_completion_environments = []
                 \ | set columns=82 lines=53
+
+    autocmd  BufWritePost *.tex silent Latexmk
 
     autocmd FileType html map <Leader>v :!open -a /Applications/Google\ Chrome.app %<CR><CR>
                 \ | compiler tidy
                 \ | map <buffer> <C-l><C-l> :make <CR><CR>
 
 
-    autocmd FileType php  map <buffer> \lv :!open -a /Applications/Google\ Chrome.app %<CR><CR> 
+    autocmd FileType php  map <buffer> <Leader>v :!open -a /Applications/Google\ Chrome.app %<CR><CR> 
     autocmd Filetype lilypond map <buffer> <C-l><C-l> :make <CR>
                 \ :cwin <CR><CR>
                 \ | compiler lilypond
@@ -162,19 +169,18 @@ endif
 " Pyclewn {
 
 if filereadable(expand("~/.vim/bundle/pyclewn/plugin/pyclewn.vim"))
-    autocmd Filetype c
-                \ | let g:pyclewn_args="--window=bottom --gdb=async"
-                \ |    nore <space> :C<space>
-                \ |    nore ;b :exe "Cbreak " . expand("%:p") . ":" . line(".")<CR>
-                \ |    nore ;p :exe "Cprint " . expand("<cword>")<CR>
-                \ |    nore ;s :exe "Cstep"<CR>
-                \ |    nore ;r :exe "Cstart"<CR>
-                \ |    nore ;n :exe "Cnext"<CR>
-                \ |    nore ;c :exe "Ccontinue"<CR>
-                \ |    nore ;q :exe "Cquit<CR>"
-                \ |    nore ;P :call Pyclewn1()<CR>
-                \ |    nore ;dP :call Pyclewn2()<CR>
-                \ |    nore ;u :exe "Cuntil " . line(".")<CR>
+    autocmd FileType c let g:pyclewn_args="--window=bottom --gdb=async"
+                \ |    nore <buffer> <space> :C<space>
+                \ |    nore <buffer> ;b :exe "Cbreak " . expand("%:p") . ":" . line(".")<CR>
+                \ |    nore <buffer> ;p :exe "Cprint " . expand("<cword>")<CR>
+                \ |    nore <buffer> ;s :exe "Cstep"<CR>
+                \ |    nore <buffer> ;r :exe "Cstart"<CR>
+                \ |    nore <buffer> ;n :exe "Cnext"<CR>
+                \ |    nore <buffer> ;c :exe "Ccontinue"<CR>
+                \ |    nore <buffer> ;q :exe "Cquit<CR>"
+                \ |    nore <buffer> ;P :call Pyclewn1()<CR>
+                \ |    nore <buffer> ;dP :call Pyclewn2()<CR>
+                \ |    nore <buffer> ;u :exe "Cuntil " . line(".")<CR>
     fun! Pyclewn1()
         normal gv"ay
         execute "Cprint " . @a
@@ -183,7 +189,6 @@ if filereadable(expand("~/.vim/bundle/pyclewn/plugin/pyclewn.vim"))
         normal gv"ay
         execute "Cprint *" . @a
     endfun
-
 
 endif
 " }
@@ -266,6 +271,7 @@ if filereadable(expand("~/.vim/bundle/YouCompleteMe/plugin/youcompleteme.vim"))
     let g:ycm_allow_changing_updatetime = 0
     let g:ycm_global_ycm_extra_conf = '/Users/davidkarapetyan/.ycm_extra_conf.py'
     autocmd BufWritePost *.c,*.cpp,*.h silent YcmForceCompileAndDiagnostics
+    nnoremap <leader>gt :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 endif
 
@@ -286,7 +292,6 @@ endif
 " Solarized {
 if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/solarized.vim"))
     let g:solarized_termtrans = 1
-    let g:solarized_termcolors=16
     let g:solarized_visibility="low"
     set bg=dark
     colorscheme solarized
@@ -320,7 +325,7 @@ endif
 "}
 
 " Fugitive {
-if filereadable(expand("~/.vim/bundle/fugitive.vim/plugin/fugitive.vim"))
+if filereadable(expand("~/.vim/bundle/vim-fugitive/plugin/fugitive.vim"))
 
     nnoremap <silent> <leader>gs :Gstatus<CR>
     nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -334,13 +339,21 @@ endif
 "}
 
 
-
+" Cref {
+if filereadable(expand("~/.vim/bundle/CRefVim/plugin/crefvim.vim"))
+    vmap <silent> <Leader>mr <Plug>CRV_CRefVimVisual
+    nmap <silent> <Leader>mr <Plug>CRV_CRefVimNormal
+    map <silent> <Leader>mw <Plug>CRV_CRefVimAsk
+    map <silent> <Leader>mc <Plug>CRV_CRefVimInvoke
+endif
+"}
 
 
 
 
 
 if has('gui_running')
+"set gui options
     set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
     set clipboard=unnamed
     set antialias
