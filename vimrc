@@ -80,12 +80,12 @@ let g:netrw_silent = 1
 command! W w
 command! Wq wq
 command! WQ wq 
-map Q <Nop>
-nmap <leader>ot :!open -a iTerm ./<CR><CR>
-map <leader>ox :!open -a Excalibur %<CR><CR>
-nmap <leader>oV :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-nmap <leader>ov :e ~/dotfiles/vimrc<CR>
-nmap <leader>a mcgg=G`c
+noremap Q <Nop>
+nnoremap <leader>ot :!open -a iTerm ./<CR><CR>
+noremap <leader>ox :!open -a Excalibur %<CR><CR>
+nnoremap <leader>oV :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+nnoremap <leader>ov :e ~/dotfiles/vimrc<CR>
+nnoremap <leader>a mcgg=G`c
 
 nnoremap Y y$
 noremap j gj
@@ -105,21 +105,21 @@ augroup vimrc_autocmds
     autocmd BufEnter * if !has('gui_running') | set term=xterm-256color | endif "for tmux rendering
     autocmd Filetype r vmap <Space> <leader>ss
                 \| nmap <Space> <leader>l
-    autocmd FileType c map <F9> :!gcc -std=c99 -Wall -Wwrite-strings `pkg-config --cflags glib-2.0` `pkg-config --libs glib-2.0` -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
-                \ | map <F10> :!valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
+    autocmd FileType c noremap <F9> :!gcc -std=c99 -Wall -Wwrite-strings `pkg-config --cflags glib-2.0` `pkg-config --libs glib-2.0` -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
+                \ | noremap <F10> :!valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
                 \ |    set columns=181 lines=49
 
 
 
 
-    autocmd Filetype ruby,eruby nmap <Leader>f :make %
-                \ | nmap <silent> ,s :sp ~/.vim/bundle/ultisnips/Ultisnips/ruby_my.snippets<CR>
+    autocmd Filetype ruby,eruby nnoremap <Leader>l :make %
+                \ | nnoremap <silent> ,s :sp ~/.vim/bundle/ultisnips/Ultisnips/ruby_my.snippets<CR>
                 \ | compiler ruby
                 \ | let g:rubycomplete_rails = 1
-    autocmd FileType eruby map <Leader>v :!open -a /Applications/Google\ Chrome.app <CR><CR>
+    autocmd FileType eruby noremap <Leader>v :!open -a /Applications/Google\ Chrome.app <CR><CR>
     autocmd Filetype matlab  compiler mlint
-    autocmd Filetype tex  map <silent> <Leader>ls  
-                \ | map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
+    autocmd Filetype tex 
+                \ | noremap <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
                 \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>:redraw!<CR>
                 \ | let g:LatexBox_viewer = "open"
                 \ | let g:LatexBox_latexmk_async=1
@@ -129,13 +129,13 @@ augroup vimrc_autocmds
 
     autocmd  BufWritePost *.tex silent Latexmk
 
-    autocmd FileType html map <Leader>v :!open -a /Applications/Google\ Chrome.app %<CR><CR>
+    autocmd FileType html noremap <Leader>v :!open -a /Applications/Google\ Chrome.app %<CR><CR>
                 \ | compiler tidy
-                \ | map <buffer> <C-l><C-l> :make <CR><CR>
+                \ | noremap <buffer> <Leader>l :make <CR><CR>
 
 
-    autocmd FileType php  map <buffer> <Leader>v :!open -a /Applications/Google\ Chrome.app %<CR><CR> 
-    autocmd Filetype lilypond map <buffer> <C-l><C-l> :make <CR>
+    autocmd FileType php  noremap <buffer> <Leader>v :!open -a /Applications/Google\ Chrome.app %<CR><CR> 
+    autocmd Filetype lilypond noremap <buffer> <Leader>l :make <CR>
                 \ :cwin <CR><CR>
                 \ | compiler lilypond
 
@@ -218,7 +218,7 @@ endif
 
 " Ctrlp {
 if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
-    nmap <leader>be :CtrlPBuffer<CR>
+    nnoremap <leader>be :CtrlPBuffer<CR>
     let g:ctrlp_prompt_mappings = {
                 \ 'PrtBS()':              ['<bs>', '<c-]>'],
                 \ 'PrtDelete()':          ['<del>'],
@@ -341,10 +341,10 @@ endif
 
 " Cref {
 if filereadable(expand("~/.vim/bundle/CRefVim/plugin/crefvim.vim"))
-    vmap <silent> <Leader>mr <Plug>CRV_CRefVimVisual
-    nmap <silent> <Leader>mr <Plug>CRV_CRefVimNormal
-    map <silent> <Leader>mw <Plug>CRV_CRefVimAsk
-    map <silent> <Leader>mc <Plug>CRV_CRefVimInvoke
+    vnoremap <silent> <Leader>mr <Plug>CRV_CRefVimVisual
+    nnoremap <silent> <Leader>mr <Plug>CRV_CRefVimNormal
+    noremap <silent> <Leader>mw <Plug>CRV_CRefVimAsk
+    noremap <silent> <Leader>mc <Plug>CRV_CRefVimInvoke
 endif
 "}
 
