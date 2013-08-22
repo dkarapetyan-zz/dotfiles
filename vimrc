@@ -20,12 +20,14 @@ Bundle 'xolox/vim-easytags'
 Bundle 'Lokaltog/powerline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-rails'
-Bundle 'xieyu/pyclewn'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/CRefVim'
+Bundle 'vim-scripts/stlrefvim'
+Bundle 'dansomething/vim-eclim'
 filetype plugin indent on  "must come after bundles and rtp or vundle won't work
 syntax enable
 
+let g:EclimCompletionMethod = 'omnifunc'
 set completeopt=longest,menu,preview
 set pumheight=15
 set lines=45
@@ -105,11 +107,10 @@ augroup vimrc_autocmds
     autocmd BufEnter * if !has('gui_running') | set term=xterm-256color | endif "for tmux rendering
     autocmd Filetype r vmap <Space> <leader>ss
                 \| nmap <Space> <leader>l
-    autocmd FileType c noremap <F9> :!gcc -std=c99 -Wall -Wwrite-strings `pkg-config --cflags glib-2.0` `pkg-config --libs glib-2.0` -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
-                \ | noremap <F10> :!valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
+    autocmd FileType c  noremap <F9> :!clang -std=c99 -Wall -Wwrite-strings `pkg-config --cflags glib-2.0` `pkg-config --libs glib-2.0` -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
+    autocmd FileType cpp  noremap <F9> :!clang++ -std=c++11 -stdlib=libc++ -Wall -Wwrite-strings -ggdb main.cpp -o "%:p:r.out" && "%:p:r.out"
+    autocmd FileType c,cpp noremap <F10> :!valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
                 \ |    set columns=181 lines=49
-
-
 
 
     autocmd Filetype ruby,eruby nnoremap <Leader>l :make %
@@ -269,7 +270,7 @@ if filereadable(expand("~/.vim/bundle/YouCompleteMe/plugin/youcompleteme.vim"))
     let g:ycm_key_list_select_completion = ['<Down>']
     let g:ycm_key_list_previous_completion = ['<Up>']
     let g:ycm_allow_changing_updatetime = 0
-    let g:ycm_global_ycm_extra_conf = '/Users/davidkarapetyan/.ycm_extra_conf.py'
+    let g:ycm_confirm_extra_conf = 0
     autocmd BufWritePost *.c,*.cpp,*.h silent YcmForceCompileAndDiagnostics
     nnoremap <leader>gt :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -353,7 +354,7 @@ endif
 
 
 if has('gui_running')
-"set gui options
+    "set gui options
     set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
     set clipboard=unnamed
     set antialias
