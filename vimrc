@@ -23,11 +23,9 @@ Bundle 'tpope/vim-rails'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/CRefVim'
 Bundle 'vim-scripts/stlrefvim'
-Bundle 'dansomething/vim-eclim'
 filetype plugin indent on  "must come after bundles and rtp or vundle won't work
 syntax enable
 
-let g:EclimCompletionMethod = 'omnifunc'
 set completeopt=longest,menu,preview
 set pumheight=15
 set lines=45
@@ -108,8 +106,8 @@ augroup vimrc_autocmds
     autocmd Filetype r vmap <Space> <leader>ss
                 \| nmap <Space> <leader>l
     autocmd FileType c  noremap <F9> :!clang -std=c99 -Wall -Wwrite-strings `pkg-config --cflags glib-2.0` `pkg-config --libs glib-2.0` -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
-    autocmd FileType cpp  noremap <F9> :!clang++ -std=c++11 -stdlib=libc++ -Wall -Wwrite-strings -ggdb main.cpp -o "%:p:r.out" && "%:p:r.out"
-    autocmd FileType c,cpp noremap <F10> :!valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
+    autocmd FileType cpp  noremap <F9> :!clang++ -I/usr/lib/c++/v1 -O0 -emit-llvm -g3 -Wall -fmessage-length=0 -std=c++11 -stdlib=libc++ main.cpp -o "%:p:r.out" && "%:p:r.out"
+    autocmd FileType c,cpp noremap <F10> :!valgrind --dsymutil=yes --leak-check=full --show-reachable=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
                 \ |    set columns=181 lines=49
 
 
@@ -123,7 +121,7 @@ augroup vimrc_autocmds
                 \ | noremap <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
                 \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>:redraw!<CR>
                 \ | let g:LatexBox_viewer = "open"
-                \ | let g:LatexBox_latexmk_async=1
+                \ | let g:LatexBox_latexmk_async=2
                 \ | let g:LatexBox_completion_commands = []
                 \ | let g:LatexBox_completion_environments = []
                 \ | set columns=82 lines=53
@@ -349,9 +347,16 @@ if filereadable(expand("~/.vim/bundle/CRefVim/plugin/crefvim.vim"))
 endif
 "}
 
+if filereadable(expand("~/.vim/plugin/eclim.vim"))
+    let g:EclimCompletionMethod = 'omnifunc'
+endif
 
 
-
+if filereadable(expand("/usr/local/lib/python2.7/site-packages/powerline/config_files/config.json"))
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+endif
 
 if has('gui_running')
     "set gui options
