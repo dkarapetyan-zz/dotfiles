@@ -347,16 +347,16 @@ if filereadable(expand("~/.vim/bundle/CRefVim/plugin/crefvim.vim"))
 endif
 "}
 
-if filereadable(expand("~/.vim/plugin/eclim.vim"))
-    let g:EclimCompletionMethod = 'omnifunc'
-endif
+"if filereadable(expand("~/.vim/plugin/eclim.vim"))
+    "let g:EclimCompletionMethod = 'omnifunc'
+"endif
 
 
-if filereadable(expand("/usr/local/lib/python2.7/site-packages/powerline/config_files/config.json"))
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-endif
+"if filereadable(expand("/usr/local/lib/python2.7/site-packages/powerline/config_files/config.json"))
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
+"endif
 
 if has('gui_running')
     "set gui options
