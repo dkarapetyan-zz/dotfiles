@@ -13,7 +13,7 @@ alias vi="/usr/local/bin/./vim"
 set -o vi
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:/usr/local/sbin:/Applications/MATLAB_R2010a.app/bin/maci:/Applications/LilyPond.app/Contents/Resources/bin:/usr/local/texlive/2011/bin/universal-darwin
 export CLICOLOR=1
-#export LSCOLORS=GxFxCxDxBxegedabagaced
+export LSCOLORS=GxFxCxDxBxegedabagaced
 export LYEDITOR="vim --remote-tab-silent +:%(line)s:norm%(char)s %(file)s"
 export PAGER=`which less`
 export EDITOR="vim"
@@ -36,4 +36,3 @@ PS1='\[\033[32m\]\u:\[\033[36m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
 
 [[ -s "~/.rvm/scripts/rvm" ]] && . "~/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-i
