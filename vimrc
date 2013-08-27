@@ -22,6 +22,8 @@ Bundle 'Lokaltog/powerline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-rails'
 Bundle 'flazz/vim-colorschemes'
+Bundle 'vim-scripts/CRefVim'
+Bundle 'vim-scripts/stlrefvim'
 filetype plugin indent on  "must come after bundles and rtp or vundle won't work
 syntax enable
 
