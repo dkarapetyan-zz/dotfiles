@@ -7,6 +7,7 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
+Bundle 'ervandew/supertab'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdcommenter'
@@ -21,8 +22,6 @@ Bundle 'Lokaltog/powerline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-rails'
 Bundle 'flazz/vim-colorschemes'
-Bundle 'vim-scripts/CRefVim'
-Bundle 'vim-scripts/stlrefvim'
 filetype plugin indent on  "must come after bundles and rtp or vundle won't work
 syntax enable
 
@@ -104,39 +103,39 @@ augroup vimrc_autocmds
     autocmd BufEnter * if &filetype == "" | setlocal ft=txt | endif
     autocmd BufEnter * if !has('gui_running') | set term=xterm-256color | endif "for tmux rendering
     autocmd Filetype r vmap <Space> <leader>ss
-                \| nmap <Space> <leader>l
+		\| nmap <Space> <leader>l
     autocmd FileType c  noremap <F9> :!clang -std=c99 -Wall -Wwrite-strings `pkg-config --cflags glib-2.0` `pkg-config --libs glib-2.0` -ggdb -o "%:p:r.out" "%:p" && "%:p:r.out"
     autocmd FileType cpp  noremap <F9> :!clang++ -I/usr/lib/c++/v1 -O0 -emit-llvm -g3 -Wall -fmessage-length=0 -std=c++11 -stdlib=libc++ main.cpp -o "%:p:r.out" && "%:p:r.out"
     autocmd FileType c,cpp noremap <F10> :!valgrind --dsymutil=yes --leak-check=full --show-reachable=yes --suppressions=/Users/davidkarapetyan/.suppressions "%:p:r.out"
-                \ |    set columns=181 lines=49
+		\ |    set columns=181 lines=49
 
 
     autocmd Filetype ruby,eruby nnoremap <Leader>l :make %
-                \ | nnoremap <silent> ,s :sp ~/.vim/bundle/ultisnips/Ultisnips/ruby_my.snippets<CR>
-                \ | compiler ruby
-                \ | let g:rubycomplete_rails = 1
+		\ | nnoremap <silent> ,s :sp ~/.vim/bundle/ultisnips/Ultisnips/ruby_my.snippets<CR>
+		\ | compiler ruby
+		\ | let g:rubycomplete_rails = 1
     autocmd FileType eruby noremap <Leader>v :!open -a /Applications/Google\ Chrome.app <CR><CR>
     autocmd Filetype matlab  compiler mlint
     autocmd Filetype tex 
-                \ | noremap <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
-                \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>:redraw!<CR>
-                \ | let g:LatexBox_viewer = "open"
-                \ | let g:LatexBox_latexmk_async=2
-                \ | let g:LatexBox_completion_commands = []
-                \ | let g:LatexBox_completion_environments = []
-                \ | set columns=82 lines=53
+		\ | noremap <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
+		\ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>:redraw!<CR>
+		\ | let g:LatexBox_viewer = "open"
+		\ | let g:LatexBox_latexmk_async=2
+		\ | let g:LatexBox_completion_commands = []
+		\ | let g:LatexBox_completion_environments = []
+		\ | set columns=82 lines=53
 
     autocmd  BufWritePost *.tex silent Latexmk
 
     autocmd FileType html noremap <Leader>v :!open -a /Applications/Google\ Chrome.app %<CR><CR>
-                \ | compiler tidy
-                \ | noremap <buffer> <Leader>l :make <CR><CR>
+		\ | compiler tidy
+		\ | noremap <buffer> <Leader>l :make <CR><CR>
 
 
     autocmd FileType php  noremap <buffer> <Leader>v :!open -a /Applications/Google\ Chrome.app %<CR><CR> 
     autocmd Filetype lilypond noremap <buffer> <Leader>l :make <CR>
-                \ :cwin <CR><CR>
-                \ | compiler lilypond
+		\ :cwin <CR><CR>
+		\ | compiler lilypond
 
 augroup END
 "}
@@ -152,9 +151,9 @@ if filereadable(expand("~/.vim/bundle/powerline/powerline/bindings/vim/plugin/po
     set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
     set ttimeoutlen=10
     augroup FastEscape
-        autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
+	autocmd!
+	au InsertEnter * set timeoutlen=0
+	au InsertLeave * set timeoutlen=1000
     augroup END
 endif
 
@@ -162,33 +161,6 @@ endif
 " Nerd-Commenter {
 if filereadable(expand("~/.vim/bundle/The-NERD-Commenter/plugin/NERD_commenter.vim"))
     let NERD_c_alt_style=1
-endif
-" }
-
-" Pyclewn {
-
-if filereadable(expand("~/.vim/bundle/pyclewn/plugin/pyclewn.vim"))
-    autocmd FileType c let g:pyclewn_args="--window=bottom --gdb=async"
-                \ |    nore <buffer> <space> :C<space>
-                \ |    nore <buffer> ;b :exe "Cbreak " . expand("%:p") . ":" . line(".")<CR>
-                \ |    nore <buffer> ;p :exe "Cprint " . expand("<cword>")<CR>
-                \ |    nore <buffer> ;s :exe "Cstep"<CR>
-                \ |    nore <buffer> ;r :exe "Cstart"<CR>
-                \ |    nore <buffer> ;n :exe "Cnext"<CR>
-                \ |    nore <buffer> ;c :exe "Ccontinue"<CR>
-                \ |    nore <buffer> ;q :exe "Cquit<CR>"
-                \ |    nore <buffer> ;P :call Pyclewn1()<CR>
-                \ |    nore <buffer> ;dP :call Pyclewn2()<CR>
-                \ |    nore <buffer> ;u :exe "Cuntil " . line(".")<CR>
-    fun! Pyclewn1()
-        normal gv"ay
-        execute "Cprint " . @a
-    endfun
-    fun! Pyclewn2()
-        normal gv"ay
-        execute "Cprint *" . @a
-    endfun
-
 endif
 " }
 
@@ -219,41 +191,41 @@ endif
 if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
     nnoremap <leader>be :CtrlPBuffer<CR>
     let g:ctrlp_prompt_mappings = {
-                \ 'PrtBS()':              ['<bs>', '<c-]>'],
-                \ 'PrtDelete()':          ['<del>'],
-                \ 'PrtDeleteWord()':      ['<c-w>'],
-                \ 'PrtClear()':           ['<c-u>'],
-                \ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
-                \ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
-                \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
-                \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
-                \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
-                \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
-                \ 'PrtHistory(-1)':       ['<c-n>'],
-                \ 'PrtHistory(1)':        ['<c-p>'],
-                \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-                \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
-                \ 'AcceptSelection("t")': ['<c-t>'],
-                \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
-                \ 'ToggleFocus()':        ['<s-tab>'],
-                \ 'ToggleRegex()':        ['<c-r>'],
-                \ 'ToggleByFname()':      ['<c-d>'],
-                \ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
-                \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
-                \ 'PrtExpandDir()':       ['<tab>'],
-                \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
-                \ 'PrtInsert()':          ['<c-\>'],
-                \ 'PrtCurStart()':        ['<c-a>'],
-                \ 'PrtCurEnd()':          ['<c-e>'],
-                \ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
-                \ 'PrtCurRight()':        ['<c-l>', '<right>'],
-                \ 'PrtClearCache()':      ['<F5>'],
-                \ 'PrtDeleteEnt()':       ['<F7>'],
-                \ 'CreateNewFile()':      ['<c-y>'],
-                \ 'MarkToOpen()':         ['<c-z>'],
-                \ 'OpenMulti()':          ['<c-o>'],
-                \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
-                \ }
+		\ 'PrtBS()':              ['<bs>', '<c-]>'],
+		\ 'PrtDelete()':          ['<del>'],
+		\ 'PrtDeleteWord()':      ['<c-w>'],
+		\ 'PrtClear()':           ['<c-u>'],
+		\ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
+		\ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
+		\ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+		\ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+		\ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+		\ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
+		\ 'PrtHistory(-1)':       ['<c-n>'],
+		\ 'PrtHistory(1)':        ['<c-p>'],
+		\ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+		\ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+		\ 'AcceptSelection("t")': ['<c-t>'],
+		\ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
+		\ 'ToggleFocus()':        ['<s-tab>'],
+		\ 'ToggleRegex()':        ['<c-r>'],
+		\ 'ToggleByFname()':      ['<c-d>'],
+		\ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
+		\ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
+		\ 'PrtExpandDir()':       ['<tab>'],
+		\ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
+		\ 'PrtInsert()':          ['<c-\>'],
+		\ 'PrtCurStart()':        ['<c-a>'],
+		\ 'PrtCurEnd()':          ['<c-e>'],
+		\ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
+		\ 'PrtCurRight()':        ['<c-l>', '<right>'],
+		\ 'PrtClearCache()':      ['<F5>'],
+		\ 'PrtDeleteEnt()':       ['<F7>'],
+		\ 'CreateNewFile()':      ['<c-y>'],
+		\ 'MarkToOpen()':         ['<c-z>'],
+		\ 'OpenMulti()':          ['<c-o>'],
+		\ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
+		\ }
 endif
 
 " }
@@ -261,15 +233,15 @@ endif
 " YCM {
 if filereadable(expand("~/.vim/bundle/YouCompleteMe/plugin/youcompleteme.vim"))
     let g:ycm_filetype_blacklist = {
-                \ 'notes' : 1,
-                \ 'markdown' : 1,
-                \ 'text' : 1,
-                \}
+		\ 'notes' : 1,
+		\ 'markdown' : 1,
+		\ 'text' : 1,
+		\}
     let g:ycm_key_list_select_completion = ['<Down>']
     let g:ycm_key_list_previous_completion = ['<Up>']
     let g:ycm_allow_changing_updatetime = 0
     let g:ycm_confirm_extra_conf = 0
-    autocmd BufWritePost *.c,*.cpp,*.h silent YcmForceCompileAndDiagnostics
+    autocmd BufWritePost *.c,*.cpp,*.h,*.hpp silent YcmForceCompileAndDiagnostics
     nnoremap <leader>gt :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 endif
@@ -347,16 +319,11 @@ if filereadable(expand("~/.vim/bundle/CRefVim/plugin/crefvim.vim"))
 endif
 "}
 
-"if filereadable(expand("~/.vim/plugin/eclim.vim"))
-    "let g:EclimCompletionMethod = 'omnifunc'
-"endif
+if filereadable(expand("~/.vim/plugin/eclim.vim"))
+    let g:EclimCompletionMethod = 'omnifunc'
+endif
 
 
-"if filereadable(expand("/usr/local/lib/python2.7/site-packages/powerline/config_files/config.json"))
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
-"endif
 
 if has('gui_running')
     "set gui options
