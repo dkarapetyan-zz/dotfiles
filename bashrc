@@ -11,9 +11,9 @@ alias timidity="open -a QuickTime\ Player.app"
 alias val="valgrind --dsymutil=yes --suppressions=/Users/davidkarapetyan/.suppressions --leak-check=full --show-reachable=yes" 
 alias vi="/usr/local/bin/./vim"
 set -o vi
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:/usr/local/sbin:/Applications/MATLAB_R2010a.app/bin/maci:/Applications/LilyPond.app/Contents/Resources/bin:/usr/local/texlive/2011/bin/universal-darwin:/Developer/usr/bin:/~/.vim/bundle/pyclewn/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:/usr/local/sbin:/Applications/MATLAB_R2010a.app/bin/maci:/Applications/LilyPond.app/Contents/Resources/bin:/usr/local/texlive/2011/bin/universal-darwin
 export CLICOLOR=1
-export LSCOLORS=GxFxCxDxBxegedabagaced
+#export LSCOLORS=GxFxCxDxBxegedabagaced
 export LYEDITOR="vim --remote-tab-silent +:%(line)s:norm%(char)s %(file)s"
 export PAGER=`which less`
 export EDITOR="vim"
@@ -36,27 +36,4 @@ PS1='\[\033[32m\]\u:\[\033[36m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
 
 [[ -s "~/.rvm/scripts/rvm" ]] && . "~/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-#if vim compiled with clientserver
-cs=`command vim --version | grep "clientserver"`
-if [ "$cs" ]
-then
-  #Only use one instance of vim
-  function vim()
-  {
-    if [ "$@" ]
-    then
-      command vim --servername vim --remote-silent $@
-    else
-      pss=`ps`
-      temp=`echo $pss | grep -w "vim"`
-      if [ "$temp"  ]
-      then
-        echo "vim already open"
-      else
-        command vim --servername vim
-      fi
-    fi
-  }
-else
-  command vim $@
-fi
+i
