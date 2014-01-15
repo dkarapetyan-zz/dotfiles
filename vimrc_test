@@ -3,6 +3,21 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'tpope/vim-fugitive'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/syntastic'
+Bundle 'SirVer/UltiSnips'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-easytags'
+Bundle 'Lokaltog/powerline'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-rails'
+Bundle 'flazz/vim-colorschemes'
+Bundle 'vim-scripts/CRefVim'
+Bundle 'vim-scripts/stlrefvim'
 filetype plugin indent on 
 syntax enable
 

@@ -1,4 +1,5 @@
 $pdflatex = "pdflatex -synctex=1 -interaction=nonstopmode %O %S";
+$out_dir = 'output';
 $bibtex_use = 2;
 $print_type = 'pdf';
 $pdf_mode = 1;
