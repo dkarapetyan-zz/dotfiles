@@ -9,25 +9,17 @@ set rtp+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vi
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'myusuf3/numbers.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/syntastic'
 Bundle 'SirVer/UltiSnips'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'Lokaltog/powerline'
+"Bundle 'LaTeX-Box-Team/LaTeX-Box'
+"Bundle 'Lokaltog/powerline'
 Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-rails'
 Bundle 'majutsushi/tagbar'
-Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-easytags'
-Bundle 'tpope/vim-rails'
+Bundle 'gerw/vim-latex-suite'
 Bundle 'file:///Users/davidkarapetyan/.vim/bundle/my_snippets'
-Bundle 'file:///Users/davidkarapetyan/.vim/bundle/eclim'
-Bundle 'file:///Users/davidkarapetyan/.vim/bundle/plugin'
-
 filetype plugin indent on  "must come after bundles and rtp or vundle won't work
 syntax enable
 
@@ -61,7 +53,6 @@ set wrap
 set splitbelow
 set splitright              "vertical split to right
 set autoindent                  " Indent at the same level of the previous line
-set number
 set shiftwidth=4                " Use indents of 4 spaces
 set expandtab                   " Tabs are spaces, not tabs
 set tabstop=8                   " An indentation every 8 columns
@@ -129,16 +120,6 @@ augroup vimrc_autocmds
                 \ | let g:rubycomplete_rails = 1
     autocmd FileType eruby noremap <Leader>v :!open -a /Applications/Google\ Chrome.app <CR><CR>
     autocmd Filetype matlab  compiler mlint
-    autocmd Filetype tex 
-                \ | noremap <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
-                \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>:redraw!<CR>
-                \ | let g:LatexBox_viewer = "open"
-                \ | let g:LatexBox_latexmk_async=1
-                \ | let g:LatexBox_completion_commands = []
-                \ | let g:LatexBox_completion_environments = []
-                \ | set columns=82 lines=53
-
-    autocmd  BufWritePost *.tex silent Latexmk
 
     autocmd FileType html noremap <Leader>v :!open -a /Applications/Google\ Chrome.app %<CR><CR>
                 \ | compiler tidy
@@ -191,7 +172,7 @@ endif
 " Ultisnips {
 if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
     let g:UltiSnipsSnippetDirectories=["bundle/my_snippets"]
-    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsExpandTrigger="<c-Space>"
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
     nmap <leader>os :UltiSnipsEdit<CR>
@@ -337,11 +318,26 @@ if filereadable(expand("~/.vim/bundle/vim-fugitive/plugin/fugitive.vim"))
 endif
 "}
 
+if filereadable(expand("~/.vim/bundle/LaTeX-Box/ftplugin/latex-box/latexmk.vim"))
+                 noremap <silent> <Leader>ls :silent
+                \ !/Applications/Skim.app/Contents/SharedSupport/displayline
+                \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
+                \ "%:p" <CR>:redraw!<CR>
+                 let g:LatexBox_viewer = "open"
+                 "let g:LatexBox_completion_commands = []
+                 "let g:LatexBox_completion_environments = []
+                 set columns=82 lines=53
+                 let g:LatexBox_latexmk_preview_continuously=1
+                 let g:LatexBox_quickfix=2 
+                 "let g:LatexBox_build_dir="output"
+                 let g:tex_flavor="latex"
+    "autocmd  BufWritePost *.tex silent Latexmk
+endif
+"}
+
 if has('gui_running')
-    "set gui options
     set guifont=Consolas:h12 "Menlo:h12, Monaco:h12, Consolas:h12
     set clipboard=unnamed
-    "set antialias
     set guioptions-=L
     set guioptions-=l
     set guioptions-=R
