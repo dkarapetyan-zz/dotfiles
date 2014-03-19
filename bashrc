@@ -16,6 +16,9 @@ alias eclimd="/Applications/eclipse/eclimd"
 set -o vi
 shopt -s extglob
 export PATH=/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql93/bin:/usr/local/bin:/usr/local/sbin:/Applications/MacVim:/Applications/LilyPond.app/Contents/Resources/bin:$PATH
+export ANDROID_HOME=/usr/local/android-sdk-macosx
+export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+export PATH="/usr/local/heroku/bin:$PATH"
 export MANPATH=/opt/local/share/man:$MANPATH
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
@@ -54,5 +57,4 @@ man() {
 # Load RVM into a shell session *as a function*
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
 
