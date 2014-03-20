@@ -16,9 +16,9 @@ Bundle 'scrooloose/syntastic'
 Bundle 'SirVer/UltiSnips'
 "Bundle 'LaTeX-Box-Team/LaTeX-Box'
 "Bundle 'Lokaltog/powerline'
-Bundle 'kien/ctrlp.vim'
+"Bundle 'kien/ctrlp.vim'
+Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
 Bundle 'majutsushi/tagbar'
-Bundle 'gerw/vim-latex-suite'
 Bundle 'file:///Users/davidkarapetyan/.vim/bundle/my_snippets'
 filetype plugin indent on  "must come after bundles and rtp or vundle won't work
 syntax enable
@@ -158,107 +158,18 @@ if filereadable(expand("~/.vim/bundle/The-NERD-Commenter/plugin/NERD_commenter.v
 endif
 " }
 
-" Supertab {
-if filereadable(expand("~/.vim/bundle/supertab/plugin/supertab.vim"))
-    let g:SuperTabDefaultCompletionType = "context"
-    let g:SuperTabMappingForward = '<c-n>'
-    let g:SuperTabMappingBackward = '<c-p>'
-    let g:SuperTabLongestHighlight = 1
-    let g:SuperTabLongestEnhanced = 1
-endif
-
-"}
 
 " Ultisnips {
 if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
     let g:UltiSnipsSnippetDirectories=["bundle/my_snippets"]
     let g:UltiSnipsExpandTrigger="<c-Space>"
-    let g:UltiSnipsJumpForwardTrigger="<c-j>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
     nmap <leader>os :UltiSnipsEdit<CR>
     let g:UltiSnipsEditSplit="horizontal" 
 endif
 
 " }
-
-" Ctrlp {
-if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
-    nnoremap <leader>be :CtrlPBuffer<CR>
-    let g:ctrlp_prompt_mappings = {
-                \ 'PrtBS()':              ['<bs>', '<c-]>'],
-                \ 'PrtDelete()':          ['<del>'],
-                \ 'PrtDeleteWord()':      ['<c-w>'],
-                \ 'PrtClear()':           ['<c-u>'],
-                \ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
-                \ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
-                \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
-                \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
-                \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
-                \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
-                \ 'PrtHistory(-1)':       ['<c-n>'],
-                \ 'PrtHistory(1)':        ['<c-p>'],
-                \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-                \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
-                \ 'AcceptSelection("t")': ['<c-t>'],
-                \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
-                \ 'ToggleFocus()':        ['<s-tab>'],
-                \ 'ToggleRegex()':        ['<c-r>'],
-                \ 'ToggleByFname()':      ['<c-d>'],
-                \ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
-                \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
-                \ 'PrtExpandDir()':       ['<tab>'],
-                \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
-                \ 'PrtInsert()':          ['<c-\>'],
-                \ 'PrtCurStart()':        ['<c-a>'],
-                \ 'PrtCurEnd()':          ['<c-e>'],
-                \ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
-                \ 'PrtCurRight()':        ['<c-l>', '<right>'],
-                \ 'PrtClearCache()':      ['<F5>'],
-                \ 'PrtDeleteEnt()':       ['<F7>'],
-                \ 'CreateNewFile()':      ['<c-y>'],
-                \ 'MarkToOpen()':         ['<c-z>'],
-                \ 'OpenMulti()':          ['<c-o>'],
-                \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
-                \ }
-"let g:ctrlp_extensions = ['tag', 'mixed', 'bookmarkdir']
-let g:ctrlp_extensions = ['tag', 'buffertag'] 
-endif
-
-" }
-
-" YCM {
-if filereadable(expand("~/.vim/bundle/YouCompleteMe/plugin/youcompleteme.vim"))
-    let g:ycm_filetype_blacklist = {
-                \ 'notes' : 1,
-                \ 'markdown' : 1,
-                \ 'text' : 1,
-                \}
-    let g:ycm_key_list_select_completion = ['<Down>']
-    let g:ycm_key_list_previous_completion = ['<Up>']
-    "let g:ycm_allow_changing_updatetime = 0
-    let g:ycm_confirm_extra_conf = 0
-    let g:ycm_autoclose_preview_window_after_completion = 1
-    "let g:ycm_register_as_syntastic_checker = 1
-
-    "autocmd BufWritePost *.c,*.cpp,*.h,*.hpp silent YcmForceCompileAndDiagnostics
-    nnoremap <leader>gt :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-endif
-
-
-
-
-" Easytags {
-if filereadable(expand("~/.vim/bundle/vim-easytags/plugin/easytags.vim"))
-    let g:easytags_dynamic_files = 1
-    let g:easytags_updatetime_warn = 0
-    "let g:easytags_events = ['BufWritePost']
-    "let g:easytags_include_members = 1
-    "highlight link cMember Special
-    "highlight cMember gui=italic
-endif
-" }
-
 
 
 " Solarized {
@@ -328,9 +239,9 @@ if filereadable(expand("~/.vim/bundle/LaTeX-Box/ftplugin/latex-box/latexmk.vim")
                  "let g:LatexBox_completion_environments = []
                  set columns=82 lines=53
                  let g:LatexBox_latexmk_preview_continuously=1
-                 let g:LatexBox_quickfix=2 
+                 "let g:LatexBox_quickfix=2 
                  "let g:LatexBox_build_dir="output"
-                 let g:tex_flavor="latex"
+                 "let g:tex_flavor="latex"
     "autocmd  BufWritePost *.tex silent Latexmk
 endif
 "}
@@ -349,4 +260,5 @@ if has('gui_running')
     "let gcr="a:blinkon0" 
     "autocmd filetype * highlight tagbarsignature guifg=bg 
 endif
+
 
