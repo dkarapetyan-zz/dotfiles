@@ -7,31 +7,40 @@ if 1
 
 	set rtp+=~/.vim/bundle/vundle/
 	set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-	set rtp+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim
-
 	call vundle#rc()
+	"Bundle 'LaTeX-Box-Team/LaTeX-Box'
 	Bundle 'gmarik/vundle'
 	Bundle 'tpope/vim-fugitive'
 	Bundle 'scrooloose/nerdcommenter'
-	Bundle 'altercation/vim-colors-solarized'
-	Bundle 'scrooloose/syntastic'
+	Bundle 'Valloric/YouCompleteMe'
+	"Bundle 'scrooloose/syntastic'
 	Bundle 'SirVer/UltiSnips'
 	Bundle 'flazz/vim-colorschemes'
 	Bundle 'Lokaltog/powerline'
-	Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
+	Bundle 'vim-scripts/Vim-R-plugin'
+Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
 	let mapleader="," " must put before plugins are loaded--otherwise, won't work
 	let maplocalleader=","
 	let g:tex_flavor="latex"
-
 	filetype plugin indent on  "must come after bundles and rtp or vundle won't work
 	syntax enable
 
+	let g:solarized_termtrans = 1
+	let g:solarized_contrast = "high"
+	let g:solarized_visibility = "high"
+	"let g:solarized_hitrail = 1
+	let g:solarized_menu = 0
+	colorscheme solarized
+	set bg=dark
+	"highlight clear Type 
+	"highlight link cTypeTag Include
+	"call togglebg#map("<F5>")
 	set completeopt=longest,menu
 	set pumheight=15
 	set lines=45
 	set t_Co=256
 	set shortmess+=filmnrxoOtT  
-	"set virtualedit=onemore             " Allow for cursor beyond last character
+	set virtualedit=onemore             " Allow for cursor beyond last character
 	set history=1000  
 	set clipboard=unnamed
 	set cmdheight=2                 " helps avoid hit enter prompt
@@ -78,7 +87,11 @@ if 1
 	" Custom Global Mappings {
 	command! W w
 	command! Wq wq
-	command! WQ wq 
+	command! WQ wq
+
+	inoremap <C-f> <right>
+	inoremap <C-n> <down>
+	inoremap <C-p> <up>
 	noremap Q <Nop>
 	nnoremap <leader>ot :!open -a iTerm ./<CR><CR>
 	noremap <leader>ox :!open -a Excalibur %<CR><CR>
@@ -123,18 +136,52 @@ augroup vimrc_autocmds
 	autocmd BufEnter * if !has('gui_running')
 				\	| set term=xterm-256color | endif "for tmux rendering
 	autocmd BufEnter *.tex set iskeyword+=:
-	"autocmd BufEnter *.tex map <buffer> <c-j> <Esc>/<++><CR><Esc>cf>
-	"autocmd BufEnter *.tex imap <buffer> <c-j> <Esc>/<++><CR><Esc>cf>
-	"autocmd BufEnter *.tex inoremap <buffer> [ []<++><Esc>F]i
-	"autocmd BufEnter *.tex inoremap <buffer> { {}<++><Esc>F}i
-	"autocmd BufEnter *.tex inoremap <buffer> ^ ^{}<++><Esc>F}i
-	"autocmd BufEnter *.tex inoremap <buffer> _ _{}<++><Esc>F}i
-	"autocmd BufEnter *.tex inoremap <buffer> " ``''<++><Esc>F`a
-	"autocmd BufEnter *.tex inoremap <buffer> $ $$<++><Esc>F$i
-	"autocmd BufEnter *.tex inoremap <buffer> ( ()<++><Esc>F)i
-	"autocmd BufEnter *.tex inoremap <buffer> & \frac{}{<++>}<++><Esc>Fc<right>a
-	autocmd BufWritePost *.tex silent execute ":!latexmk -pdf " . expand('%') . " >out.log &"
 	"autocmd BufWritePost *.tex :call Tex_CompileMultipleTimes()
+	"autocmd Filetype tex inoremap <buffer> <Leader>a \alpha
+			"\|inoremap <buffer> <Leader>b \beta
+			"\|inoremap <buffer> <Leader>c \chi
+			"\|inoremap <buffer> <Leader>d \delta
+			"\|inoremap <buffer> <Leader>e \varepsilon
+			"\|inoremap <buffer> <Leader>f \varphi
+			"\|inoremap <buffer> <Leader>g \gamma
+			"\|inoremap <buffer> <Leader>h \eta
+			"\|inoremap <buffer> <Leader>i \iota
+			"\|inoremap <buffer> <Leader>k \kappa
+			"\|inoremap <buffer> <Leader>l \lambda
+			"\|inoremap <buffer> <Leader>m \mu
+			"\|inoremap <buffer> <Leader>n \nu
+			"\|inoremap <buffer> <Leader>o \omega
+			"\|inoremap <buffer> <Leader>p \pi
+			"\|inoremap <buffer> <Leader>q \theta
+			"\|inoremap <buffer> <Leader>r \rho
+			"\|inoremap <buffer> <Leader>s \sigma
+			"\|inoremap <buffer> <Leader>t \tau
+			"\|inoremap <buffer> <Leader>u \upsilon
+			"\|inoremap <buffer> <Leader>v \vee
+			"\|inoremap <buffer> <Leader>w \wedge
+			"\|inoremap <buffer> <Leader>x \xi
+			"\|inoremap <buffer> <Leader>y \psi
+			"\|inoremap <buffer> <Leader>z \zeta
+			"\|inoremap <buffer> <Leader>D \Delta
+			"\|inoremap <buffer> <Leader>I \Iota
+			"\|inoremap <buffer> <Leader>F \Phi
+			"\|inoremap <buffer> <Leader>G \Gamma
+			"\|inoremap <buffer> <Leader>L \Lambda
+			"\|inoremap <buffer> <Leader>N \nabla
+			"\|inoremap <buffer> <Leader>O \Omega
+			"\|inoremap <buffer> <Leader>Q \Theta
+			"\|inoremap <buffer> <Leader>R \varrho
+			"\|inoremap <buffer> <Leader>S \Sigma
+			"\|inoremap <buffer> <Leader>U \Upsilon
+			"\|inoremap <buffer> <Leader>X \Xi
+			"\|inoremap <buffer> <Leader>Y \Psi
+			"\|inoremap	<buffer> ^ ^{}<Left>
+			"\|inoremap	<buffer> _ _{}<Left>
+			"\|inoremap	<buffer> $ $$<Left>
+			"\|inoremap	<buffer> ( ()<Left>
+			"\|inoremap <buffer> { {}<Left>
+			"\|inoremap	<buffer> | ||<Left>
+			"\|inoremap <buffer> [ []<Left>
 augroup END
 "}
 
@@ -159,27 +206,14 @@ if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
 	"let g:UltiSnipsSnippetDirectories=["my_snippets"]
 	let g:UltiSnipsExpandTrigger="<tab>"
 	let g:UltiSnipsJumpForwardTrigger="<tab>"
-	let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 	nmap <leader>os :UltiSnipsEdit<CR>
 	let g:UltiSnipsEditSplit="horizontal"
-endif
-
-" }
-
-
-" Solarized {
-if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-	let g:solarized_termtrans = 1
-	let g:solarized_contrast = "high"
-	let g:solarized_visibility = "high"
-	let g:solarized_hitrail = 1
-	let g:solarized_menu = 0
-	colorscheme solarized
-	set bg=dark
-	colorscheme solarized
-	"highlight clear Type 
-	"highlight link cTypeTag Include
-	"call togglebg#map("<F5>")
+	"inoremap <silent> $ $<C-R>=UltiSnips#Anon('\$$1\$', '$', '', 'i')<cr>
+	"inoremap <silent> [ [<C-R>=UltiSnips#Anon('[$1]', '[', '', 'i')<cr>
+	"inoremap <silent> _ _<C-R>=UltiSnips#Anon('_{$1}', '_', '', 'i')<cr>
+	"inoremap <silent> ^ ^<C-R>=UltiSnips#Anon('^{$1}', '^', '', 'i')<cr>
+	"inoremap <silent> ( (<C-R>=UltiSnips#Anon('($1)', '(', '', 'i')<cr>
 endif
 
 " }
@@ -203,25 +237,21 @@ if filereadable(expand("~/.vim/bundle/LaTeX-Box/ftplugin/latex-box/latexmk.vim")
 				\ !/Applications/Skim.app/Contents/SharedSupport/displayline
 				\ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
 				\ "%:p" <CR>:redraw!<CR>
-	let g:LatexBox_latexmk_async=1
-	let g:LatexBox_Folding=1
+	"let g:LatexBox_latexmk_async=1
+	let g:LatexBox_complete_inlineMath=1
+	let g:LatexBox_Folding=0
 	let g:LatexBox_fold_envs=0
-	let g:LatexBox_eq_env_patterns=0
 	let g:LatexBox_fold_sections = [
 				\ "part",
 				\ "chapter",
 				\ "section",
 				\ ]
 	let g:LatexBox_viewer = "open"
-	let g:LatexBox_completion_commands = []
-	let g:LatexBox_completion_environments = []
+	"let g:LatexBox_completion_commands = []
+	"let g:LatexBox_completion_environments = []
 	set columns=82 lines=53
 	let g:LatexBox_latexmk_preview_continuously=1
-	let g:tex_flavor="latex"
+	let g:LatexBox_quickfix=0
+
 endif
 "}
-
-"let g:tex_nine_config = {
-        "\'compiler': 'pdflatex',
-        "\'viewer': {'app':'open', 'target':'pdf'}
-    "\}
