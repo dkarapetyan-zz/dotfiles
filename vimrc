@@ -6,19 +6,21 @@ if 1
 	filetype off
 
 	set rtp+=~/.vim/bundle/vundle/
-	set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+	"set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 	call vundle#rc()
 	"Bundle 'LaTeX-Box-Team/LaTeX-Box'
 	Bundle 'gmarik/vundle'
 	Bundle 'tpope/vim-fugitive'
-	Bundle 'scrooloose/nerdcommenter'
-	Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/nerdcommenter'
+	"Bundle 'Valloric/YouCompleteMe'
 	"Bundle 'scrooloose/syntastic'
+	"Bundle 'scrooloose/nerdtree'
 	Bundle 'SirVer/UltiSnips'
 	Bundle 'flazz/vim-colorschemes'
-	Bundle 'Lokaltog/powerline'
+	"Bundle 'Lokaltog/powerline'
+	Bundle 'kien/ctrlp.vim'
 	Bundle 'vim-scripts/Vim-R-plugin'
-Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
+	Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
 	let mapleader="," " must put before plugins are loaded--otherwise, won't work
 	let maplocalleader=","
 	let g:tex_flavor="latex"
@@ -70,7 +72,7 @@ Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
 	set softtabstop=2               " Let backspace delete indent
 	set ttyscroll=3                " cleaner scrolling with fewer flashes
 	set nofen 
-	set swapfile
+	set noswapfile
 	set backup
 	set backupdir=~/.vim/.backup//
 	set directory=~/.vim/.swp//
@@ -122,7 +124,7 @@ if has('gui_running')
 	set guioptions-=T
 	set guioptions-=t
 	set guioptions-=b "turn off scrollbars and toolbar
-	set guifont=Inconsolata\ For\ Powerline:h14
+	set guifont=Inconsolata\ For\ Powerline:h13
 	"let gcr="a:blinkon0" 
 	"autocmd filetype * highlight tagbarsignature guifg=bg 
 endif
