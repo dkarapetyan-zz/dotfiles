@@ -5,30 +5,30 @@ if 1
 	set nocompatible
 	filetype off
 
-	set rtp+=~/.vim/bundle/Vundle.vim/
+	set rtp+=~/.vim/bundle/Vundle.vim
+	"set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 	call vundle#begin()
-	"Plugin 'LaTeX-Box-Team/LaTeX-Box'
-	Plugin 'gmarik/Vundle.vim'
-	Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdcommenter'
-	"Plugin 'Valloric/YouCompleteMe'
-	"Plugin 'scrooloose/syntastic'
-	"Plugin 'scrooloose/nerdtree'
-	"Plugin 'SirVer/UltiSnips'
-	Plugin 'flazz/vim-colorschemes'
-	"Plugin 'Lokaltog/powerline'
-	Plugin 'kien/ctrlp.vim'
-	Plugin 'vim-scripts/Vim-R-plugin'
-	Plugin 'ivanov/vim-ipython'
-	Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
-	Plugin 'honza/vim-snippets'
+	"Bundle 'LaTeX-Box-Team/LaTeX-Box'
+	Bundle 'gmarik/Vundle.vim'
+	Bundle 'tpope/vim-fugitive'
+Bundle 'scrooloose/nerdcommenter'
+	"Bundle 'Valloric/YouCompleteMe'
+	"Bundle 'scrooloose/syntastic'
+	"Bundle 'scrooloose/nerdtree'
+	Bundle 'SirVer/UltiSnips'
+	Bundle 'flazz/vim-colorschemes'
+	"Bundle 'Lokaltog/powerline'
+	"	Bundle 'kien/ctrlp.vim'
+	"Bundle 'vim-scripts/Vim-R-plugin'
+	"Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
+	Bundle 'ivanov/vim-ipython'
 	call vundle#end()
-	filetype plugin indent on  
-	syntax on
-
 	let mapleader="," " must put before plugins are loaded--otherwise, won't work
 	let maplocalleader=","
 	let g:tex_flavor="latex"
+	"filetype plugin indent on  "must come after bundles and rtp or vundle won't work
+	"syntax enable
+
 	let g:solarized_termtrans = 1
 	let g:solarized_contrast = "high"
 	let g:solarized_visibility = "high"
