@@ -7,19 +7,11 @@ if 1
 
 	set rtp+=~/.vim/bundle/Vundle.vim/
 	call vundle#begin()
-	"Plugin 'LaTeX-Box-Team/LaTeX-Box'
-	Plugin 'gmarik/Vundle.vim'
+	Plugin 'VundleVim/Vundle.vim'
 	Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdcommenter'
-	"Plugin 'Valloric/YouCompleteMe'
-	"Plugin 'scrooloose/syntastic'
-	"Plugin 'scrooloose/nerdtree'
-	"Plugin 'SirVer/UltiSnips'
+	Plugin 'scrooloose/nerdcommenter'
+	Plugin 'SirVer/UltiSnips'
 	Plugin 'flazz/vim-colorschemes'
-	"Plugin 'Lokaltog/powerline'
-	Plugin 'kien/ctrlp.vim'
-	Plugin 'vim-scripts/Vim-R-plugin'
-	Plugin 'ivanov/vim-ipython'
 	Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
 	Plugin 'honza/vim-snippets'
 	call vundle#end()
@@ -102,7 +94,6 @@ Plugin 'scrooloose/nerdcommenter'
 	nnoremap <leader>oV :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 	nnoremap <leader>ov :sp ~/dotfiles/vimrc<CR>
 	nnoremap <leader>a mcgg=G`c
-	map <leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-r>=line('.')<CR> %<.pdf %<CR>
 	nnoremap Y y$
 	noremap j gj
 	noremap k gk
@@ -126,7 +117,8 @@ if has('gui_running')
 	set guioptions-=T
 	set guioptions-=t
 	set guioptions-=b "turn off scrollbars and toolbar
-	set guifont=Inconsolata\ For\ Powerline:h13
+	"set guifont=Inconsolata\ For\ Powerline:h13
+	set guifont=Menlo:h12
 	"let gcr="a:blinkon0" 
 	"autocmd filetype * highlight tagbarsignature guifg=bg 
 endif
@@ -192,20 +184,25 @@ augroup END
 
 "Plugin Loading {
 
-"if filereadable(expand("~/.vim/bundle/powerline/powerline/bindings/vim/plugin/powerline.vim"))
-	"set laststatus=2 " Always display the statusline in all windows
-	"set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-	"set ttimeoutlen=10
-	"augroup FastEscape
-		"autocmd!
-		"au InsertEnter * set timeoutlen=0
-		"au InsertLeave * set timeoutlen=1000
-	"augroup END
-"endif
+if filereadable(expand("~/.vim/bundle/powerline/powerline/bindings/vim/plugin/powerline.vim"))
+	set laststatus=2 " Always display the statusline in all windows
+	set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+	set ttimeoutlen=10
+	augroup FastEscape
+		autocmd!
+		au InsertEnter * set timeoutlen=0
+		au InsertLeave * set timeoutlen=1000
+	augroup END
+endif
 
+" Vim-Latex { Requires vim 7.4+ to work properly with Ultisnips
+if filereadable(expand("~/.vim/bundle/vim-latex/ftplugin/latex-suite/texrc"))
+	let g:Tex_DefaultTargetFormat = 'pdf'
+	let g:Tex_ViewRule_pdf = 'open -a Skim'
+	map <leader>lk :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR>:redraw!<CR>
+"}
 
-
-" Ultisnips {
+" Ultisnips { Requires vim 7.4+
 if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
 	"let g:UltiSnipsSnippetDirectories=["my_snippets"]
 	let g:UltiSnipsExpandTrigger="<tab>"
