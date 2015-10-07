@@ -10,72 +10,72 @@
 \title{Notes for Columbia_Engineers_Analytics_John Meeting}
 
 \begin{document}
-	\section{DiBoss and TPO Team Decisions}
-\begin{enumerate} 
-	\item $2000$ original timestamps, which were culled down to $400$ of what 
-	Ashish thought were the most useful.
+\section{DiBoss and TPO Team Decisions}
+\begin{enumerate}
+	\item $2000$ original timestamps, which were culled down to $400$ of what
+		Ashish thought were the most useful.
 	\item Then, the building operators/engineers decided which points among
-	those were the most import
+		those were the most import
 	\item The BMS has many outages, which results in a string of $0$'s
-	in the time-series
+		in the time-series
 	\item Data integrity issues:
-	\begin{enumerate}[(a)]
-		\item system shutdowns 
-		\item data spikes resulting in output $>> 1$
-		\item repeating (sticky) values
-	\end{enumerate}
+		\begin{enumerate}[(a)]
+			\item system shutdowns
+			\item data spikes resulting in output $>> 1$
+			\item repeating (sticky) values
+		\end{enumerate}
 	\item bad data is filtered by TPO, and filled via linear interpolation $<2$
-	hours on the fly
+		hours on the fly
 	\item when TPO is not getting on-the-fly data, it sends the same data
-	over and over again to the DiBoss front-end
+		over and over again to the DiBoss front-end
 	\item Selex contract for DiBoss ends June $30$.
 \end{enumerate}
-	\section{Columbia/Engineers/John/Neal Meeting 10/2/2015}
-	\begin{enumerate}
+\section{Columbia/Engineers/John/Neal Meeting 10/2/2015}
+\begin{enumerate}
 	\item Rampdown happens itself, via BMS
-	\item Engineers interested primarily in start-up time forecasting and 
-	occupancy forecasting
+	\item Engineers interested primarily in start-up time forecasting and
+		occupancy forecasting
 	\item Rampdown occurs at $4:00$pm by default at the latest--the system will
-	pick up on the time people are leaving, and ramp down automatically
+		pick up on the time people are leaving, and ramp down automatically
 	\item Occupancy forecasts are, hence, more for the engineers and manual
-	operations
-	\item The BMS for 560 Lexington has sensors that measure pressure on air 
-	ducts (VFD), which signal for fans to slow down (hardware, instantaneous
-	calibration--this will beat any statistical forecast, which has, no matter 
-	how refined, some noise. Over time, noise will cancel itself out, but for
-	short times, definitely not. As a result, building costs will be incurred 
-	in the beginning phases of an installation of the new DiBoss. Hence, VFD 
-	looks like a good idea--can avoid this initial noise cost by investing in 
-	cheap hardware)
-	\item BMS regulates interior space temperature--so, as long as start time 
-	is good, we're good (Gene Boniberger). Space temperature by sector--so we 
-	backwards iterate from sector with highest temperature at first inflection 
-	point, in order to determine start-up time for whole building. Later, can 
-	refine so that we have start-up times for each sector, by backwards 
-	iterating from their individual time-series
-	\item However, fan adjustments are not automated in some buildings--some 
-	may not have VFDs
+		operations
+	\item The BMS for 560 Lexington has sensors that measure pressure on air
+		ducts (VFD), which signal for fans to slow down (hardware, instantaneous
+		calibration--this will beat any statistical forecast, which has, no matter
+		how refined, some noise. Over time, noise will cancel itself out, but for
+		short times, definitely not. As a result, building costs will be incurred
+		in the beginning phases of an installation of the new DiBoss. Hence, VFD
+		looks like a good idea--can avoid this initial noise cost by investing in
+		cheap hardware)
+	\item BMS regulates interior space temperature--so, as long as start time
+		is good, we're good (Gene Boniberger). Space temperature by sector--so we
+		backwards iterate from sector with highest temperature at first inflection
+		point, in order to determine start-up time for whole building. Later, can
+		refine so that we have start-up times for each sector, by backwards
+		iterating from their individual time-series
+	\item However, fan adjustments are not automated in some buildings--some
+		may not have VFDs
 	\item However, VFDs can always be installed--the real issue is whether
-	the VFDs are linked via BMS to the occupancy (Gene)
-	\item In the winter months, $6$am to $11$am is monitored for steam 
-	emissions--anything above a certain threshold, and Rudin gets an excessive 
-	charge. Hence, an additional cost function must be provided to the TPO 
-	model in the winter months. However, this is just an edge case, and can be 
-	dealt with once we already have a beta of the product
+		the VFDs are linked via BMS to the occupancy (Gene)
+	\item In the winter months, $6$am to $11$am is monitored for steam
+		emissions--anything above a certain threshold, and Rudin gets an excessive
+		charge. Hence, an additional cost function must be provided to the TPO
+		model in the winter months. However, this is just an edge case, and can be
+		dealt with once we already have a beta of the product
 	\item For fan speed, we can assume $100\%$ instantaneous speed for the fans
-	once they are started up. Some buildings do have fans that can be operated 
-	at a fraction of full capacity, but Gene is looking to just blast all fans
-	in a building once start-up is initiated. He'd rather just calibrate
-	the actual start-up time, which makes much more sense to me--one start up 
-	time vs. multiple fans. This is a less-prone-to-error approach
-	\item Gene will provide a temperature chart for start-up, to help forecast 
-	start-up time. This is KEY. More precisely, we will be able to answer the 
-	following question: how many minutes did it take to get to an inflection 
-	point in interior space temperature for a given ramp-up time, with outside 
-	air temperature equal to X?
+		once they are started up. Some buildings do have fans that can be operated
+		at a fraction of full capacity, but Gene is looking to just blast all fans
+		in a building once start-up is initiated. He'd rather just calibrate
+		the actual start-up time, which makes much more sense to me--one start up
+		time vs. multiple fans. This is a less-prone-to-error approach
+	\item Gene will provide a temperature chart for start-up, to help forecast
+		start-up time. This is KEY. More precisely, we will be able to answer the
+		following question: how many minutes did it take to get to an inflection
+		point in interior space temperature for a given ramp-up time, with outside
+		air temperature equal to X?
 	\item Startup$=$startup of fans
-	\item People who worked on TPO2: 6 full-time equivalent people ($60+$ hours 
-	a week)
+	\item People who worked on TPO2: 6 full-time equivalent people ($60+$ hours
+		a week)
 	\item Included Ashish, Albert, Roger, and Leon (all full-time)
 	\item Total number of employees, full-time and not, was $12$.
 \end{enumerate}
@@ -83,100 +83,101 @@
 \begin{enumerate}
 	\item{VPN} ID: remote Pass: easyaccess
 	\item{Remote Desktop} ID: ColumbiaAdmin Pass: ColumbiaPassword00
-	\item{Cisco IPSEC VPN} ID: as.aboulanger.com 
-	ServerName:	rudin.aboulanger.com
-	\item{SVN} ID: AlbertBoulanger Pass: sk8sk8 Server: 
-	\url{https://power.ldeo.columbia.edu/svn/Proj/SmartGrid}
+	\item{Cisco IPSEC VPN} ID: as.aboulanger.com
+		ServerName:	rudin.aboulanger.com
+	\item{SVN} ID: AlbertBoulanger Pass: sk8sk8 Server:
+		\url{https://power.ldeo.columbia.edu/svn/Proj/SmartGrid}
 \end{enumerate}
 \section{TPO3}
 \begin{enumerate}
 	\item Hidden Markov Chain implemented by Hooshmand (Biogenetics dept.)
 	\item Random Forest Regression implemented by Hooshmand
-	\item Ashish's goto expert for statstical questions was Lauren Hanna	
+	\item Ashish's goto expert for statstical questions was Lauren Hanna
 \end{enumerate}
 \section{Meeting With Lawyers 06/29/2015}
 \begin{enumerate}
 	\item What is exclusive ownership of TPO worth?
-	\item What can we use in DiBoss that we do not have an inventorship claim 
-	to?
-	\item Ideal situation is to just have a clean story--may alone make 
-	purchasing TPO worthwhile
+	\item What can we use in DiBoss that we do not have an inventorship claim
+		to?
+	\item Ideal situation is to just have a clean story--may alone make
+		purchasing TPO worthwhile
 	\item Columbia is getting inquiries from $3$rd parties
-	\item Decision by lawyers at meeting is to pursue deal to gain access to 
-	software and have own the name ``DiBoss''.
-	\item Deal with Columbia would be based on royalties 
+	\item Decision by lawyers at meeting is to pursue deal to gain access to
+		software and have own the name ``DiBoss''.
+	\item Deal with Columbia would be based on royalties
 \end{enumerate}
 \section{Elevators}
 \begin{enumerate}
 	\item Elevators--don't have Selex involvement
 	\item Each car has $150$ data points
-	\item When it gets to the threshold of number of warnings, the car goes 
-	into maintenance mode
-	\item Company gets notified only when the elevator turns off (not good, 
-	company should be notified, along with engineers, when warning threshold is 
-	approached or attained)
-	\item Gene wants a tab on the front-end displaying elevator data with 
-	\emph{all} warnings
+	\item When it gets to the threshold of number of warnings, the car goes
+		into maintenance mode
+	\item Company gets notified only when the elevator turns off (not good,
+		company should be notified, along with engineers, when warning threshold is
+		approached or attained)
+	\item Gene wants a tab on the front-end displaying elevator data with
+		\emph{all} warnings
 \end{enumerate}
 \section{John's Questions After Return from Italy}
 \begin{enumerate}
 	\item Have you seen the DiBoss source code?
 	\item Are you comfortable with the source code?
 	\item Are you confident in the support Selex can provide
-	for the system, even if it is minimal?
+		for the system, even if it is minimal?
 	\item Are you confident in the transfer process of the DiBoss product?
-	Of the source code?
+		Of the source code?
 \end{enumerate}
 \section{Things to Do Differently (Gene)}
 \begin{enumerate}
-	\item Plot scaling is often terrible (due to outlier values). Solution on 
-	analytics end: filter out outliers before plotting, and offer user option 
-	to view the outliers in a separate plot
-	\item Currently, there is a mislabeling of temperatures, sensors, and 
-	titles for plots. $6$ measurements for the chiller, when only $4$ are 
-	needed by the engineers.
+	\item Plot scaling is often terrible (due to outlier values). Solution on
+		analytics end: filter out outliers before plotting, and offer user option
+		to view the outliers in a separate plot
+	\item Currently, there is a mislabeling of temperatures, sensors, and
+		titles for plots. $6$ measurements for the chiller, when only $4$ are
+		needed by the engineers.
 	\item Predict startup-time accurately. \emph{Most Important}
 	\item For electric, give a benchmark of best usage, vs. today
-	\item Include line with peak usage of electricity, since there is a penalty 
-	Rudin is assessed by Con-Edison for electricity usage above a certain 
-	threshold
-	\item Lease contract states that system ramp-up must be by 8:00 am (for 
-	some buildings, it is 7:00). For example--345 Park: 7, 40 East: 7, 80 Pine: 
-	24/7 on, 1 Battery Park: Monday-Friday, 8:00am-1:00am
+	\item Include line with peak usage of electricity, since there is a penalty
+		Rudin is assessed by Con-Edison for electricity usage above a certain
+		threshold
+	\item Lease contract states that system ramp-up must be by 8:00 am (for
+		some buildings, it is 7:00). For example--345 Park: 7, 40 East: 7, 80 Pine:
+		24/7 on, 1 Battery Park: Monday-Friday, 8:00am-1:00am
 \end{enumerate}
 \section{TPO3}
 \begin{enumerate}
 	\item HVAC optimization problem. TPO3 is an \emph{optimizer}
 	\item TPO2 provided forecasts for steam, electricity, etc and recommended
-	a startup time and ramp down time based on a posteriori observations (for 
-	example, operator behavior in the past)
-	\item TPO3 changed things up. No longer depends on past operator behavior, 
-	like TPO2. Based on optimization instead. Instead, it has its own 
-	forecaster, the heart of which is an objective function with arguments 
-	\emph{temperature violations} and \emph{energy costs}
+		a startup time and ramp down time based on a posteriori observations (for
+		example, operator behavior in the past)
+	\item TPO3 changed things up. No longer depends on past operator behavior,
+		like TPO2. Based on optimization instead. Instead, it has its own
+		forecaster, the heart of which is an objective function with arguments
+		\emph{temperature violations} and \emph{energy costs}
 	\item TPO3 is currently running at 345 Park
-	\item Training data comes from past operator usage, but forecasts don't 
-	care about operator actions in present (uh, why should they--SVM and ARMA 
-	type models operate in a similar fashion)
-	\item Trying to predict next state (can use Viterbi, but this is just ARMA 
-	type with a bit more complexity, perhaps unneeded complexity)
+	\item Training data comes from past operator usage, but forecasts don't
+		care about operator actions in present (uh, why should they--SVM and ARMA
+		type models operate in a similar fashion)
+	\item Trying to predict next state (can use Viterbi, but this is just ARMA
+		type with a bit more complexity, perhaps unneeded complexity)
 	\item State vectors include VPT frequencies
-	\item Hooshmand currently looking into SAX for anomaly detection via 
-	discretization and clustering. (Cousin to Haar wavelets)
-	\item Wanted three months of funding to look at other approaches for 
-	anomaly detection
+	\item Hooshmand currently looking into SAX for anomaly detection via
+		discretization and clustering. (Cousin to Haar wavelets)
+	\item Wanted three months of funding to look at other approaches for
+		anomaly detection
 \end{enumerate}
 \section{Scrum 10/05}
 \begin{enumerate}
-	\item Unless turnstiles are at the bank level, won't know which sector of 
-	building people are going to based on turnstiles.
-	\item 32, 80 Pine are some of 
-	those where turnstiles DO tell us which sector of building people are 
-	headed to, which will be critical for interior space temperature 
-	predictions via occupancy)
-	\item Some turnstiles only have ``In'', not an ``Out''--they're just gates 
-	with an ``open'' and ``closed'' switched
+	\item Unless turnstiles are at the bank level, won't know which sector of
+		building people are going to based on turnstiles.
+	\item 32, 80 Pine are some of
+		those where turnstiles DO tell us which sector of building people are
+		headed to, which will be critical for interior space temperature
+		predictions via occupancy)
+	\item Some turnstiles only have ``In'', not an ``Out''--they're just gates
+		with an ``open'' and ``closed'' switched
 	\item Have access to Mongo University (on Rudin's dime)
-	
 \end{enumerate}
+\section{Notes to Myself}
+sqltotxt software for Windows--batch convert SQL tables to csv
 \end{document}
