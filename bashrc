@@ -35,16 +35,12 @@ fi
 
 if [ -f ~/.git-completion.bash ]; then
 	  source ~/.git-completion.bash
+export GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_SHOWDIRTYSTATE=1
+
 fi
 
-if [ -f /usr/local/etc/bash_completion.d ]
-then
-    . /usr/local/etc/bash_completion.d
-fi
-
-
-
-PS1='\[\033[32m\]\u@\h:\[\033[36m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+#PS1='\[\033[32m\]\u@\h:\[\033[36m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
 PS1='\[\033[32m\]\u:\[\033[36m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
 
 man() {
