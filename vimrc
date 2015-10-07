@@ -14,6 +14,7 @@ if 1
 	Plugin 'flazz/vim-colorschemes'
 	Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
 	Plugin 'honza/vim-snippets'
+	Plugin 'bling/vim-airline'
 	call vundle#end()
 	filetype plugin indent on  
 	syntax on
@@ -34,9 +35,11 @@ if 1
 	set completeopt=longest,menu
 	set pumheight=15
 	set lines=45
+	set textwidth=80
+	set linebreak
 	set t_Co=256
 	set shortmess+=filmnrxoOtT  
-	set virtualedit=onemore             " Allow for cursor beyond last character
+"	set virtualedit=onemore             " Allow for cursor beyond last character
 	set history=1000  
 	set clipboard=unnamed
 	set cmdheight=2                 " helps avoid hit enter prompt
@@ -118,7 +121,7 @@ if has('gui_running')
 	set guioptions-=t
 	set guioptions-=b "turn off scrollbars and toolbar
 	"set guifont=Inconsolata\ For\ Powerline:h13
-	set guifont=Menlo:h12
+	set guifont=Inconsolata:h16
 	"let gcr="a:blinkon0" 
 	"autocmd filetype * highlight tagbarsignature guifg=bg 
 endif
@@ -184,23 +187,13 @@ augroup END
 
 "Plugin Loading {
 
-if filereadable(expand("~/.vim/bundle/powerline/powerline/bindings/vim/plugin/powerline.vim"))
-	set laststatus=2 " Always display the statusline in all windows
-	set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-	set ttimeoutlen=10
-	augroup FastEscape
-		autocmd!
-		au InsertEnter * set timeoutlen=0
-		au InsertLeave * set timeoutlen=1000
-	augroup END
-endif
-
 " Vim-Latex { Requires vim 7.4+ to work properly with Ultisnips
 if filereadable(expand("~/.vim/bundle/vim-latex/ftplugin/latex-suite/texrc"))
 	let g:Tex_DefaultTargetFormat = 'pdf'
 	let g:Tex_ViewRule_pdf = 'open -a Skim'
-	map <leader>lk :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR>:redraw!<CR>
+	map <c-space> :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR>:redraw!<CR>
 "}
+endif
 
 " Ultisnips { Requires vim 7.4+
 if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
