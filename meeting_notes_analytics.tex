@@ -1,4 +1,5 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt]{article}
+\usepackage[margin=0.5in]{geometry}
 \usepackage[latin1]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -7,16 +8,14 @@
 \usepackage{enumerate}
 \usepackage{hyperref}
 \author{David Karapetyan}
-\title{Notes for Columbia_Engineers_Analytics_John Meeting}
-
 \begin{document}
-\section{DiBoss and TPO Team Decisions}
-\begin{enumerate}
-	\item $2000$ original timestamps, which were culled down to $400$ of what
+\section*{DiBoss and TPO Team Decisions}
+\begin{itemize}
+	\item 2000 original timestamps, which were culled down to 400 of what
 		Ashish thought were the most useful.
 	\item Then, the building operators/engineers decided which points among
 		those were the most import
-	\item The BMS has many outages, which results in a string of $0$'s
+	\item The BMS has many outages, which results in a string of 0's
 		in the time-series
 	\item Data integrity issues:
 		\begin{enumerate}[(a)]
@@ -28,14 +27,14 @@
 		hours on the fly
 	\item when TPO is not getting on-the-fly data, it sends the same data
 		over and over again to the DiBoss front-end
-	\item Selex contract for DiBoss ends June $30$.
-\end{enumerate}
-\section{Columbia/Engineers/John/Neal Meeting 10/2/2015}
-\begin{enumerate}
+	\item Selex contract for DiBoss ends June 30.
+\end{itemize}
+\section*{Columbia/Engineers/John/Neal Meeting 10/2/2015}
+\begin{itemize}
 	\item Rampdown happens itself, via BMS
 	\item Engineers interested primarily in start-up time forecasting and
 		occupancy forecasting
-	\item Rampdown occurs at $4:00$pm by default at the latest--the system will
+	\item Rampdown occurs at 4:00pm by default at the latest--the system will
 		pick up on the time people are leaving, and ramp down automatically
 	\item Occupancy forecasts are, hence, more for the engineers and manual
 		operations
@@ -57,12 +56,12 @@
 		may not have VFDs
 	\item However, VFDs can always be installed--the real issue is whether
 		the VFDs are linked via BMS to the occupancy (Gene)
-	\item In the winter months, $6$am to $11$am is monitored for steam
+	\item In the winter months, 6am to 11am is monitored for steam
 		emissions--anything above a certain threshold, and Rudin gets an excessive
 		charge. Hence, an additional cost function must be provided to the TPO
 		model in the winter months. However, this is just an edge case, and can be
 		dealt with once we already have a beta of the product
-	\item For fan speed, we can assume $100\%$ instantaneous speed for the fans
+	\item For fan speed, we can assume 100\% instantaneous speed for the fans
 		once they are started up. Some buildings do have fans that can be operated
 		at a fraction of full capacity, but Gene is looking to just blast all fans
 		in a building once start-up is initiated. He'd rather just calibrate
@@ -73,43 +72,43 @@
 		following question: how many minutes did it take to get to an inflection
 		point in interior space temperature for a given ramp-up time, with outside
 		air temperature equal to X?
-	\item Startup$=$startup of fans
-	\item People who worked on TPO2: 6 full-time equivalent people ($60+$ hours
+	\item Startup=startup of fans
+	\item People who worked on TPO2: 6 full-time equivalent people (60+ hours
 		a week)
 	\item Included Ashish, Albert, Roger, and Leon (all full-time)
-	\item Total number of employees, full-time and not, was $12$.
-\end{enumerate}
-\section{Columbia Server Information}
-\begin{enumerate}
-	\item{VPN} ID: remote Pass: easyaccess
-	\item{Remote Desktop} ID: ColumbiaAdmin Pass: ColumbiaPassword00
-	\item{Cisco IPSEC VPN} ID: as.aboulanger.com
-		ServerName:	rudin.aboulanger.com
-	\item{SVN} ID: AlbertBoulanger Pass: sk8sk8 Server:
-		\url{https://power.ldeo.columbia.edu/svn/Proj/SmartGrid}
-\end{enumerate}
-\section{TPO3}
-\begin{enumerate}
+	\item Total number of employees, full-time and not, was 12.
+\end{itemize}
+%\section*{Columbia Server Information}
+%\begin{itemize}
+	%\item{VPN} ID: remote Pass: easyaccess
+	%\item{Remote Desktop} ID: ColumbiaAdmin Pass: ColumbiaPassword00
+	%\item{Cisco IPSEC VPN} ID: as.aboulanger.com
+		%ServerName:	rudin.aboulanger.com
+	%\item{SVN} ID: AlbertBoulanger Pass: sk8sk8 Server:
+		%\url{https://power.ldeo.columbia.edu/svn/Proj/SmartGrid}
+%\end{itemize}
+\section*{TPO3}
+\begin{itemize}
 	\item Hidden Markov Chain implemented by Hooshmand (Biogenetics dept.)
 	\item Random Forest Regression implemented by Hooshmand
 	\item Ashish's goto expert for statstical questions was Lauren Hanna
-\end{enumerate}
-\section{Meeting With Lawyers 06/29/2015}
-\begin{enumerate}
-	\item What is exclusive ownership of TPO worth?
-	\item What can we use in DiBoss that we do not have an inventorship claim
-		to?
-	\item Ideal situation is to just have a clean story--may alone make
-		purchasing TPO worthwhile
-	\item Columbia is getting inquiries from $3$rd parties
-	\item Decision by lawyers at meeting is to pursue deal to gain access to
-		software and have own the name ``DiBoss''.
-	\item Deal with Columbia would be based on royalties
-\end{enumerate}
-\section{Elevators}
-\begin{enumerate}
+\end{itemize}
+%\section*{Meeting With Lawyers 06/29/2015}
+%\begin{itemize}
+	%\item What is exclusive ownership of TPO worth?
+	%\item What can we use in DiBoss that we do not have an inventorship claim
+		%to?
+	%\item Ideal situation is to just have a clean story--may alone make
+		%purchasing TPO worthwhile
+	%\item Columbia is getting inquiries from 3rd parties
+	%\item Decision by lawyers at meeting is to pursue deal to gain access to
+		%software and have own the name ``DiBoss''.
+	%\item Deal with Columbia would be based on royalties
+%\end{itemize}
+\section*{Elevators}
+\begin{itemize}
 	\item Elevators--don't have Selex involvement
-	\item Each car has $150$ data points
+	\item Each car has 150 data points
 	\item When it gets to the threshold of number of warnings, the car goes
 		into maintenance mode
 	\item Company gets notified only when the elevator turns off (not good,
@@ -117,23 +116,23 @@
 		approached or attained)
 	\item Gene wants a tab on the front-end displaying elevator data with
 		\emph{all} warnings
-\end{enumerate}
-\section{John's Questions After Return from Italy}
-\begin{enumerate}
+\end{itemize}
+\section*{John's Questions After Return from Italy}
+\begin{itemize}
 	\item Have you seen the DiBoss source code?
 	\item Are you comfortable with the source code?
 	\item Are you confident in the support Selex can provide
 		for the system, even if it is minimal?
 	\item Are you confident in the transfer process of the DiBoss product?
 		Of the source code?
-\end{enumerate}
-\section{Things to Do Differently (Gene)}
-\begin{enumerate}
+\end{itemize}
+\section*{Things to Do Differently (Gene)}
+\begin{itemize}
 	\item Plot scaling is often terrible (due to outlier values). Solution on
 		analytics end: filter out outliers before plotting, and offer user option
 		to view the outliers in a separate plot
 	\item Currently, there is a mislabeling of temperatures, sensors, and
-		titles for plots. $6$ measurements for the chiller, when only $4$ are
+		titles for plots. 6 measurements for the chiller, when only 4 are
 		needed by the engineers.
 	\item Predict startup-time accurately. \emph{Most Important}
 	\item For electric, give a benchmark of best usage, vs. today
@@ -143,9 +142,9 @@
 	\item Lease contract states that system ramp-up must be by 8:00 am (for
 		some buildings, it is 7:00). For example--345 Park: 7, 40 East: 7, 80 Pine:
 		24/7 on, 1 Battery Park: Monday-Friday, 8:00am-1:00am
-\end{enumerate}
-\section{TPO3}
-\begin{enumerate}
+\end{itemize}
+\section*{TPO3}
+\begin{itemize}
 	\item HVAC optimization problem. TPO3 is an \emph{optimizer}
 	\item TPO2 provided forecasts for steam, electricity, etc and recommended
 		a startup time and ramp down time based on a posteriori observations (for
@@ -165,9 +164,9 @@
 		discretization and clustering. (Cousin to Haar wavelets)
 	\item Wanted three months of funding to look at other approaches for
 		anomaly detection
-\end{enumerate}
-\section{Scrum 10/05}
-\begin{enumerate}
+\end{itemize}
+\section*{Scrum 10/05}
+\begin{itemize}
 	\item Unless turnstiles are at the bank level, won't know which sector of
 		building people are going to based on turnstiles.
 	\item 32, 80 Pine are some of
@@ -177,7 +176,26 @@
 	\item Some turnstiles only have ``In'', not an ``Out''--they're just gates
 		with an ``open'' and ``closed'' switched
 	\item Have access to Mongo University (on Rudin's dime)
-\end{enumerate}
-\section{Notes to Myself}
-sqltotxt software for Windows--batch convert SQL tables to csv
+\end{itemize}
+\section*{Engineering Discussion with Coury and Steve 10/13/2015}
+\begin{itemize}
+	\item Sunload is an important covariate. For example, 55F with rain feels
+		very different than 55 with sunlight, and affects building occupancy.
+	\item Startups currently managed by dedicated supervisor on the midnight to
+		8 shift, based on space temperatures in the building.
+	\item 11:30am-1:30pm is typical interval for rampdown. BMS not reliable for
+		this--it is a self-regulating system via hardware components that capture
+		physical and chemical phenomena, but NOT occupancy. 	
+	\item Wintertime, building is preheated in order to avoid large costs during
+		on-demand period of 6am-11am (Heat quantity remains constant in pipes, i.e.
+		pressure is constant. So, if heat is being used, more is needed--refilled by Con-Edison). 
+	\item Hence, start-up can be done two ways in this
+		case: either, simpler problem of optimizing start-up for before 6am, or more
+		delicate problem of optimizing for start-up between 6am-11am.
+	\item Pneumatic (air) valve controls heat flow on 33rd (key for winter BMS
+		self-regulation). Entirely analogous to the VFD
+		for controlling fan speed (critical in the summer). 
+	\item In short, heat usage regulated automatically via set thermometers
+		linked to pneumatic valve. 
+\end{itemize}
 \end{document}
