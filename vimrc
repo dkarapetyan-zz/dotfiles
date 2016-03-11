@@ -25,14 +25,10 @@ if 1
 	let g:solarized_termtrans = 1
 	let g:solarized_contrast = "high"
 	let g:solarized_visibility = "high"
-	"let g:solarized_hitrail = 1
 	let g:solarized_menu = 0
 	colorscheme solarized
 	set bg=dark
-	"highlight clear Type 
-	"highlight link cTypeTag Include
-	"call togglebg#map("<F5>")
-	set completeopt=longest,menu
+		set completeopt=longest,menu
 	set pumheight=15
 	set lines=45
 	set textwidth=80
@@ -121,7 +117,11 @@ if has('gui_running')
 	set guioptions-=t
 	set guioptions-=b "turn off scrollbars and toolbar
 	"set guifont=Inconsolata\ For\ Powerline:h13
+<<<<<<< HEAD
 	set guifont=Inconsolata:h14
+=======
+	set guifont=Inconsolata:h15
+>>>>>>> b50183f03e254a03d85419d458997f2a42e0a37e
 	"let gcr="a:blinkon0" 
 	"autocmd filetype * highlight tagbarsignature guifg=bg 
 endif
