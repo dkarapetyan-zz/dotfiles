@@ -55,6 +55,7 @@ plugins=(git)
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH="/usr/texbin:$PATH"
+export PATH="$HOME/anaconda/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -84,3 +85,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias c="clear" 
+
+#ipython qtconsole --style=native --ConsoleWidget.font_family="Inconsolata" --ConsoleWidget.font_size=15 --matplotlibe inline
