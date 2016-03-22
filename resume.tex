@@ -2,18 +2,17 @@
 \usepackage{pdfpages}
 \newsectionwidth{1cm}
 \setlength{\textheight}{11in} 
-%\usepackage[margin=2.5cm]{geometry}  %page layout
+\usepackage[top=0.75in, bottom=0.75in, left=0.75in, right=1.25in]{geometry}  %page layout
 \usepackage{hyperref}
 % \hypersetup{colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black}
 \begin{document} 
 \name{
-    \hspace{0.7in}
     \Large DAVID KARAPETYAN \\
 }     
-\address{\hspace{0.7in} 
+\address{ 
 \href{mailto:david.karapetyan@gmail.com}{\nolinkurl{david.karapetyan@gmail.com}}
 \\
-\ \hspace{0.7in}   \url{http://davidkarapetyan.com}}
+\url{http://davidkarapetyan.com}}
 \begin{resume}
 \section{EXPERIENCE}
 	\vspace{-0.05mm}
@@ -29,13 +28,25 @@ Leading team that is designing and implementing a \textbf{machine learning
 forecasting \\ and analytics engine} for energy usage in commercial and non-commercial
 buildings for Rudin Management, a leading real estate developer in NYC.  \\
 $\bullet$ Using weather and other proprietary covariates, engine forecasts: optimal building start-up-time, ramp-down-time, 
-daily building steam usage, daily electricity usage, occupancy, and more. \\
+daily building steam usage, daily electricity usage, occupancy, and others. \\
 $\bullet$ 
-Base implementation uses \textbf{parallel programming in Python}, 
-with modules \textbf{scikit-learn, pandas, matplotlib, statsmodels, numpy}, and others. 
-Data is stored in and read from \textbf{MongoDB} and \textbf{HDF5} dataframes.\\
+Greatly improved upon building predictions made by a team of Columbia University
+Ph.D and masters degree statisticians (a three year project that was ultimately
+rejected) based upon a number of different metrics,
+including: classification cross-validation accuracy, random forest out-of-bag
+scores, mean and variance of residuals, max/min residuals, and others. \\
 $\bullet$
-Models used for the forecasting include \textbf{ARIMA(X)}, \textbf{SARIMA(X)}, and \textbf{SVM}. 
+Using weather and other proprietary covariates, engine forecasts: optimal building start-up-time, ramp-
+down-time, daily building steam usage, daily electricity usage, and occupancy.
+\\
+$\bullet$
+Implementation uses \textbf{parallel programming in Python}, 
+with modules including \textbf{scikit-learn, pandas, matplotlib, statsmodels}
+and \textbf{numpy}.
+Data is stored in and read from \textbf{SQL}, \textbf{MongoDB}, and \textbf{HDF5} dataframes.\\
+$\bullet$
+Models used for the forecasting include \textbf{Random Forests}, \textbf{Gradient
+Boosted Trees}, \textbf{ARIMA(X)}, \\ \textbf{SARIMA(X)}, and \textbf{SVM}. 
 \begin{tabbing}
 \hspace{2.3in}\= \hspace{2.6in}\= \kill
 {\bf Quantitative Analyst} \> Ernst \& Young   
@@ -94,7 +105,6 @@ $\bullet$ Applied \textbf{$k$-Nearest Neighbor regression} to analyze existing d
 occupancy toll lanes in the Los
 Angeles, San Diego, and
 Chicago metro areas.
-\newpage
 \section{EDUCATION} 
 \vspace{-0.05mm}
 \begin{tabbing}
@@ -118,10 +128,8 @@ $\bullet$ Nominee for ND Shaheen Graduate School Award for top student.
 \section{TECHNICAL SKILLS}
 \vspace{-0.05mm}
 \begin{tabbing}
-$\bullet$ Languages: Python (full SciPy stack, Flask), Ruby (Rails), R, C, C++
-(STL), HTML5, Bash, \LaTeX{}.
-\\
-$\bullet$ Public code at \url{https://github.com/dkarapetyan}
+$\bullet$ Languages: Python (full SciPy stack, Flask), Scala,  R, C/C++,
+HTML5, Bash, \LaTeX{}.
 \\
 $\bullet$ Operating Systems: Unix (Debian/Ubuntu, FreeBSD, OS X) , Windows (XP, Vista, 7) 
 \end{tabbing}
@@ -130,10 +138,6 @@ $\bullet$ Operating Systems: Unix (Debian/Ubuntu, FreeBSD, OS X) , Windows (XP, 
 \vspace{-0.05mm}
 \begin{tabbing}
 \hspace{2.3in}\= \hspace{2.6in}\= \kill
-$\bullet$ Coded personal website \url{http://davidkarapetyan.com} using Ruby on 
-Rails, HTML5, and the \\  \phantom{$\bullet$} Twitter bootstrap. Later migrated
-the website to the Python Flask microframework
-\\
 $\bullet$ Chess Expert \url{http://www.chessdryad.com/articles/mi/article_165.htm}
 \end{tabbing}
 \end{resume}
