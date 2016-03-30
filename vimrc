@@ -117,11 +117,7 @@ if has('gui_running')
 	set guioptions-=t
 	set guioptions-=b "turn off scrollbars and toolbar
 	"set guifont=Inconsolata\ For\ Powerline:h13
-<<<<<<< HEAD
 	set guifont=Inconsolata:h14
-=======
-	set guifont=Inconsolata:h15
->>>>>>> b50183f03e254a03d85419d458997f2a42e0a37e
 	"let gcr="a:blinkon0" 
 	"autocmd filetype * highlight tagbarsignature guifg=bg 
 endif
