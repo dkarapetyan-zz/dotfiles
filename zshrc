@@ -85,5 +85,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias c="clear" 
-
+alias cl="ssh 192.168.98.20"
 #ipython qtconsole --style=native --ConsoleWidget.font_family="Inconsolata" --ConsoleWidget.font_size=15 --matplotlibe inline
