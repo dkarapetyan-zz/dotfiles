@@ -2,7 +2,7 @@
 model_config = dict(
         rfr={
             'params': {
-                'n_estimators': 40,
+                'n_estimators': 100,
                 'criterion': 'mse',
                 'max_features': None,  # max_features=n_features
                 'n_jobs': -1,
