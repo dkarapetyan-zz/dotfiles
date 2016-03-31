@@ -1,10 +1,10 @@
 # coding=utf-8
 import pandas as pd
-from sklearn.preprocessing.label import LabelBinarizer
+from sklearn.preprocessing.label import LabelEncoder
 from model_config import model_config
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import LabelBinarizer
-from sklearn.ensemble import RandomForestRegressor
+import sklearn.ensemble
+import ipdb
+import re
 
 __author__ = 'David Karapetyan'
 
@@ -23,31 +23,70 @@ def munger(frame):
 
 
 train_features = pd.read_csv(
-    "csvs/train_features_2013-03-07.csv")
+        "csvs/train_features_2013-03-07.csv")
 train_salaries = pd.read_csv("csvs/train_salaries_2013-03-07.csv")
 test_features = pd.read_csv("csvs/test_features_2013-03-07.csv")
 
-# random forest only works with numeric data in scikitlearn, so need
-# to encode training labels as floats
 
-covariate_train = train_features.merge(train_salaries, on='jobId')
-covar = covariate_train.merge(test_features, on='jobId')
-covar_clean = munger(covariate_train)
-############# Model Definition Part ############
+# make sure we are only using jobIds for which data exists in both
+# test and training
+
+# temp = train_features.merge(train_salaries, on='jobId')
+# ipdb.set_trace()
+# covariate_train = temp.merge(test_features, on='jobId')
+
+# above gives an empty dataframe--upon closer inspection, jobids look like they
+# do line up, except there is a typo--7th digit varies by +1
+# To verify this, we run
+def extract_num(string):
+    return int(re.findall(r'\d+', string)[0])
+
+
+(train_features.jobId.apply(extract_num)
+ - test_features.jobId.apply(extract_num).unique())
+
+# indeed, our intuition was correct. Now, we merge by the 'true' jobid
+
+temp = train_features.merge(train_salaries, on='jobId')
+covariate_train = temp.join(test_features.drop('jobId', axis=1), how='outer',
+                            lsuffix='_x', rsuffix='_y')
+covar_train_clean = munger(covariate_train)
+
+# now, we must encode the training features and test features in identical
+# fashion
+# now, we identify all the features we wish to encode
+# now, we need to use the label encoder for the string categoricals.
+# unfortunately, Pipeline in pandas has a bug/nonimplemented features for label
+# encoding https://github.com/scikit-learn/scikit-learn/issues/3112
+# so, we will do things manually
+
+cols_x = ['companyId_x', 'jobType_x', 'degree_x', 'major_x', 'industry_x']
+cols_y = ['companyId_y', 'jobType_y', 'degree_y', 'major_y', 'industry_y']
+train_features_prep = covar_train_clean[cols_x]
+test_features_prep = covar_train_clean[cols_y]
+for col_x, col_y in zip(cols_x, cols_y):
+    le = LabelEncoder().fit(train_features_prep[col_x])
+    train_features_prep[col_x] = le.transform(
+            train_features_prep[col_x])
+    test_features_prep[col_y] = le.transform(test_features_prep[col_y])
+
+# Model Definition Part ############
 
 # have a configuration, so we can try out different random forests
-# and get a feel for which paramters are best for this problem
-
-
+# and get a feel for which parameters are best for this problem
 
 params = model_config["rfr"]["params"]
-# rforest = sklearn.ensemble.RandomForestRegressor(**params)
-# fit = rforest.fit(train_features, train_salaries.salary)
+rforest = sklearn.ensemble.RandomForestRegressor(**params)
+fit = rforest.fit(train_features_prep, covar_train_clean.salary)
 
-estimator = Pipeline([("encoder", LabelBinarizer()),
-                      ("forest", RandomForestRegressor(**params))])
-############# random forest goodness ############
-fit = estimator.fit(train_features, train_salaries.salary)
-prediction = fit.predict(test_features)
+# random forest goodness
+prediction = fit.predict(test_features_prep)
 feature_importances = fit.feature_importances_,
 score = fit.oob_score_
+
+# jobs ids, with forecasted salaries
+test_salaries = pd.DataFrame()
+test_salaries['jobId'] = covar_train_clean['jobId']
+test_salaries['salary'] = prediction
+ipdb.set_trace()
+test_salaries.to_csv("test_salaries")

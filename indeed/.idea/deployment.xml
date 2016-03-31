@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" uploadOnCheckin="b522b9a1-6352-4099-adde-8ec715ed3e95">
-    <option name="myUploadOnCheckinName" value="datascience" />
+  <component name="PublishConfigData" autoUpload="Always" serverName="datascience">
+    <serverData>
+      <paths name="datascience">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/Documents/workspace/indeed" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
     <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
