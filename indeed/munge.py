@@ -101,8 +101,9 @@ feature_importances = fit.feature_importances_,
 score = fit.oob_score_
 
 # jobs ids, with forecasted salaries
-test_salaries = pd.DataFrame()
-test_salaries['jobId'] = covar_train_clean['jobId']
-test_salaries['salary'] = prediction
+test_salaries = pd.DataFrame({'jobId': master_df.loc[:,'jobId'],
+                              'salary': prediction})
+# test_salaries['jobId'] = covar_train_clean['jobId']
+# test_salaries['salary'] = prediction
 ipdb.set_trace()
-test_salaries.to_csv("./test_salaries")
+test_salaries.to_csv("./test_salaries.csv")
