@@ -62,13 +62,29 @@ covar_train_clean = munger(covariate_train)
 
 cols_x = ['companyId_x', 'jobType_x', 'degree_x', 'major_x', 'industry_x']
 cols_y = ['companyId_y', 'jobType_y', 'degree_y', 'major_y', 'industry_y']
-train_features_prep = covar_train_clean[cols_x]
-test_features_prep = covar_train_clean[cols_y]
+encoded_train_features = covar_train_clean.loc[:, cols_x]
+encoded_test_features = covar_train_clean.loc[:, cols_y]
 for col_x, col_y in zip(cols_x, cols_y):
-    le = LabelEncoder().fit(train_features_prep[col_x])
-    train_features_prep[col_x] = le.transform(
-            train_features_prep[col_x])
-    test_features_prep[col_y] = le.transform(test_features_prep[col_y])
+    le = LabelEncoder().fit(encoded_train_features.loc[:, col_x])
+    encoded_train_features.loc[:, col_x] = le.transform(
+            encoded_train_features.loc[:, col_x])
+    encoded_test_features.loc[:, col_y] = le.transform(
+            encoded_test_features.loc[:, col_y])
+
+# create master encoded df of data to slice and feed to bits to random forest
+master_df = covar_train_clean
+master_df[cols_x] = encoded_train_features
+master_df[cols_y] = encoded_train_features
+ipdb.set_trace()
+
+train_cols = ['companyId_x', 'jobType_x', 'degree_x', 'major_x', 'industry_x',
+              'yearsExperience_x', 'milesFromMetropolis_x']
+
+test_cols = ['companyId_y', 'jobType_y', 'degree_y', 'major_y', 'industry_y',
+             'yearsExperience_y', 'milesFromMetropolis_y']
+
+train_features_prep = master_df.loc[:, train_cols]
+test_features_prep = master_df.loc[:, test_cols]
 
 # Model Definition Part ############
 
@@ -77,7 +93,7 @@ for col_x, col_y in zip(cols_x, cols_y):
 
 params = model_config["rfr"]["params"]
 rforest = sklearn.ensemble.RandomForestRegressor(**params)
-fit = rforest.fit(train_features_prep, covar_train_clean.salary)
+fit = rforest.fit(train_features_prep, master_df.salary)
 
 # random forest goodness
 prediction = fit.predict(test_features_prep)
@@ -89,4 +105,4 @@ test_salaries = pd.DataFrame()
 test_salaries['jobId'] = covar_train_clean['jobId']
 test_salaries['salary'] = prediction
 ipdb.set_trace()
-test_salaries.to_csv("test_salaries")
+test_salaries.to_csv("./test_salaries")
