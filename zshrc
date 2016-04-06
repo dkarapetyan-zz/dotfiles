@@ -1,4 +1,5 @@
-if [ "$(uname) == Darwin" ]; then
+if [[ `uname` == 'Darwin' ]]
+then
 	# Path to your oh-my-zsh installation.
 	export ZSH=/Users/davidkarapetyan/.oh-my-zsh
 
@@ -91,7 +92,8 @@ if [ "$(uname) == Darwin" ]; then
 	#alias cl="ssh -Y -C -c blowfish-cbc,arcfour 192.168.98.20"
 	alias cl="ssh -Y 192.168.98.20"
 
-elif [ "$(uname)" == "Linux" ]; then
+elif [[ `uname` == "Linux" ]]
+then
 	# Path to your oh-my-zsh installation.
 	export ZSH=/home/davidkarapetyan/.oh-my-zsh
 
