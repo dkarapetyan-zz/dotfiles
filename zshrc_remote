@@ -1,11 +1,11 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=/home/davidkarapetyan/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="simple"
+ZSH_THEME="maran"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -18,7 +18,7 @@ ZSH_THEME="simple"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=30
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -53,9 +53,11 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-export PATH="/usr/texbin:$PATH"
-export PATH="$HOME/anaconda/bin:$PATH"
+export HOME="/home/davidkarapetyan"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+export PATH="/home/davidkarapetyan/anaconda2/bin:$PATH"
+
+export PYTHONPATH="/home/davidkarapetyan/Documents/workspace/larkin:$PYTHONPATH"
 export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -84,6 +86,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias c="clear" 
-alias cl="ssh 192.168.98.20"
-#ipython qtconsole --style=native --ConsoleWidget.font_family="Inconsolata" --ConsoleWidget.font_size=15 --matplotlibe inline
+alias c="clear"
+alias mon="mongo admin -u Analytics -p "L3x1^gt0n""
+alias pil="pip install $HOME/Documents/workspace/larkin"
+alias pul="pip uninstall larkin"
+export MAILTO="dkarapetyan@prescriptivedata.io"
+#source activate py27
