@@ -91,7 +91,7 @@ then
 	alias cl="ssh -Y -C -c blowfish-cbc,arcfour 192.168.98.20"
 	alias router='ssh root@74.71.232.72'
 	#alias cl="ssh -Y 192.168.98.20"
-  	launchctl setenv WUND_URL http://api.wunderground.com/api/53b91a5eddd63026/
+ 	launchctl setenv WUND_URL http://api.wunderground.com/api/53b91a5eddd63026/
 	launchctl setenv DB_HOST 52.21.246.131
 	launchctl setenv DB_PORT 27017
 	launchctl setenv DB_SOURCE admin
@@ -195,11 +195,11 @@ then
 	alias pul="pip uninstall larkin"
 	export MAILTO="dkarapetyan@prescriptivedata.io"
 	alias qtc='jupyter qtconsole --ConsoleWidget.font_family=Consolas --ConsoleWidget.font_size=11 --style monokai'
-	WUND_URL="http://api.wunderground.com/api/53b91a5eddd63026/"
-	DB_HOST=52.21.246.131
-	DB_PORT=27017
-	DB_SOURCE="admin"
-	DB_USERNAME="analytics"
-	DB_PASSWORD="l3xi^gt0n"
+	export WUND_URL="http://api.wunderground.com/api/53b91a5eddd63026/"
+	export DB_HOST=52.21.246.131
+	export DB_PORT=27017
+	export DB_SOURCE="admin"
+	export DB_USERNAME="analytics"
+	export DB_PASSWORD="l3xi^gt0n"
 
 fi
