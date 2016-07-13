@@ -182,6 +182,7 @@ then
 	# Example aliases
 	# alias zshconfig="mate ~/.zshrc"
 	# alias ohmyzsh="mate ~/.oh-my-zsh"
+	alias pi = "ssh pi@74.71.229.106"
 	alias c="clear"
 	alias mon="mongo admin -u Analytics -p "L3x1^gt0n""
 	alias pil="pip install $HOME/Documents/workspace/larkin"
