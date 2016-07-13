@@ -81,6 +81,7 @@ then
 	# alias zshconfig="mate ~/.zshrc"
 	# alias ohmyzsh="mate ~/.oh-my-zsh"
 	alias c="clear"
+  alias pi="ssh pi@74.71.229.106"
 	# alias pip="pip3"
 	# alias ds="ssh -Y -C -c blowfish-cbc,arcfour datascience.local"
 	#alias ds="ssh -C -c blowfish-cbc,arcfour datascience.local"
