@@ -51,7 +51,7 @@ then
 
 	# User configuration
 
-	export PATH="$HOME/anaconda3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+	export PATH="$HOME/anaconda/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 	export MANPATH="/usr/local/man:$MANPATH"
 
 	source $ZSH/oh-my-zsh.sh
@@ -88,9 +88,16 @@ then
 	alias mon="mongo admin --host 52.21.246.131 --port 27017 -u Analytics -p "L3x1^gt0n""
 	alias mdump="mongodump --authenticationDatabase admin --host 52.21.246.131 --port 27017 -u Analytics -p "L3x1^gt0n""
 	alias mrestore="mongorestore --authenticationDatabase admin --host 52.21.246.131 --port 27017 -u Analytics -p "L3x1^gt0n""
-
-	#alias cl="ssh -Y -C -c blowfish-cbc,arcfour 192.168.98.20"
-	alias cl="ssh -Y 192.168.98.20"
+	alias cl="ssh -Y -C -c blowfish-cbc,arcfour 192.168.98.20"
+	alias router='ssh root@74.71.232.72'
+	#alias cl="ssh -Y 192.168.98.20"
+ 	launchctl setenv WUND_URL http://api.wunderground.com/api/53b91a5eddd63026/
+	launchctl setenv DB_HOST 52.21.246.131
+	launchctl setenv DB_PORT 27017
+	launchctl setenv DB_SOURCE admin
+	launchctl setenv DB_USERNAME analytics
+	launchctl setenv DB_PASSWORD l3xi^gt0n
+  
 
 elif [[ `uname` == "Linux" ]]
 then
@@ -153,7 +160,7 @@ then
 	export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
 	export PATH="/home/davidkarapetyan/anaconda2/bin:$PATH"
 
-	export PYTHONPATH="/home/davidkarapetyan/Documents/workspace/larkin:$PYTHONPATH"
+	#export PYTHONPATH="/home/davidkarapetyan/Documents/workspace/larkin:$PYTHONPATH"
 	export MANPATH="/usr/local/man:$MANPATH"
 
 	source $ZSH/oh-my-zsh.sh
@@ -185,8 +192,15 @@ then
 	alias pi = "ssh pi@74.71.229.106"
 	alias c="clear"
 	alias mon="mongo admin -u Analytics -p "L3x1^gt0n""
-	alias pil="pip install $HOME/Documents/workspace/larkin"
+	alias pil="pip install -e $HOME/Documents/workspace/larkin --force-reinstall"
 	alias pul="pip uninstall larkin"
 	export MAILTO="dkarapetyan@prescriptivedata.io"
-	#source activate py27
+	alias qtc='jupyter qtconsole --ConsoleWidget.font_family=Consolas --ConsoleWidget.font_size=11 --style monokai'
+	export WUND_URL="http://api.wunderground.com/api/53b91a5eddd63026/"
+	export DB_HOST=52.21.246.131
+	export DB_PORT=27017
+	export DB_SOURCE="admin"
+	export DB_USERNAME="analytics"
+	export DB_PASSWORD="l3xi^gt0n"
+
 fi
