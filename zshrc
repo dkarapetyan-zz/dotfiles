@@ -1,7 +1,7 @@
 if [[ `uname` == 'Darwin' ]]
 then
 	# Path to your oh-my-zsh installation.
-	export ZSH=/Users/davidkarapetyan/.oh-my-zsh
+	export ZSH=$HOME/.oh-my-zsh
 
 	# Set name of the theme to load.
 	# Look in ~/.oh-my-zsh/themes/
@@ -102,7 +102,7 @@ then
 elif [[ `uname` == "Linux" ]]
 then
 	# Path to your oh-my-zsh installation.
-	export ZSH=/home/davidkarapetyan/.oh-my-zsh
+	export ZSH=$HOME/.oh-my-zsh
 
 	# Set name of the theme to load.
 	# Look in ~/.oh-my-zsh/themes/
@@ -156,11 +156,10 @@ then
 
 	# User configuration
 
-	export HOME="/home/davidkarapetyan"
 	export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
-	export PATH="/home/davidkarapetyan/anaconda2/bin:$PATH"
+	export PATH="$HOME/anaconda2/bin:$PATH"
 
-	#export PYTHONPATH="/home/davidkarapetyan/Documents/workspace/larkin:$PYTHONPATH"
+	#export PYTHONPATH="$HOME/Documents/workspace/larkin:$PYTHONPATH"
 	export MANPATH="/usr/local/man:$MANPATH"
 
 	source $ZSH/oh-my-zsh.sh
@@ -189,9 +188,11 @@ then
 	# Example aliases
 	# alias zshconfig="mate ~/.zshrc"
 	# alias ohmyzsh="mate ~/.oh-my-zsh"
+	alias db="sudo -u postgres pgcli"
+	alias sip="sudo ipython"
 	alias c="clear"
 	alias mon="mongo admin -u Analytics -p "L3x1^gt0n""
-	alias pil="pip install -e $HOME/Documents/workspace/larkin --force-reinstall"
+	alias pil="pip install -e $HOME/Documents/workspace/larkin --upgrade"
 	alias pul="pip uninstall larkin"
 	export MAILTO="dkarapetyan@prescriptivedata.io"
 	alias qtc='jupyter qtconsole --ConsoleWidget.font_family=Consolas --ConsoleWidget.font_size=11 --style monokai'
