@@ -189,7 +189,7 @@ then
 	# Example aliases
 	# alias zshconfig="mate ~/.zshrc"
 	# alias ohmyzsh="mate ~/.oh-my-zsh"
-	alias db="sudo -Eu postgres pgcli"
+	alias db="sudo -u postgres pgcli"
 	alias sip="sudo -E ipython"
 	alias pi="ssh pi@74.71.229.106"
 	alias c="clear"
