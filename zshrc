@@ -203,5 +203,9 @@ then
 	export DB_SOURCE="admin"
 	export DB_USERNAME="analytics"
 	export DB_PASSWORD="l3xi^gt0n"
-
+  export SQL_HOST=74.71.229.106
+	export SQL_PORT=5432
+	export SQL_SOURCE="admin"
+	export SQL_USERNAME="postgres"
+	export SQL_PASSWORD=""
 fi
