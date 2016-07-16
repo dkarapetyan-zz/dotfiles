@@ -7,7 +7,7 @@ then
 	# Look in ~/.oh-my-zsh/themes/
 	# Optionally, if you set this to "random", it'll load a random theme each
 	# time that oh-my-zsh is loaded.
-	ZSH_THEME="maran"
+	ZSH_THEME="simple"
 
 	# Uncomment the following line to use case-sensitive completion.
 	# CASE_SENSITIVE="true"
@@ -81,6 +81,7 @@ then
 	# alias zshconfig="mate ~/.zshrc"
 	# alias ohmyzsh="mate ~/.oh-my-zsh"
 	alias c="clear"
+  alias pi="ssh pi@74.71.229.106"
 	# alias pip="pip3"
 	# alias ds="ssh -Y -C -c blowfish-cbc,arcfour datascience.local"
 	#alias ds="ssh -C -c blowfish-cbc,arcfour datascience.local"
@@ -108,7 +109,7 @@ then
 	# Look in ~/.oh-my-zsh/themes/
 	# Optionally, if you set this to "random", it'll load a random theme each
 	# time that oh-my-zsh is loaded.
-	ZSH_THEME="maran"
+	ZSH_THEME="simple"
 
 	# Uncomment the following line to use case-sensitive completion.
 	# CASE_SENSITIVE="true"
@@ -190,6 +191,7 @@ then
 	# alias ohmyzsh="mate ~/.oh-my-zsh"
 	alias db="sudo -u postgres pgcli"
 	alias sip="sudo ipython"
+	alias pi="ssh pi@74.71.229.106"
 	alias c="clear"
 	alias mon="mongo admin -u Analytics -p "L3x1^gt0n""
 	alias pil="pip install -e $HOME/Documents/workspace/larkin --upgrade"
@@ -202,5 +204,9 @@ then
 	export DB_SOURCE="admin"
 	export DB_USERNAME="analytics"
 	export DB_PASSWORD="l3xi^gt0n"
-
+        export SQL_HOST=74.71.229.106
+	export SQL_PORT=5432
+	export SQL_SOURCE="admin"
+	export SQL_USERNAME="postgres"
+	export SQL_PASSWORD=""
 fi
