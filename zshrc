@@ -51,7 +51,7 @@ then
 
 	# User configuration
 
-	export PATH="$HOME/anaconda/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+	export PATH="$HOME/anaconda2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 	export MANPATH="/usr/local/man:$MANPATH"
 
 	source $ZSH/oh-my-zsh.sh
@@ -172,7 +172,6 @@ then
 	# Example aliases
 	# alias zshconfig="mate ~/.zshrc"
 	# alias ohmyzsh="mate ~/.oh-my-zsh"
-	alias db="sudo -u postgres pgcli"
 	alias sip="sudo -E ipython"
 	alias pi="ssh pi@74.71.229.106"
 	alias c="clear"
