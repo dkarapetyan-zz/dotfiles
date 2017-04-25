@@ -50,9 +50,10 @@ then
 	plugins=(git)
 
 	# User configuration
+	export MANPATH="$MANPATH:/usr/local/man:$MANPATH"
+	#export PATH=/usr/local/sbin:$HOME/.local/bin:$PATH
+	export PATH=/usr/local/sbin:$HOME/Library/Haskell/bin:$PATH
 
-	export PATH="$HOME/anaconda2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-	export MANPATH="/usr/local/man:$MANPATH"
 
 	source $ZSH/oh-my-zsh.sh
 

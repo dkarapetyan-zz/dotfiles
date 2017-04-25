@@ -1,111 +1,115 @@
 "Global Defaults  {
 
-if 1
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdcommenter'
+"Plug 'SirVer/UltiSnips'
+Plug 'flazz/vim-colorschemes'
+Plug 'vim-syntastic/syntastic'
+"Plug 'ervandew/supertab'
+"Plug 'honza/vim-snippets'
+"Plug 'lervag/vimtex' 
+"Plug 'coot/atp_vim'
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/echodoc.vim'
+"Plug 'zchee/deoplete-jedi'
+"Plug 'davidhalter/jedi-vim'
+"Plug 'jpalardy/vim-slime'
+Plug 'vim-latex/vim-latex'
+Plug 'vim-voom/VOoM'
+"Plug 'gisraptor/vim-lilypond-integrator'
+"Plug 'eagletmt/neco-ghc'
+"Plug 'eagletmt/ghcmod-vim'
 
-	set nocompatible
-	filetype off
+"Plug 'Shougo/neocomplete.vim'
+"Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+"Plug 'python-mode/python-mode', { 'branch': 'develop' }
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'python-mode/python-mode'
 
-	set rtp+=~/.vim/bundle/Vundle.vim/
-	call vundle#begin()
-	Plugin 'VundleVim/Vundle.vim'
-	Plugin 'tpope/vim-fugitive'
-	Plugin 'scrooloose/nerdcommenter'
-	Plugin 'SirVer/UltiSnips'
-	Plugin 'flazz/vim-colorschemes'
-	Plugin 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
-	Plugin 'honza/vim-snippets'
-	Plugin 'bling/vim-airline'
-	call vundle#end()
-	filetype plugin indent on  
-	syntax on
+"Plug 'sheerun/vim-polyglot'
+call plug#end()
 
-	let mapleader="," " must put before plugins are loaded--otherwise, won't work
-	let maplocalleader=","
-	let g:tex_flavor="latex"
-	let g:solarized_termtrans = 1
-	let g:solarized_contrast = "high"
-	let g:solarized_visibility = "high"
-	let g:solarized_menu = 0
-	colorscheme solarized
-	set bg=dark
-		set completeopt=longest,menu
-	set pumheight=15
-	set lines=45
-	set textwidth=80
-	set linebreak
-	set t_Co=256
-	set shortmess+=filmnrxoOtT  
+let maplocalleader = "," "must put before plugins are loaded--otherwise, won't work
+let mapleader = "," "must put before plugins are loaded--otherwise, won't work
+let g:solarized_termtrans = 1
+let g:solarized_contrast = "high"
+let g:solarized_visibility = "high"
+let g:solarized_menu = 1
+colorscheme solarized
+"set updatetime=1000
+set bg=dark
+"set completeopt=longest,menu
+"set pumheight=15
+"set lines=45
+set textwidth=79
+set t_Co=256
+set laststatus=2
+"set relativenumber
+"set shortmess+=filmnrxoOtT  
 "	set virtualedit=onemore             " Allow for cursor beyond last character
-	set history=1000  
-	set clipboard=unnamed
-	set cmdheight=2                 " helps avoid hit enter prompt
-	set tabpagemax=15               " Only show 15 tabs
-	set hidden "remember changes to a buffer even when abandoned
-	set backspace=indent,eol,start  " Backspace for dummies
-	set linespace=0                 " No extra spaces between rows
-	set winminheight=0              " Windows can be 0 lines high
-	set ttyfast                     
-	set showmatch                   " Show matching brackets/parenthesis
-	set winminheight=0              " Windows can be 0 line high
-	set ignorecase                  " Case insensitive search
-	set smartcase                   " Case sensitive when uc present
-	set wildmenu                    " Show list instead of just completing
-	set cursorline
-	set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
-	set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-	set scrolljump=5                " Lines to scroll when cursor leaves screen
-	set scrolloff=5                 " Minimum lines to keep above and below cursor
-	set wrap
-	set splitbelow
-	set splitright              "vertical split to right
-	set autoindent                  " Indent at the same level of the previous line
-	set shiftwidth=2                " Use indents of 4 spaces
-	"set expandtab                   " Tabs are spaces, not tabs
-	set tabstop=2                   " An indentation every 8 columns
-	set softtabstop=2               " Let backspace delete indent
-	set ttyscroll=3                " cleaner scrolling with fewer flashes
-	set nofen 
-	set noswapfile
-	set backup
-	set backupdir=~/.vim/.backup//
-	set directory=~/.vim/.swp//
-	set novb
-	set autochdir
-	set mouse=a "for compying text with a mouse 
-	set mousehide
-	scriptencoding utf-8
-	set ls=2 "always show status line
-	set autoread "auto reload a file that has changed
-	set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
-	set encoding=utf-8
-	let g:netrw_silent = 1
-	" Custom Global Mappings {
-	command! W w
-	command! Wq wq
-	command! WQ wq
+set history=1000  
+set noshowmode
+"set cmdheight=2                 " helps avoid hit enter prompt
+"set tabpagemax=15               " Only show 15 tabs
+"set hidden "remember changes to a buffer even when abandoned
+set backspace=indent,eol,start  " Backspace for dummies
+"set winminheight=0              " Windows can be 0 lines high
+set ttyfast                     
+"set showmatch                   " Show matching brackets/parenthesis
+set ignorecase                  " Case insensitive search
+set smartcase                   " Case sensitive when uc present
+set wildmenu                    " Show list instead of just completing
+set cursorline
+"set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+"set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set scrolljump=5                " Lines to scroll when cursor leaves screen
+set scrolloff=5                 " Minimum lines to keep above and below cursor
+set splitbelow
+set shiftwidth=2                " Use indents of 4 spaces
+"set expandtab                   " Tabs are spaces, not tabs
+set tabstop=2                   " An indentation every 8 columns
+set softtabstop=2               " Let backspace delete indent
+"set ttyscroll=3                " cleaner scrolling with fewer flashes
+"set nofen 
+set noswapfile
+set backup
+set backupdir=~/.vim/.backup//
+set directory=~/.vim/.swp//
+set novb
+set autochdir
+"set mouse=a "for compying text with a mouse 
+"scriptencoding utf-8
+"set ls=2 "always show status line
+set autoread "auto reload a file that has changed
+set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
+"set encoding=utf-8
+"let g:netrw_silent = 1
+" Custom Global Mappings {
+command! W w
+command! Wq wq
+command! WQ wq
 
-	inoremap <C-f> <right>
-	inoremap <C-n> <down>
-	inoremap <C-p> <up>
-	noremap Q <Nop>
-	nnoremap <leader>ot :!open -a iTerm ./<CR><CR>
-	noremap <leader>ox :!open -a Excalibur %<CR><CR>
-	nnoremap <leader>oV :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-	nnoremap <leader>ov :sp ~/dotfiles/vimrc<CR>
-	nnoremap <leader>a mcgg=G`c
-	nnoremap Y y$
-	noremap j gj
-	noremap k gk
-	nnoremap K <nop>
-	command! Q q
-	command! W w
-	command! Wq wq
-	command! WQ wq 
+"inoremap <C-f> <right>
+"inoremap <C-n> <down>
+"inoremap <C-p> <up>
+noremap Q <Nop>
+nnoremap <leader>ot :!open -a iTerm ./<CR><CR>
+noremap <leader>ox :!open -a Excalibur %<CR><CR>
+nnoremap <leader>oV :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+nnoremap <leader>ov :sp ~/dotfiles/vimrc<CR>
+nnoremap <leader>a mcgg=G`c
+"noremap j gj
+"noremap k gk
+nnoremap K <nop>
+command! Q q
+command! W w
+command! Wq wq
+command! WQ wq 
 
-endif
 "}
 
- "GUI defaults {
+"GUI defaults {
 
 if has('gui_running')
 	set clipboard=unnamed
@@ -127,72 +131,99 @@ endif
 "Custom Autocmd Mappings {
 augroup vimrc_autocmds
 	au!
-	autocmd BufEnter * if &filetype == "" | setlocal ft=txt | endif
-	autocmd BufEnter * if !has('gui_running')
-				\	| set term=xterm-256color | endif "for tmux rendering
-	autocmd BufEnter *.tex set iskeyword+=:
+	"autocmd BufEnter * if &filetype == "" | setlocal ft=txt | endif
+	"autocmd BufEnter * if !has('gui_running')
+				"\	| set term=xterm-256color | endif "for tmux rendering
+	"autocmd BufRead,BufNewFile *.tex set syntax=plaintex
 	"autocmd BufWritePost *.tex :call Tex_CompileMultipleTimes()
-	"autocmd Filetype tex inoremap <buffer> <Leader>a \alpha
-			"\|inoremap <buffer> <Leader>b \beta
-			"\|inoremap <buffer> <Leader>c \chi
-			"\|inoremap <buffer> <Leader>d \delta
-			"\|inoremap <buffer> <Leader>e \varepsilon
-			"\|inoremap <buffer> <Leader>f \varphi
-			"\|inoremap <buffer> <Leader>g \gamma
-			"\|inoremap <buffer> <Leader>h \eta
-			"\|inoremap <buffer> <Leader>i \iota
-			"\|inoremap <buffer> <Leader>k \kappa
-			"\|inoremap <buffer> <Leader>l \lambda
-			"\|inoremap <buffer> <Leader>m \mu
-			"\|inoremap <buffer> <Leader>n \nu
-			"\|inoremap <buffer> <Leader>o \omega
-			"\|inoremap <buffer> <Leader>p \pi
-			"\|inoremap <buffer> <Leader>q \theta
-			"\|inoremap <buffer> <Leader>r \rho
-			"\|inoremap <buffer> <Leader>s \sigma
-			"\|inoremap <buffer> <Leader>t \tau
-			"\|inoremap <buffer> <Leader>u \upsilon
-			"\|inoremap <buffer> <Leader>v \vee
-			"\|inoremap <buffer> <Leader>w \wedge
-			"\|inoremap <buffer> <Leader>x \xi
-			"\|inoremap <buffer> <Leader>y \psi
-			"\|inoremap <buffer> <Leader>z \zeta
-			"\|inoremap <buffer> <Leader>D \Delta
-			"\|inoremap <buffer> <Leader>I \Iota
-			"\|inoremap <buffer> <Leader>F \Phi
-			"\|inoremap <buffer> <Leader>G \Gamma
-			"\|inoremap <buffer> <Leader>L \Lambda
-			"\|inoremap <buffer> <Leader>N \nabla
-			"\|inoremap <buffer> <Leader>O \Omega
-			"\|inoremap <buffer> <Leader>Q \Theta
-			"\|inoremap <buffer> <Leader>R \varrho
-			"\|inoremap <buffer> <Leader>S \Sigma
-			"\|inoremap <buffer> <Leader>U \Upsilon
-			"\|inoremap <buffer> <Leader>X \Xi
-			"\|inoremap <buffer> <Leader>Y \Psi
-			"\|inoremap	<buffer> ^ ^{}<Left>
-			"\|inoremap	<buffer> _ _{}<Left>
-			"\|inoremap	<buffer> $ $$<Left>
-			"\|inoremap	<buffer> ( ()<Left>
-			"\|inoremap <buffer> { {}<Left>
-			"\|inoremap	<buffer> | ||<Left>
-			"\|inoremap <buffer> [ []<Left>
-augroup END
+
+	au VimEnter * if &filetype == "tex" | let g:tex_flavor = "latex" | endif 
+	au VimEnter * if &filetype == "tex" | imap <C-b> <Plug>Tex_MathBF| endif 
+	au VimEnter * if &filetype == "tex" | imap <C-c> <Plug>Tex_MathCal| endif 
+	au VimEnter * if &filetype == "tex" | imap <C-l> <Plug>Tex_LeftRight| endif 
+	au VimEnter * if &filetype == "tex" | call IMAP('`w', '\omega', 'tex')| endif 
+	au VimEnter * if &filetype == "tex" | call IMAP('`v', '\vee', 'tex')| endif 
+	"au VimEnter * if &filetype == "tex" | imap <C-i> <Plug>Tex_InsertItemOnThisLine| endif
+	"au VimEnter * if &filetype == "tex" | call IMAP('`O', '\Omega', 'tex')| endif 
+	au VimEnter * if &filetype == "tex" | set iskeyword+=:| endif 
+	"Reload"
+
+
+	au VimEnter * if &filetype == "tex" | call IMAP('EE*', "\<c-r>=Tex_PutEnvironment('equation*')\<CR>", 'tex')| endif 
+	au VimEnter * if &filetype == "tex" | call IMAP('EA*', "\<c-r>=Tex_PutEnvironment('align*')\<CR>", 'tex')| endif 
+
+	au VimEnter * if &filetype == "tex" | call IMAP('EDF', "\<c-r>=Tex_PutEnvironment('definition')\<CR>", 'tex')| endif 
+	au VimEnter * if &filetype == "tex" | call IMAP('ELE', "\<c-r>=Tex_PutEnvironment('lemma')\<CR>", 'tex')| endif 
+	au VimEnter * if &filetype == "tex" | call IMAP('EPR', "\<c-r>=Tex_PutEnvironment('proposition')\<CR>", 'tex')| endif 
+	au VimEnter * if &filetype == "tex" | call IMAP('EPF', "\<c-r>=Tex_PutEnvironment('proof')\<CR>", 'tex')| endif 
+	au VimEnter * if &filetype == "tex" | call IMAP('ETH', "\<c-r>=Tex_PutEnvironment('theorem')\<CR>", 'tex')| endif 
+	au VimEnter * if &filetype == "tex" | call IMAP('ERE', "\<c-r>=Tex_PutEnvironment('remark')\<CR>", 'tex')| endif 
+	au VimEnter * if &filetype == "tex" | call IMAP('EEX', "\<c-r>=Tex_PutEnvironment('example')\<CR>", 'tex')| endif 
+	au VimEnter * if &filetype == "tex" | call IMAP('$$', "\\(<++>\\)<++>", 'tex')| endif 
+
+	au VimEnter * if &filetype == "tex" | let g:Tex_UseUtfMenus=1| endif 
+	au VimEnter * if &filetype == "tex" | set omnifunc=syntaxcomplete#Complete| endif 
+	"au VimEnter * if &filetype == "tex" | let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+	"| endif 
+augroup END 
 "}
 
 
 "Plugin Loading {
 
 " Vim-Latex { Requires vim 7.4+ to work properly with Ultisnips
-if filereadable(expand("~/.vim/bundle/vim-latex/ftplugin/latex-suite/texrc"))
+if filereadable(expand("~/.vim/plugged/vim-latex/ftplugin/latex-suite/texrc"))
+	let g:Tex_CustomTemplateFolder = ''
+	imap <C-j> <Plug>IMAP_JumpForward
+	imap <C-S-j> <Plug>IMAP_JumpBack
+	set grepprg=grep\ -nH\ $*
+	nnoremap \rw :%s/\s\+$//e<CR> "remove trailing whitespace
 	let g:Tex_DefaultTargetFormat = 'pdf'
 	let g:Tex_ViewRule_pdf = 'open -a Skim'
-	map <c-space> :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR>:redraw!<CR>
-"}
+	"let g:Tex_MultipleCompileFormats='pdf,bib,pdf'
+	let g:Tex_MultipleCompileFormats='pdf,bib,pdf'
+
+	let g:Tex_EnvEndWithCR = 1
+	let g:Tex_Menus = 0
+
+	" Should the label placed before or after the content?
+	let g:Tex_LabelAfterContent = 0
+	let g:Tex_EnvLabelprefix_table = "tab:"
+	let g:Tex_EnvLabelprefix_figure = "fig:"
+	let g:Tex_EnvLabelprefix_equation = "eqn:"
+	let g:Tex_EnvLabelprefix_theorem = "thm:"
+	let g:Tex_EnvLabelprefix_definition = "def:"
+	let g:Tex_EnvLabelprefix_remark = "rem:"
+	let g:Tex_EnvLabelprefix_notation = "not:"
+	let g:Tex_EnvLabelprefix_lemma = "lem:"
+	let g:Tex_HotKeyMappings = ''
+	let g:Tex_BIBINPUTS = '/Users/davidkarapetyan/Documents/workspace/research/'
+	"let g:Tex_MultipleCompileFormats='pdf'
+	"let g:Tex_DefaultTargetFormat = 'pdf'
+	let g:Tex_AdvancedMath = 1
+	let g:Tex_UseUtfMenus = 1
+	"let g:Tex_Leader = ';'
+
+	"let g:Tex_CompileRule_pdf = 'xelatex -synctex=1 -interaction=nonstopmode -file-line-error-style $*'
+	let g:Tex_CompileRule_pdf = "latexmk -pdflatex='pdflatex -file-line-error -synctex=1 -interaction=nonstopmode' -bibtex -pdf $*"
+	"let g:Tex_CompileRule_pdf = "latexmk -lualatex='lualatex -file-line-error -synctex=1 -interaction=nonstopmode' -bibtex -pdf $*"
+
+
+	let Tex_FoldedSections=""
+	let Tex_FoldedEnvironments=""
+	let Tex_FoldedMisc=""
+	map <c-space> :call Tex_ForwardSearchLaTeX()<CR> 
+	imap <tab> <F7>
+
+	"let g:Tex_CompileRule_pdf = 'latexmk --pdf $*'
+
+	"let g:Tex_CompileRule_pdf = 'xelatex $*'
+
+	"}
 endif
 
 " Ultisnips { Requires vim 7.4+
-if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
+if filereadable(expand("~/.vim/plugged/UltiSnips/plugin/UltiSnips.vim"))
 	"let g:UltiSnipsSnippetDirectories=["my_snippets"]
 	let g:UltiSnipsExpandTrigger="<tab>"
 	let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -201,15 +232,23 @@ if filereadable(expand("~/.vim/bundle/UltiSnips/plugin/UltiSnips.vim"))
 	let g:UltiSnipsEditSplit="horizontal"
 	"inoremap <silent> $ $<C-R>=UltiSnips#Anon('\$$1\$', '$', '', 'i')<cr>
 	"inoremap <silent> [ [<C-R>=UltiSnips#Anon('[$1]', '[', '', 'i')<cr>
-	"inoremap <silent> _ _<C-R>=UltiSnips#Anon('_{$1}', '_', '', 'i')<cr>
-	"inoremap <silent> ^ ^<C-R>=UltiSnips#Anon('^{$1}', '^', '', 'i')<cr>
-	"inoremap <silent> ( (<C-R>=UltiSnips#Anon('($1)', '(', '', 'i')<cr>
+
+
 endif
 
 " }
 
+" Airline {
+if filereadable(expand("~/.vim/plugged/vim-airline/plugin/airline.vim"))
+	let g:airline#extensions#tabline#enabled = 0
+	"let g:airline_extensions = []
+	"let g:airline_extensions = ['branch']
+
+endif
+" }
+
 " Fugitive {
-if filereadable(expand("~/.vim/bundle/vim-fugitive/plugin/fugitive.vim"))
+if filereadable(expand("~/.vim/plugged/vim-fugitive/plugin/fugitive.vim"))
 
 	nnoremap <silent> <leader>gs :Gstatus<CR>
 	nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -222,7 +261,70 @@ if filereadable(expand("~/.vim/bundle/vim-fugitive/plugin/fugitive.vim"))
 endif
 "}
 
-if filereadable(expand("~/.vim/bundle/LaTeX-Box/ftplugin/latex-box/latexmk.vim"))
+if filereadable(expand("~/.vim/plugged/vimtex/ftplugin/tex.vim"))
+	imap <C-j> <plug>(vimtex-delim-close)
+	let g:vimtex_delim_stopline=1
+	inoremap <silent> __ _<c-r>=UltiSnips#Anon('_{$0', '_', '', 'i')<cr>
+	inoremap <silent> ^^ ^<c-r>=UltiSnips#Anon('^{$0', '^', '', 'i')<cr>
+	inoremap <silent> (( (<C-R>=UltiSnips#Anon('\left($0', '(', '', 'i')<cr>
+	inoremap <silent> [[ [<C-R>=UltiSnips#Anon('\left[$0', '[', '', 'i')<cr>
+	inoremap <silent> {{ {<C-R>=UltiSnips#Anon('\left\\{$0', '{', '', 'i')<cr>
+
+	map <c-space> <localleader>lv
+
+	"imap ^^ ^{
+	"imap __ _{
+	let g:vimtex_view_general_viewer
+				\ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+	let g:vimtex_view_general_options = '-r @line @pdf @tex'
+
+	" This adds a callback hook that updates Skim after compilation
+	let g:vimtex_latexmk_callback_hooks = ['UpdateSkim']
+	function! UpdateSkim(status)
+		if !a:status | return | endif
+
+		let l:out = b:vimtex.out()
+		let l:tex = expand('%:p')
+		let l:cmd = [g:vimtex_view_general_viewer, '-r']
+		if !empty(system('pgrep Skim'))
+			call extend(l:cmd, ['-g'])
+		endif
+		if has('nvim')
+			call jobstart(l:cmd + [line('.'), l:out, l:tex])
+		elseif has('job')
+			call job_start(l:cmd + [line('.'), l:out, l:tex])
+		else
+			call system(join(l:cmd + [line('.'), shellescape(l:out), shellescape(l:tex)], ' '))
+		endif
+	endfunction
+	call vimtex#imaps#add_map({
+				\ 'lhs' : '^^',
+				\ 'rhs' : '^{'
+				\})
+	call vimtex#imaps#add_map({
+				\ 'lhs' : '__',
+				\ 'rhs' : '_{'
+				\})
+
+endif
+
+
+
+
+
+" Automatic Preview {
+if filereadable(expand("~/.vim/plugged/vim-latex-live-preview/plugin/latexlivepreview.vim"))
+
+	let g:livepreview_previewer = 'open -a Skim'
+endif 
+"}
+
+if filereadable(expand("~/.vim/plugged/syntastic/plugin/syntastic.vim"))
+	let g:syntastic_quiet_messages = { "regex": 'You should enclose the previous parenthesis with\|to achieve an ellipsis\|Delete this space to maintain correct\| expected, found\|match the number of'}
+	let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
+endif
+
+if filereadable(expand("~/.vim/plugged/LaTeX-Box/ftplugin/latex-box/latexmk.vim"))
 	noremap <silent> <Leader>ls :silent
 				\ !/Applications/Skim.app/Contents/SharedSupport/displayline
 				\ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
@@ -242,6 +344,57 @@ if filereadable(expand("~/.vim/bundle/LaTeX-Box/ftplugin/latex-box/latexmk.vim")
 	set columns=82 lines=53
 	let g:LatexBox_latexmk_preview_continuously=1
 	let g:LatexBox_quickfix=0
-
 endif
 "}
+"let g:slime_target = "tmux"
+"let g:slime_paste_file = tempname()
+"" Disable haskell-vim omnifunc
+"let g:haskellmode_completion_ghc = 0
+"autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+"let g:necoghc_enable_detailed_browse = 1
+"map <silent> tw :GhcModTypeInsert<CR>
+"map <silent> ts :GhcModSplitFunCase<CR>
+"map <silent> tq :GhcModType<CR>
+"map <silent> te :GhcModTypeClear<CR>
+"autocmd FileType python setlocal omnifunc=jedi#completions
+"let g:jedi#completions_enabled = 0
+"let g:jedi#auto_vim_configuration = 0
+"let g:jedi#smart_auto_mappings = 0
+"let g:neocomplete#force_omni_input_patterns.python =
+"\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+" alternative pattern: '\h\w*\|[^. \t]\.\w*'
+" Use deoplete.
+
+"let g:deoplete#enable_at_startup = 1
+"" Use smartcase.
+
+"" <C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+
+"" <CR>: close popup and save indent.
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function() abort
+	"return deoplete#close_popup() . "\<CR>"
+"endfunction
+"let g:jedi#show_call_signatures = 1
+"let g:jedi#popup_on_dot=0
+"let g:deoplete#sources#jedi#show_docstring=1
+let g:deoplete#enable_at_startup = 1
+let g:echodoc#enable_at_startup=1
+"let g:jedi#completions_enabled=0
+let g:deoplete#enable_smart_case = 1
+let g:pymode_rope_completion = 0
+"let g:pymode_doc = 0
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_comments = 1 " Completion in comments
+let g:ycm_complete_in_strings = 1 " Completion in string
+
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+let g:ycm_python_binary_path = 'python'
+
+" Goto definition with F3
+"map <F3> :YcmCompleter GoTo<CR>
