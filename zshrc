@@ -50,11 +50,9 @@ then
 	plugins=(git)
 
 	# User configuration
-	export MANPATH="$MANPATH:/usr/local/man:$MANPATH"
+	export MANPATH=$MANPATH:/usr/local/man:$MANPATH
 	#export PATH=/usr/local/sbin:$HOME/.local/bin:$PATH
 	export PATH=/usr/local/sbin:$HOME/Library/Haskell/bin:$PATH
-
-
 	source $ZSH/oh-my-zsh.sh
 
 	# You may need to manually set your language environment
