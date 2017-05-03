@@ -376,7 +376,7 @@ let g:SuperTabDefaultCompletionType='context'
 
 let g:pydoc_window_lines=0.2
 let g:pydoc_open_cmd = 'vsplit'"
-map <leader>pr :botright vertical pedit previewwindow<CR>:vert resize -65<CR>
+map <leader>pr :botright vertical pedit previewwindow<CR>:vert resize -68<CR>
 
 autocmd FileType python setlocal completefunc=pythoncomplete#Complete
 
