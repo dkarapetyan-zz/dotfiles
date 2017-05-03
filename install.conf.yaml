@@ -11,7 +11,6 @@
     ~/.vimrc: vimrc
     ~/.zshrc: zshrc
     ~/.tmux.conf: tmux.conf
-    ~/.oh-my-zsh: oh-my-zsh
     ~/.ghci: ghci
     ~/.ipython/profile_default/startup/startup.py: startup.py
     ~/.gitconfig: gitconfig

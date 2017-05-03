@@ -37,6 +37,7 @@ if has('statusline')
 	set laststatus=2
 endif
 
+set nocompatible
 let maplocalleader = "," "must put before plugins are loaded--otherwise, won't work
 let mapleader = "," "must put before plugins are loaded--otherwise, won't work
 set nojoinspaces  " Prevents inserting two spaces after punctuation on a join (J)
@@ -80,8 +81,8 @@ command! WQ wq
 noremap Q <Nop>
 nnoremap <leader>ot :!open -a iTerm ./<CR><CR>
 noremap <leader>ox :!open -a Excalibur %<CR><CR>
-nnoremap <leader>ov :source ~/.vimrc:exe ":echo 'vimrc reloaded'"<CR>
-nnoremap <leader>ev :vsp ~/.vimrcc<CR>
+nnoremap <leader>ov :source ~/.vimrc<CR>
+nnoremap <leader>ev :vsp ~/.vimrc<CR>
 nnoremap <leader>a mcgg=G`c
 "noremap j gj
 "noremap k gk

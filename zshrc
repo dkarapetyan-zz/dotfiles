@@ -53,7 +53,9 @@ then
 	export MANPATH=$MANPATH:/usr/local/man:$MANPATH
 	#export PATH=/usr/local/sbin:$HOME/.local/bin:$PATH
 	export PATH=/usr/local/sbin:$HOME/Library/Haskell/bin:$PATH
+	export PATH=/Applications/LilyPond.app/Contents/Resources/bin:$PATH
 	source $ZSH/oh-my-zsh.sh
+	setopt vi
 
 	# You may need to manually set your language environment
 	# export LANG=en_US.UTF-8
@@ -146,6 +148,7 @@ then
 	export MANPATH="/usr/local/man:$MANPATH"
 
 	source $ZSH/oh-my-zsh.sh
+	# vim mode
 
 	# You may need to manually set your language environment
 	# export LANG=en_US.UTF-8
