@@ -389,9 +389,6 @@ map <leader>pr :botright vertical pedit previewwindow<CR>:vert resize -68<CR>
 
 autocmd FileType python setlocal completefunc=pythoncomplete#Complete
 
-if isdirectory(expand("~/.vim/plugged/nerdtree/"))
-	map <leader>nt :NERDTreeToggle<CR>
-endif
 
 " Fugitive {
 if isdirectory(expand("~/.vim/plugged/vim-fugitive/"))
@@ -428,7 +425,9 @@ endif
 " }
 
 if isdirectory(expand("~/.fzf/"))
-		map <c-f> :FZF<CR>
+		nnoremap <silent> <c-f> :call fzf#run({
+\   'right': winwidth('.') / 2,
+\   'sink':  'vertical botright split' })<CR>
 endif
 
 " ctrlp {
@@ -464,3 +463,6 @@ if isdirectory(expand("~/.vim/plugged/ctrlp.vim/"))
 endif
 "}
 
+if isdirectory(expand("~/.vim/plugged/nerdtree/"))
+	map <leader>nt :NERDTreeToggle<CR>
+endif
