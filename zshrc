@@ -184,3 +184,5 @@ then
 	source $HOME/.sensitiverc
 	
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

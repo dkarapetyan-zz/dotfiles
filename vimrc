@@ -10,6 +10,7 @@ Plug 'ervandew/supertab'
 Plug 'python-mode/python-mode'
 Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'jpalardy/vim-slime'
 Plug 'vim-latex/vim-latex'
@@ -20,16 +21,19 @@ Plug 'eagletmt/ghcmod-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'godlygeek/tabular'
 Plug 'naught101/vim-pweave'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 
 call plug#end()
 
 if filereadable(expand("~/.vim/plugged/vim-colorschemes/colors/solarized.vim"))
 	let g:solarized_termcolors=256
-	let g:solarized_termtrans=1
+	let g:solarized_termtrans=1 "takes on colors of tmux terminal if 1
 	let g:solarized_contrast="normal"
 	let g:solarized_visibility="normal"
 	let g:solarized_menu = 2
+	set bg=light
 	color solarized             " Load a colorscheme
 endif
 
@@ -41,13 +45,11 @@ set nocompatible
 let maplocalleader = "," "must put before plugins are loaded--otherwise, won't work
 let mapleader = "," "must put before plugins are loaded--otherwise, won't work
 set nojoinspaces  " Prevents inserting two spaces after punctuation on a join (J)
-set bg=dark
 set completeopt=longest,menuone,preview
 set textwidth=79
 set t_Co=256
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set history=1000  
-set clipboard=unnamed "copying to os clipboard on osx
 set noshowmode
 set hidden                          " Allow buffer switching without saving
 set backspace=indent,eol,start  " Backspace for dummies
@@ -71,7 +73,7 @@ set backup
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swp//
 set novb
-set autochdir
+"set autochdir
 set autoread "auto reload a file that has changed
 set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
 " Custom Global Mappings {
@@ -79,6 +81,8 @@ command! W w
 command! Wq wq
 command! WQ wq
 noremap Q <Nop>
+map j gj
+map k gk
 nnoremap <leader>ot :!open -a iTerm ./<CR><CR>
 noremap <leader>ox :!open -a Excalibur %<CR><CR>
 nnoremap <leader>ov :source ~/.vimrc<CR>
@@ -227,6 +231,7 @@ endif
 " Airline {
 if filereadable(expand("~/.vim/plugged/vim-airline/plugin/airline.vim"))
 	let g:airline#extensions#tabline#enabled = 0
+	let g:airline#extensions#tmuxline#enabled = 1
 	"let g:airline_extensions = []
 	"let g:airline_extensions = ['branch']
 
@@ -339,6 +344,9 @@ if !executable("ghcmod")
 	autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 endif
 
+augroup filetypedetect
+	    au BufRead,BufNewFile *.toml set filetype=config
+augroup END
 au BufRead,BufNewFile,BufNew *.hss setl ft=haskell.script
 
 let slime_target = "tmux" 
@@ -381,6 +389,10 @@ map <leader>pr :botright vertical pedit previewwindow<CR>:vert resize -68<CR>
 
 autocmd FileType python setlocal completefunc=pythoncomplete#Complete
 
+if isdirectory(expand("~/.vim/plugged/nerdtree/"))
+	map <leader>nt :NERDTreeToggle<CR>
+endif
+
 " Fugitive {
 if isdirectory(expand("~/.vim/plugged/vim-fugitive/"))
 	nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -415,8 +427,12 @@ if isdirectory(expand("~/.vim/plugged/python-mode"))
 endif
 " }
 
+if isdirectory(expand("~/.fzf/"))
+		map <c-f> :FZF<CR>
+endif
+
 " ctrlp {
-if isdirectory(expand("~/.vim/pluegged/ctrlp.vim/"))
+if isdirectory(expand("~/.vim/plugged/ctrlp.vim/"))
 	let g:ctrlp_working_path_mode = 'ra'
 	nnoremap <silent> <D-t> :CtrlP<CR>
 	nnoremap <silent> <D-r> :CtrlPMRU<CR>
