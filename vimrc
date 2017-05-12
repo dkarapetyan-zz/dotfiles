@@ -11,7 +11,9 @@ Plug 'python-mode/python-mode'
 Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'godlygeek/tabular' "must come before vim-markdown
 Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'plasticboy/vim-markdown'
 Plug 'jpalardy/vim-slime'
 Plug 'vim-latex/vim-latex'
 Plug 'vim-voom/VOoM'
@@ -19,11 +21,12 @@ Plug 'gisraptor/vim-lilypond-integrator'
 Plug 'eagletmt/neco-ghc'
 Plug 'eagletmt/ghcmod-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'godlygeek/tabular'
 Plug 'naught101/vim-pweave'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
+Plug 'junegunn/fzf.vim'
+Plug 'mattn/emmet-vim'
+Plug 'cespare/vim-toml'
 
 call plug#end()
 
@@ -41,6 +44,8 @@ if has('statusline')
 	set laststatus=2
 endif
 
+
+set autoread
 set nocompatible
 let maplocalleader = "," "must put before plugins are loaded--otherwise, won't work
 let mapleader = "," "must put before plugins are loaded--otherwise, won't work
@@ -73,7 +78,7 @@ set backup
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swp//
 set novb
-"set autochdir
+set autochdir
 set autoread "auto reload a file that has changed
 set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
 " Custom Global Mappings {
@@ -234,6 +239,12 @@ if filereadable(expand("~/.vim/plugged/vim-airline/plugin/airline.vim"))
 	let g:airline#extensions#tmuxline#enabled = 1
 	"let g:airline_extensions = []
 	"let g:airline_extensions = ['branch']
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline#extensions#tabline#fnamemod = ':t'
+	let g:airline#extensions#tabline#buffer_nr_show = 1
+
+
+
 
 endif
 " }
@@ -345,7 +356,7 @@ if !executable("ghcmod")
 endif
 
 augroup filetypedetect
-	    au BufRead,BufNewFile *.toml set filetype=config
+	au BufRead,BufNewFile *.toml set filetype=config
 augroup END
 au BufRead,BufNewFile,BufNew *.hss setl ft=haskell.script
 
@@ -407,15 +418,13 @@ if isdirectory(expand("~/.vim/plugged/vim-fugitive/"))
 endif
 
 " PyMode {
-" Disable if python support not present
-if !has('python') && !has('python3')
-	let g:pymode = 0
-endif
 
 if isdirectory(expand("~/.vim/plugged/python-mode"))
 	let g:pymode_rope_lookup_project = 1
 	let g:pymode_rope_completion = 1
 	let g:pymode_rope_complete_on_dot = 0
+	let g:pymode_options_colorcolumn = 0
+
 
 	"let g:pymode_lint_checkers = ['pyflakes']
 	"let g:pymode_trim_whitespaces = 0
@@ -424,10 +433,8 @@ if isdirectory(expand("~/.vim/plugged/python-mode"))
 endif
 " }
 
-if isdirectory(expand("~/.fzf/"))
-		nnoremap <silent> <c-f> :call fzf#run({
-\   'right': winwidth('.') / 2,
-\   'sink':  'vertical botright split' })<CR>
+if isdirectory(expand("~/.vim/plugged/fzf.vim/"))
+	nnoremap <silent> <leader>f :FZF ~/Documents/workspace<CR>
 endif
 
 " ctrlp {
@@ -466,3 +473,11 @@ endif
 if isdirectory(expand("~/.vim/plugged/nerdtree/"))
 	map <leader>nt :NERDTreeToggle<CR>
 endif
+
+let g:vim_markdown_fenced_languages = ['python=python', 'viml=vim', 'bash=sh', 'ini=dosini']
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_math = 1
+
+
+
