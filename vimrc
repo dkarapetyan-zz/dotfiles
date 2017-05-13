@@ -27,6 +27,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mattn/emmet-vim'
 Plug 'cespare/vim-toml'
+Plug 'dag/vim2hs'
 
 call plug#end()
 
@@ -54,11 +55,11 @@ set completeopt=longest,menuone,preview
 set textwidth=79
 set t_Co=256
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
-set history=1000  
+set history=1000
 set noshowmode
 set hidden                          " Allow buffer switching without saving
 set backspace=indent,eol,start  " Backspace for dummies
-set ttyfast                     
+set ttyfast
 set ignorecase                  " Case insensitive search
 set smartcase                   " Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
@@ -68,11 +69,11 @@ set cursorline
 set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=5                 " Minimum lines to keep above and below cursor
 set splitright
-set shiftwidth=2                " Use indents of 4 spaces
+"set shiftwidth=2                " Use indents of 4 spaces
 "set expandtab                   " Tabs are spaces, not tabs
-set tabstop=2                   " An indentation every 8 columns
-set softtabstop=2               " Let backspace delete indent
-"set nofen 
+"set tabstop=2                   " An indentation every 8 columns
+"set softtabstop=2               " Let backspace delete indent
+"set nofen
 set noswapfile
 set backup
 set backupdir=~/.vim/.backup//
@@ -80,7 +81,7 @@ set directory=~/.vim/.swp//
 set novb
 set autochdir
 set autoread "auto reload a file that has changed
-set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls 
+set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls
 " Custom Global Mappings {
 command! W w
 command! Wq wq
@@ -99,7 +100,7 @@ nnoremap K <nop>
 command! Q q
 command! W w
 command! Wq wq
-command! WQ wq 
+command! WQ wq
 
 "}
 
@@ -116,8 +117,8 @@ if has('gui_running')
 	set guioptions-=b "turn off scrollbars and toolbar
 	"set guifont=Inconsolata\ For\ Powerline:h13
 	set guifont=Inconsolata:h14
-	"let gcr="a:blinkon0" 
-	"autocmd filetype * highlight tagbarsignature guifg=bg 
+	"let gcr="a:blinkon0"
+	"autocmd filetype * highlight tagbarsignature guifg=bg
 endif
 "}
 
@@ -130,36 +131,8 @@ augroup vimrc_autocmds
 	"\	| set term=xterm-256color | endif "for tmux rendering
 	"autocmd BufRead,BufNewFile *.tex set syntax=plaintex
 	"autocmd BufWritePost *.tex :call Tex_CompileMultipleTimes()
-
-	au VimEnter * if &filetype == "tex" | let g:tex_flavor = "latex" | endif 
-	au VimEnter * if &filetype == "tex" | imap <C-b> <Plug>Tex_MathBF| endif 
-	au VimEnter * if &filetype == "tex" | imap <C-c> <Plug>Tex_MathCal| endif 
-	au VimEnter * if &filetype == "tex" | imap <C-l> <Plug>Tex_LeftRight| endif 
-	au VimEnter * if &filetype == "tex" | call IMAP('`w', '\omega', 'tex')| endif 
-	au VimEnter * if &filetype == "tex" | call IMAP('`v', '\vee', 'tex')| endif 
-	"au VimEnter * if &filetype == "tex" | imap <C-i> <Plug>Tex_InsertItemOnThisLine| endif
-	"au VimEnter * if &filetype == "tex" | call IMAP('`O', '\Omega', 'tex')| endif 
-	au VimEnter * if &filetype == "tex" | set iskeyword+=:| endif 
-	"Reload"
-
-
-	au VimEnter * if &filetype == "tex" | call IMAP('EE*', "\<c-r>=Tex_PutEnvironment('equation*')\<CR>", 'tex')| endif 
-	au VimEnter * if &filetype == "tex" | call IMAP('EA*', "\<c-r>=Tex_PutEnvironment('align*')\<CR>", 'tex')| endif 
-
-	au VimEnter * if &filetype == "tex" | call IMAP('EDF', "\<c-r>=Tex_PutEnvironment('definition')\<CR>", 'tex')| endif 
-	au VimEnter * if &filetype == "tex" | call IMAP('ELE', "\<c-r>=Tex_PutEnvironment('lemma')\<CR>", 'tex')| endif 
-	au VimEnter * if &filetype == "tex" | call IMAP('EPR', "\<c-r>=Tex_PutEnvironment('proposition')\<CR>", 'tex')| endif 
-	au VimEnter * if &filetype == "tex" | call IMAP('EPF', "\<c-r>=Tex_PutEnvironment('proof')\<CR>", 'tex')| endif 
-	au VimEnter * if &filetype == "tex" | call IMAP('ETH', "\<c-r>=Tex_PutEnvironment('theorem')\<CR>", 'tex')| endif 
-	au VimEnter * if &filetype == "tex" | call IMAP('ERE', "\<c-r>=Tex_PutEnvironment('remark')\<CR>", 'tex')| endif 
-	au VimEnter * if &filetype == "tex" | call IMAP('EEX', "\<c-r>=Tex_PutEnvironment('example')\<CR>", 'tex')| endif 
-	au VimEnter * if &filetype == "tex" | call IMAP('$$', "\\(<++>\\)<++>", 'tex')| endif 
-
-	au VimEnter * if &filetype == "tex" | let g:Tex_UseUtfMenus=1| endif 
-	au VimEnter * if &filetype == "tex" | set omnifunc=syntaxcomplete#Complete| endif 
-	"au VimEnter * if &filetype == "tex" | let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-	"| endif 
-augroup END 
+		"
+augroup END
 "}
 
 
@@ -172,7 +145,7 @@ if filereadable(expand("~/.vim/plugged/vim-latex/ftplugin/latex-suite/texrc"))
 	autocmd Filetype tex	imap <C-S-j> <Plug>IMAP_JumpBack
 	autocmd Filetype tex	set grepprg=grep\ -nH\ $*
 	autocmd Filetype tex	nnoremap \rw :%s/\s\+$//e<CR> "remove trailing whitespace
-	autocmd Filetype tex	map <c-space> :call Tex_ForwardSearchLaTeX()<CR> 
+	autocmd Filetype tex	map <c-space> :call Tex_ForwardSearchLaTeX()<CR>
 	autocmd Filetype tex	imap <tab> <F7>
 
 	let g:Tex_DefaultTargetFormat = 'pdf'
@@ -215,6 +188,32 @@ if filereadable(expand("~/.vim/plugged/vim-latex/ftplugin/latex-suite/texrc"))
 	"let g:Tex_CompileRule_pdf = 'xelatex $*'
 
 	"}
+	autocmd Filetype tex let g:tex_flavor = "latex"
+	autocmd Filetype tex imap <C-b> <Plug>Tex_MathBF
+	autocmd Filetype tex imap <C-c> <Plug>Tex_MathCal
+	autocmd Filetype tex imap <C-l> <Plug>Tex_LeftRight
+	autocmd Filetype tex call IMAP('`w', '\omega', 'tex')
+	autocmd Filetype tex call IMAP('`v', '\vee', 'tex')
+	autocmd Filetype tex  imap <C-i> <Plug>Tex_InsertItemOnThisLine
+	autocmd Filetype tex  call IMAP('`O', '\Omega', 'tex')
+	autocmd Filetype tex set iskeyword+=:
+	autocmd Filetype tex set sw=2
+
+	autocmd Filetype tex call IMAP('EE*', "\<c-r>=Tex_PutEnvironment('equation*')\<CR>", 'tex')
+	autocmd Filetype tex call IMAP('EA*', "\<c-r>=Tex_PutEnvironment('align*')\<CR>", 'tex')
+
+	autocmd Filetype tex call IMAP('EDF', "\<c-r>=Tex_PutEnvironment('definition')\<CR>", 'tex')
+	autocmd Filetype tex call IMAP('ELE', "\<c-r>=Tex_PutEnvironment('lemma')\<CR>", 'tex')
+	autocmd Filetype tex call IMAP('EPR', "\<c-r>=Tex_PutEnvironment('proposition')\<CR>", 'tex')
+	autocmd Filetype tex call IMAP('EPF', "\<c-r>=Tex_PutEnvironment('proof')\<CR>", 'tex')
+	autocmd Filetype tex call IMAP('ETH', "\<c-r>=Tex_PutEnvironment('theorem')\<CR>", 'tex')
+	autocmd Filetype tex call IMAP('ERE', "\<c-r>=Tex_PutEnvironment('remark')\<CR>", 'tex')
+	autocmd Filetype tex call IMAP('EEX', "\<c-r>=Tex_PutEnvironment('example')\<CR>", 'tex')
+	autocmd Filetype tex call IMAP('$$', "\\(<++>\\)<++>", 'tex')
+
+	autocmd Filetype tex let g:Tex_UseUtfMenus=1
+	autocmd Filetype tex set omnifunc=syntaxcomplete#Complete
+	autocmd Filetype tex let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 endif
 
 " Ultisnips { Requires vim 7.4+
@@ -360,9 +359,8 @@ augroup filetypedetect
 augroup END
 au BufRead,BufNewFile,BufNew *.hss setl ft=haskell.script
 
-let slime_target = "tmux" 
+let slime_target = "tmux"
 let g:slime_python_ipython = 1
-let g:haskell_tabular = 1
 vmap a= :Tabularize /=<CR>
 vmap a; :Tabularize /::<CR>
 vmap a- :Tabularize /-><CR>
@@ -372,11 +370,12 @@ if isdirectory(expand("~/.vim/plugged/tagbar/"))
 	let g:tagbar_left=1
 endif
 "}
-if exists('$TMUX') 
+if exists('$TMUX')
 	let g:slime_default_config={"socket_name": split($TMUX, ",")[0], "target_pane": ":.1"}
 endif
 let g:slime_no_mappings = 1
 xmap <leader>s <Plug>SlimeRegionSend
+nmap <leader>s <Plug>SlimeMotionSend
 nmap <leader>ss <Plug>SlimeLineSend
 
 let g:SuperTabMappingForward = '<nul>'
@@ -434,7 +433,7 @@ endif
 " }
 
 if isdirectory(expand("~/.vim/plugged/fzf.vim/"))
-	nnoremap <silent> <leader>f :FZF ~/Documents/workspace<CR>
+	nnoremap <silent> <leader>f :FZF<CR>
 endif
 
 " ctrlp {
@@ -479,5 +478,8 @@ let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_math = 1
 
+"Remove all trailing whitespace by pressing F5
+nnoremap <leader>ws :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+let g:haskell_tabular = 0
 
-
+autocmd Filetype haskell setlocal tabstop=8 expandtab softtabstop=4 shiftwidth=4 shiftround
