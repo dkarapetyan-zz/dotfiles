@@ -142,10 +142,9 @@ augroup END
 if filereadable(expand("~/.vim/plugged/vim-latex/ftplugin/latex-suite/texrc"))
 	let g:Tex_CustomTemplateFolder = ''
 	autocmd Filetype tex  imap <C-j> <Plug>IMAP_JumpForward
-	autocmd Filetype tex	imap <C-S-j> <Plug>IMAP_JumpBack
 	autocmd Filetype tex	set grepprg=grep\ -nH\ $*
-	autocmd Filetype tex	nnoremap \rw :%s/\s\+$//e<CR> "remove trailing whitespace
-	autocmd Filetype tex	map <c-space> :call Tex_ForwardSearchLaTeX()<CR>
+	"autocmd Filetype tex	nnoremap \rw :%s/\s\+$//e<CR> "remove trailing whitespace
+	"autocmd Filetype tex	map <c-space> :call Tex_ForwardSearchLaTeX()<CR>
 	autocmd Filetype tex	imap <tab> <F7>
 
 	let g:Tex_DefaultTargetFormat = 'pdf'
