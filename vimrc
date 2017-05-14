@@ -50,7 +50,6 @@ set ttyfast
 set ignorecase                  " Case insensitive search
 set smartcase                   " Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
-set cursorline
 set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=5                 " Minimum lines to keep above and below cursor
 set splitright
@@ -216,6 +215,7 @@ endif
 "Ale {
 if filereadable(expand("~/.vim/plugged/ale/plugin/ale.vim"))
   let g:ale_tex_chktex_options="-I -n 3 -n 11 -n 24 -n 9 -n 17"
+  let g:ale_lint_on_text_changed = "never"
 endif
 
 "Slime {
