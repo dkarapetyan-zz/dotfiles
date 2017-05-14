@@ -89,7 +89,7 @@ command! WQ wq
 nnoremap <leader>ws :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 map <leader>pr :botright vertical pedit previewwindow<CR>:vert resize -68<CR>
 autocmd FileType python setlocal completefunc=pythoncomplete#Complete
-autocmd FileType haskell tabstop=8 expandtab softtabstop=4
+autocmd FileType haskell setlocal tabstop=8 expandtab softtabstop=4
       \ shiftwidth=4 shiftround
 
 
@@ -186,13 +186,13 @@ endif
 
 " Airline {
 if filereadable(expand("~/.vim/plugged/vim-airline/plugin/airline.vim"))
-  let g:airline#extensions#tabline#enabled = 0
   let g:airline#extensions#tmuxline#enabled = 1
-  "let g:airline_extensions = []
-  "let g:airline_extensions = ['branch']
   let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tagbar#enabled = 0
   let g:airline#extensions#tabline#fnamemod = ':t'
   let g:airline#extensions#tabline#buffer_nr_show = 1
+  "let g:airline_extensions = ['branch', 'tabline', 'tmuxline']
+
 
 
 endif
@@ -216,6 +216,7 @@ endif
 if filereadable(expand("~/.vim/plugged/ale/plugin/ale.vim"))
   let g:ale_tex_chktex_options="-I -n 3 -n 11 -n 24 -n 9 -n 17"
   let g:ale_lint_on_text_changed = "never"
+  let g:ale_linters = {'haskell': ['hlint', 'ghc']}
 endif
 
 "Slime {
