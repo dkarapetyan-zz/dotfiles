@@ -4,8 +4,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'majutsushi/tagbar'
 Plug 'SirVer/UltiSnips'
 Plug 'honza/vim-snippets'
-Plug 'vim-syntastic/syntastic'
 Plug 'flazz/vim-colorschemes'
+Plug 'w0rp/ale'
 Plug 'ervandew/supertab'
 Plug 'python-mode/python-mode'
 Plug 'edkolev/tmuxline.vim'
@@ -212,19 +212,12 @@ if filereadable(expand("~/.vim/plugged/vim-fugitive/plugin/fugitive.vim"))
 endif
 "}
 
-"Ale--bug with Haskell. File Issue later {
-"if filereadable(expand("~/.vim/plugged/ale/plugin/ale.vim"))
-  "let g:ale_tex_chktex_options="-I -n 3 -n 11 -n 24 -n 9 -n 17"
-  "let g:ale_lint_on_text_changed = "never"
-  "let g:ale_linters = {'haskell': ['hlint', 'ghc']}
-"endif
-
-"Syntastic
-if filereadable(expand("~/.vim/plugged/syntastic/plugin/syntastic.vim"))
-	let g:syntastic_quiet_messages = { "regex": 'You should enclose the previous parenthesis with\|to achieve an ellipsis\|Delete this space to maintain correct\| expected, found\|match the number of'}
-	let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
+"Ale {
+if filereadable(expand("~/.vim/plugged/ale/plugin/ale.vim"))
+  let g:ale_tex_chktex_options="-I -n 3 -n 11 -n 24 -n 9 -n 17"
+  let g:ale_lint_on_text_changed = "never"
+  let g:ale_linters = {'haskell': ['hdevtools', 'ghc']}
 endif
-
 
 "Slime {
 if filereadable(expand("~/.vim/plugged/vim-slime/plugin/slime.vim"))
@@ -255,7 +248,7 @@ if isdirectory("~/.vim/plugged/ghcmod-vim/")
     autocmd Filetype haskell map <silent> ts :GhcModSplitFunCase<CR>
     autocmd Filetype haskell map <silent> tq :GhcModType<CR>
     autocmd Filetype haskell map <silent> te :GhcModTypeClear<CR>
-    autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+    "autocmd BufWritePost *.hs GhcModCheckAndLintAsync
   endif
 endif
 "}
