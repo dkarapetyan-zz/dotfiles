@@ -28,6 +28,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mattn/emmet-vim'
 Plug 'cespare/vim-toml'
 Plug 'dag/vim2hs'
+Plug 'lukerandall/haskellmode-vim'
 
 call plug#end()
 
@@ -66,7 +67,6 @@ set backup
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swp//
 set novb
-set autochdir
 set autoread "auto reload a file that has changed
 set wildignore=*.log,*.aux,*.bbl,*.pdfsync,*.dvi,*.aut,*.synctex.gz,*.aux,*.blg,*.fff,*.out,*.pdf,*.ps,*.toc,*.ttt,*.fdb_latexmk,*.fls
 " Custom Global Mappings {
@@ -88,8 +88,20 @@ command! Wq wq
 command! WQ wq
 nnoremap <leader>ws :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 map <leader>pr :botright vertical pedit previewwindow<CR>:vert resize -68<CR>
-autocmd FileType python setlocal completefunc=pythoncomplete#Complete
-autocmd FileType haskell setlocal tabstop=8 expandtab softtabstop=4
+augroup python
+  autocmd!
+augroup end
+
+augroup haskell_reset
+  autocmd!
+augroup end
+
+augroup python_reset
+  autocmd!
+augroup end
+
+autocmd python_reset FileType python setlocal completefunc=pythoncomplete#Complete
+autocmd haskell_reset FileType haskell setlocal tabstop=8 expandtab softtabstop=4
       \ shiftwidth=4 shiftround
 
 
@@ -112,9 +124,6 @@ endif
 " Vim-Latex { Requires vim 7.4+ to work properly with Ultisnips
 if filereadable(expand("~/.vim/plugged/vim-latex/ftplugin/latex-suite/texrc"))
   let g:Tex_CustomTemplateFolder = ''
-  autocmd Filetype tex  imap <C-j> <Plug>IMAP_JumpForward
-  autocmd Filetype tex	set grepprg=grep\ -nH\ $*
-  autocmd Filetype tex	imap <tab> <F7>
 
   let g:Tex_DefaultTargetFormat = 'pdf'
   let g:Tex_ViewRule_pdf = 'open -a Skim'
@@ -142,32 +151,35 @@ if filereadable(expand("~/.vim/plugged/vim-latex/ftplugin/latex-suite/texrc"))
   let Tex_FoldedEnvironments=""
   let Tex_FoldedMisc=""
 
-  autocmd Filetype tex let g:tex_flavor = "latex"
-  autocmd Filetype tex imap <C-b> <Plug>Tex_MathBF
-  autocmd Filetype tex imap <C-c> <Plug>Tex_MathCal
-  autocmd Filetype tex imap <C-l> <Plug>Tex_LeftRight
-  autocmd Filetype tex call IMAP('`w', '\omega', 'tex')
-  autocmd Filetype tex call IMAP('`v', '\vee', 'tex')
-  autocmd Filetype tex  imap <C-i> <Plug>Tex_InsertItemOnThisLine
-  autocmd Filetype tex  call IMAP('`O', '\Omega', 'tex')
-  autocmd Filetype tex set iskeyword+=:
-  autocmd Filetype tex set sw=2
-
-  autocmd Filetype tex call IMAP('EE*', "\<c-r>=Tex_PutEnvironment('equation*')\<CR>", 'tex')
-  autocmd Filetype tex call IMAP('EA*', "\<c-r>=Tex_PutEnvironment('align*')\<CR>", 'tex')
-
-  autocmd Filetype tex call IMAP('EDF', "\<c-r>=Tex_PutEnvironment('definition')\<CR>", 'tex')
-  autocmd Filetype tex call IMAP('ELE', "\<c-r>=Tex_PutEnvironment('lemma')\<CR>", 'tex')
-  autocmd Filetype tex call IMAP('EPR', "\<c-r>=Tex_PutEnvironment('proposition')\<CR>", 'tex')
-  autocmd Filetype tex call IMAP('EPF', "\<c-r>=Tex_PutEnvironment('proof')\<CR>", 'tex')
-  autocmd Filetype tex call IMAP('ETH', "\<c-r>=Tex_PutEnvironment('theorem')\<CR>", 'tex')
-  autocmd Filetype tex call IMAP('ERE', "\<c-r>=Tex_PutEnvironment('remark')\<CR>", 'tex')
-  autocmd Filetype tex call IMAP('EEX', "\<c-r>=Tex_PutEnvironment('example')\<CR>", 'tex')
-  autocmd Filetype tex call IMAP('$$', "\\(<++>\\)<++>", 'tex')
-
-  autocmd Filetype tex let g:Tex_UseUtfMenus=1
-  autocmd Filetype tex set omnifunc=syntaxcomplete#Complete
-  autocmd Filetype tex let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+  augroup tex
+    autocmd!
+    autocmd Filetype tex imap <C-j> <Plug>IMAP_JumpForward
+    autocmd Filetype tex set grepprg=grep\ -nH\ $*
+    autocmd Filetype tex imap <tab> <F7>
+    autocmd Filetype tex let g:tex_flavor = "latex"
+    autocmd Filetype tex imap <C-b> <Plug>Tex_MathBF
+    autocmd Filetype tex imap <C-c> <Plug>Tex_MathCal
+    autocmd Filetype tex imap <C-l> <Plug>Tex_LeftRight
+    autocmd Filetype tex imap <C-i> <Plug>Tex_InsertItemOnThisLine
+    autocmd Filetype tex set iskeyword+=:
+    autocmd Filetype tex set sw=2
+    autocmd Filetype tex call IMAP('`O', '\Omega', 'tex')
+    autocmd Filetype tex call IMAP('`w', '\omega', 'tex')
+    autocmd Filetype tex call IMAP('`v', '\vee', 'tex')
+    autocmd Filetype tex call IMAP('EE*', "\<c-r>=Tex_PutEnvironment('equation*')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('EA*', "\<c-r>=Tex_PutEnvironment('align*')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('EDF', "\<c-r>=Tex_PutEnvironment('definition')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('ELE', "\<c-r>=Tex_PutEnvironment('lemma')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('EPR', "\<c-r>=Tex_PutEnvironment('proposition')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('EPF', "\<c-r>=Tex_PutEnvironment('proof')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('ETH', "\<c-r>=Tex_PutEnvironment('theorem')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('ERE', "\<c-r>=Tex_PutEnvironment('remark')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('EEX', "\<c-r>=Tex_PutEnvironment('example')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('$$', "\\(<++>\\)<++>", 'tex')
+    autocmd Filetype tex let g:Tex_UseUtfMenus=1
+    autocmd Filetype tex set omnifunc=syntaxcomplete#Complete
+    autocmd Filetype tex let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+  augroup end
 endif
 
 "}
@@ -235,19 +247,19 @@ endif
 "}
 
 "Neco-Ghc {
-if isdirectory("~/.vim/plugged/neco-ghc/")
-  autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+if isdirectory(expand("~/.vim/plugged/neco-ghc/"))
+  autocmd haskell_reset FileType haskell setlocal omnifunc=necoghc#omnifunc
   let g:necoghc_enable_detailed_browse = 1
 endif
 "}
 
 "GHCMod-Vim {
-if isdirectory("~/.vim/plugged/ghcmod-vim/")
-  if !executable("ghcmod")
-    autocmd Filetype haskell map <silent> tw :GhcModTypeInsert<CR>
-    autocmd Filetype haskell map <silent> ts :GhcModSplitFunCase<CR>
-    autocmd Filetype haskell map <silent> tq :GhcModType<CR>
-    autocmd Filetype haskell map <silent> te :GhcModTypeClear<CR>
+if isdirectory(expand("~/.vim/plugged/ghcmod-vim/"))
+  if executable("ghc-mod")
+    autocmd haskell_reset Filetype haskell map <leader>tw :GhcModTypeInsert<CR>
+    autocmd haskell_reset Filetype haskell map <leader>ts :GhcModSplitFunCase<CR>
+    autocmd haskell_reset Filetype haskell map <leader>tq :GhcModType<CR>
+    autocmd haskell_reset Filetype haskell map <leader>te :GhcModTypeClear<CR>
     "autocmd BufWritePost *.hs GhcModCheckAndLintAsync
   endif
 endif
@@ -334,3 +346,15 @@ if isdirectory(expand("~/.vim/plugged/vim2hs/"))
   let g:haskell_tabular = 0
 endif
 "}
+"
+"Haskellmode {"
+if isdirectory(expand("~/.vim/plugged/haskellmode-vim/"))
+  let g:haskellmode_completion_ghc=0
+  let g:haskellmode_completion_haddock=0
+  au haskell_reset BufEnter *.hs compiler ghc
+  let g:haddock_browser = "open"
+  let g:haddock_browser_callformat = "%s %s"
+  let g:haddock_indexfiledir="~/.vim/"
+endif
+"}
+
