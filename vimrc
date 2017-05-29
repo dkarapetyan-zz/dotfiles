@@ -12,8 +12,8 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'godlygeek/tabular' "must come before vim-markdown
-Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'plasticboy/vim-markdown'
+Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'jpalardy/vim-slime'
 Plug 'vim-latex/vim-latex'
 Plug 'vim-voom/VOoM'
@@ -79,7 +79,7 @@ noremap k gk
 nnoremap <leader>ot :!open -a iTerm ./<CR><CR>
 noremap <leader>ox :!open -a Excalibur %<CR><CR>
 nnoremap <leader>ov :source ~/.vimrc<CR>
-nnoremap <leader>ev :vsp ~/.vimrc<CR>
+nnoremap <leader>ev :vsp ~/Documents/workspace/dotfiles/vimrc<CR>
 nnoremap <leader>a mcgg=G`c
 nnoremap K <nop>
 command! Q q
@@ -116,7 +116,8 @@ if filereadable(expand("~/.vim/plugged/vim-colorschemes/colors/solarized.vim"))
   let g:solarized_visibility="normal"
   let g:solarized_menu = 2
   set bg=light
-  color solarized             " Load a colorscheme
+  colorscheme solarized             " Load a colorscheme
+
 endif
 
 
@@ -168,11 +169,12 @@ if filereadable(expand("~/.vim/plugged/vim-latex/ftplugin/latex-suite/texrc"))
     autocmd Filetype tex call IMAP('`v', '\vee', 'tex')
     autocmd Filetype tex call IMAP('EE*', "\<c-r>=Tex_PutEnvironment('equation*')\<CR>", 'tex')
     autocmd Filetype tex call IMAP('EA*', "\<c-r>=Tex_PutEnvironment('align*')\<CR>", 'tex')
-    autocmd Filetype tex call IMAP('EDF', "\<c-r>=Tex_PutEnvironment('definition')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('EDE', "\<c-r>=Tex_PutEnvironment('definition')\<CR>", 'tex')
     autocmd Filetype tex call IMAP('ELE', "\<c-r>=Tex_PutEnvironment('lemma')\<CR>", 'tex')
     autocmd Filetype tex call IMAP('EPR', "\<c-r>=Tex_PutEnvironment('proposition')\<CR>", 'tex')
     autocmd Filetype tex call IMAP('EPF', "\<c-r>=Tex_PutEnvironment('proof')\<CR>", 'tex')
     autocmd Filetype tex call IMAP('ETH', "\<c-r>=Tex_PutEnvironment('theorem')\<CR>", 'tex')
+    autocmd Filetype tex call IMAP('ECO', "\<c-r>=Tex_PutEnvironment('corollary')\<CR>", 'tex')
     autocmd Filetype tex call IMAP('ERE', "\<c-r>=Tex_PutEnvironment('remark')\<CR>", 'tex')
     autocmd Filetype tex call IMAP('EEX', "\<c-r>=Tex_PutEnvironment('example')\<CR>", 'tex')
     autocmd Filetype tex call IMAP('$$', "\\(<++>\\)<++>", 'tex')
@@ -330,6 +332,8 @@ if isdirectory(expand("~/.vim/plugged/vim-markdown/"))
   let g:vim_markdown_toml_frontmatter = 1
   let g:vim_markdown_frontmatter = 1
   let g:vim_markdown_math = 1
+  let g:vim_markdown_folding_disabled = 1
+  let g:vim_markdown_conceal = 0
 endif
 "}
 
@@ -357,4 +361,3 @@ if isdirectory(expand("~/.vim/plugged/haskellmode-vim/"))
   let g:haddock_indexfiledir="~/.vim/"
 endif
 "}
-
