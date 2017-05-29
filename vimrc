@@ -15,7 +15,7 @@ Plug 'godlygeek/tabular' "must come before vim-markdown
 Plug 'plasticboy/vim-markdown'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'jpalardy/vim-slime'
-Plug 'vim-latex/vim-latex'
+"Plug 'vim-latex/vim-latex'
 Plug 'vim-voom/VOoM'
 Plug 'gisraptor/vim-lilypond-integrator'
 Plug 'eagletmt/neco-ghc'
@@ -29,6 +29,8 @@ Plug 'mattn/emmet-vim'
 Plug 'cespare/vim-toml'
 Plug 'dag/vim2hs'
 Plug 'lukerandall/haskellmode-vim'
+Plug 'lervag/vimtex'
+"Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 call plug#end()
 
@@ -193,7 +195,6 @@ if filereadable(expand("~/.vim/plugged/UltiSnips/plugin/UltiSnips.vim"))
   let g:UltiSnipsJumpBackwardTrigger="<c-k>"
   nmap <leader>os :UltiSnipsEdit<CR>
   let g:UltiSnipsEditSplit="horizontal"
-
 
 endif
 "}
@@ -361,3 +362,78 @@ if isdirectory(expand("~/.vim/plugged/haskellmode-vim/"))
   let g:haddock_indexfiledir="~/.vim/"
 endif
 "}
+
+"LatexBox {"
+if filereadable(expand("~/.vim/plugged/LaTeX-Box/ftplugin/latex-box/latexmk.vim"))
+noremap <silent> <Leader>ls :silent
+\ !/Applications/Skim.app/Contents/SharedSupport/displayline
+\ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
+\ "%:p" <CR>:redraw!<CR>
+"let g:LatexBox_latexmk_async=1
+let g:LatexBox_complete_inlineMath=1
+let g:LatexBox_Folding=0
+let g:LatexBox_fold_envs=0
+let g:LatexBox_fold_sections = [
+\ "part",
+\ "chapter",
+\ "section",
+\ ]
+let g:LatexBox_viewer = "open"
+"let g:LatexBox_completion_commands = []
+"let g:LatexBox_completion_environments = []
+set columns=82 lines=53
+let g:LatexBox_latexmk_preview_continuously=1
+let g:LatexBox_quickfix=0
+endif
+"}
+
+
+"Vimtex {"
+if filereadable(expand("~/.vim/plugged/vimtex/ftplugin/tex.vim"))
+imap <C-j> <plug>(vimtex-delim-close)
+let g:vimtex_delim_stopline=1
+autocmd Filetype tex inoremap <silent> __ _<c-r>=UltiSnips#Anon('_{$0', '_', '', 'i')<cr>
+inoremap <silent> ^^ ^<c-r>=UltiSnips#Anon('^{$0', '^', '', 'i')<cr>
+inoremap <silent> (( (<C-R>=UltiSnips#Anon('\left($0', '(', '', 'i')<cr>
+inoremap <silent> [[ [<C-R>=UltiSnips#Anon('\left[$0', '[', '', 'i')<cr>
+inoremap <silent> {{ {<C-R>=UltiSnips#Anon('\left\\{$0', '{', '', 'i')<cr>
+
+map <c-space> <localleader>lv
+
+"imap ^^ ^{
+"imap __ _{
+let g:vimtex_view_general_viewer
+\ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+let g:vimtex_view_general_options = '-r @line @pdf @tex'
+
+" This adds a callback hook that updates Skim after compilation
+let g:vimtex_latexmk_callback_hooks = ['UpdateSkim']
+function! UpdateSkim(status)
+if !a:status | return | endif
+
+let l:out = b:vimtex.out()
+let l:tex = expand('%:p')
+let l:cmd = [g:vimtex_view_general_viewer, '-r']
+if !empty(system('pgrep Skim'))
+call extend(l:cmd, ['-g'])
+endif
+if has('nvim')
+call jobstart(l:cmd + [line('.'), l:out, l:tex])
+elseif has('job')
+call job_start(l:cmd + [line('.'), l:out, l:tex])
+else
+call system(join(l:cmd + [line('.'), shellescape(l:out), shellescape(l:tex)], ' '))
+endif
+endfunction
+call vimtex#imaps#add_map({
+\ 'lhs' : '^^',
+\ 'rhs' : '^{'
+\})
+call vimtex#imaps#add_map({
+\ 'lhs' : '__',
+\ 'rhs' : '_{'
+\})
+
+endif
+"}
+
