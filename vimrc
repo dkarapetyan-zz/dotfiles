@@ -112,9 +112,7 @@ autocmd python_reset FileType python setlocal completefunc=pythoncomplete#Comple
 autocmd haskell_reset FileType haskell setlocal tabstop=8 expandtab softtabstop=4
       \ shiftwidth=4 shiftround
 autocmd lilypond_reset BufEnter *.ly setlocal shortmess=a cmdheight=4 
-"autocmd lilypond_reset BufEnter *.ly map <buffer> <leader>ll :w<Return>:se makeprg=lilypond\ \"%<.ly\"<Return>:make<Return>:!xpdf -remote "score" -reload &<Return>
 autocmd lilypond_reset BufEnter *.ly map <buffer> <leader>ll :w<Return>:se makeprg=lilypond\ \"%<.ly\"<Return>:make<Return>:!xpdf -remote "score" %<.pdf &<Return>
-
 autocmd lilypond_reset BufEnter *.ly map <buffer> <leader>lv :!xpdf -remote "score" -raise &<Return><Return>
 
 
