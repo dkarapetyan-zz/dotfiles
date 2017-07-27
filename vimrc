@@ -108,11 +108,13 @@ augroup lilypond_reset
   autocmd!
 augroup end
 
-autocmd python_reset FileType python setlocal completefunc=pythoncomplete#Complete
+"autocmd python_reset FileType python setlocal completefunc=pythoncomplete#Complete
+autocmd python_reset FileType python setlocal omnifunc=syntaxcomplete#Complete
 autocmd haskell_reset FileType haskell setlocal tabstop=8 expandtab softtabstop=4
       \ shiftwidth=4 shiftround
 autocmd lilypond_reset BufEnter *.ly setlocal shortmess=a cmdheight=4 
-autocmd lilypond_reset BufEnter *.ly map <buffer> <leader>ll :w<Return>:se makeprg=lilypond\ \"%<.ly\"<Return>:make<Return>:!xpdf -remote "score" %<.pdf &<Return>
+autocmd lilypond_reset BufEnter *.ly map <buffer> <leader>lb :!xpdf -remote "score" %<.pdf &<Return>
+autocmd lilypond_reset BufEnter *.ly map <buffer> <leader>ll :w<Return>:se makeprg=lilypond\ \"%<.ly\"<Return>:make<Return>:!xpdf -remote "score" -reload &<Return><Return>
 autocmd lilypond_reset BufEnter *.ly map <buffer> <leader>lv :!xpdf -remote "score" -raise &<Return><Return>
 
 
@@ -313,11 +315,12 @@ endif
 "PyMode {
 
 if isdirectory(expand("~/.vim/plugged/python-mode"))
+  let g:pymode_doc = 1
   let g:pymode_rope_lookup_project = 1
-  let g:pymode_rope_completion = 1
+  let g:pymode_rope_completion = 0
   let g:pymode_rope_complete_on_dot = 0
   let g:pymode_options_colorcolumn = 0
-
+  let g:pymode_lint_cwindow = 0
 
   "let g:pymode_lint_checkers = ['pyflakes']
   "let g:pymode_trim_whitespaces = 0
@@ -402,10 +405,10 @@ if filereadable(expand("~/.vim/plugged/vimtex/ftplugin/tex.vim"))
   imap <C-j> <plug>(vimtex-delim-close)
   let g:vimtex_delim_stopline=1
   autocmd Filetype tex inoremap <silent> __ _<c-r>=UltiSnips#Anon('_{$0', '_', '', 'i')<cr>
-  inoremap <silent> ^^ ^<c-r>=UltiSnips#Anon('^{$0', '^', '', 'i')<cr>
-  inoremap <silent> (( (<C-R>=UltiSnips#Anon('\left($0', '(', '', 'i')<cr>
-  inoremap <silent> [[ [<C-R>=UltiSnips#Anon('\left[$0', '[', '', 'i')<cr>
-  inoremap <silent> {{ {<C-R>=UltiSnips#Anon('\left\\{$0', '{', '', 'i')<cr>
+  autocmd Filetype tex inoremap <silent> ^^ ^<c-r>=UltiSnips#Anon('^{$0', '^', '', 'i')<cr>
+  autocmd Filetype tex inoremap <silent> (( (<C-R>=UltiSnips#Anon('\left($0', '(', '', 'i')<cr>
+  autocmd Filetype tex inoremap <silent> [[ [<C-R>=UltiSnips#Anon('\left[$0', '[', '', 'i')<cr>
+  autocmd Filetype tex inoremap <silent> {{ {<C-R>=UltiSnips#Anon('\left\\{$0', '{', '', 'i')<cr>
 
   map <c-space> <localleader>lv
 
